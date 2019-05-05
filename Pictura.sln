@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28711.60
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Pictura", "Pictura\Pictura.vcxproj", "{2C3BEFF6-E537-417A-BF5C-B670BDDE68D7}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Demo", "Demo\Demo.vcxproj", "{2BC66F61-AD8F-4CEB-B7BA-ED16D2C2BA08}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2C3BEFF6-E537-417A-BF5C-B670BDDE68D7} = {2C3BEFF6-E537-417A-BF5C-B670BDDE68D7}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Development|x64 = Development|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2C3BEFF6-E537-417A-BF5C-B670BDDE68D7}.Development|x64.ActiveCfg = Development|x64
+		{2C3BEFF6-E537-417A-BF5C-B670BDDE68D7}.Development|x64.Build.0 = Development|x64
+		{2C3BEFF6-E537-417A-BF5C-B670BDDE68D7}.Release|x64.ActiveCfg = Development|x64
+		{2C3BEFF6-E537-417A-BF5C-B670BDDE68D7}.Release|x64.Build.0 = Development|x64
+		{2BC66F61-AD8F-4CEB-B7BA-ED16D2C2BA08}.Development|x64.ActiveCfg = Development|x64
+		{2BC66F61-AD8F-4CEB-B7BA-ED16D2C2BA08}.Development|x64.Build.0 = Development|x64
+		{2BC66F61-AD8F-4CEB-B7BA-ED16D2C2BA08}.Release|x64.ActiveCfg = Development|x64
+		{2BC66F61-AD8F-4CEB-B7BA-ED16D2C2BA08}.Release|x64.Build.0 = Development|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E5B4D0FE-77DD-4A4F-998F-1A633503EE52}
+	EndGlobalSection
+EndGlobal

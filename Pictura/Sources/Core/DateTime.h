@@ -1,4 +1,5 @@
 #pragma once
+
 namespace Pictura
 {
 	struct DateTime
@@ -6,14 +7,17 @@ namespace Pictura
 	public:
 		DateTime();
 		~DateTime();
-		
-		DateTime GetSystemTime(PString format = "%c");
+
+		static DateTime GetCurrentTime();
+		static PString GetCurrentTimeFormat(PString format = "%T");
 	public:
 		int Second;
 		int Minute;
 		int Hour;
 		int Day;
+		PString FullDay;
 		int Month;
+		PString FullMonth;
 		int Year;
 	};
 }

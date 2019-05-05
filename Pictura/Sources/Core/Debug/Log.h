@@ -1,6 +1,7 @@
 #pragma once
 
-#include "Core/Console.h"
+#include "Core\DateTime.h"
+#include "Core\System\Console.h"
 
 namespace Pictura::Debug
 {

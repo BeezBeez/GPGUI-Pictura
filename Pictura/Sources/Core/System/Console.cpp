@@ -19,6 +19,7 @@ namespace Pictura
 	{
 		PString code;
 
+#ifndef PLATFORM_WINDOWS //Unix system code (Use ANSI escape sequence)
 		switch (TextColor)
 		{
 		case Pictura::Console::ConsoleColor::Black:
@@ -70,8 +71,27 @@ namespace Pictura
 			code = "\033[1;37;40m";
 			break;
 		}
+		std::cout << code + message + "\033[0m" << std::endl;
+#else                    //Windows NT system code (Use Console API)
+		HANDLE hConsole;
+		hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+		int color;
 
-		std::cout << code + message + "\033[0m\r\n";
+		color = to_underlying(TextColor);
+
+		FlushConsoleInputBuffer(hConsole);
+		SetConsoleTextAttribute(hConsole, color);
+
+		std::cout << message << std::endl;
+
+		SetConsoleTextAttribute(hConsole, 7);
+#endif
+	}
+
+	bool Console::IsANSISupported()
+	{
+		//TODO : Implement IsANSISupported
+		return false;
 	}
 }
 
