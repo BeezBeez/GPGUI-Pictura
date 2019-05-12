@@ -44,8 +44,7 @@ namespace Pictura::Filesystem
 
 		std::filesystem::copy_options cOptions = Overwrite ? std::filesystem::copy_options::overwrite_existing : std::filesystem::copy_options::none;
 
-		std::filesystem::copy_file(from, to, cOptions);
-		return File::Exist(destinationFile);
+		return std::filesystem::copy_file(from, to, cOptions);;
 	}
 
 	bool File::Delete(const char targetFile[260])
@@ -55,21 +54,35 @@ namespace Pictura::Filesystem
 
 	bool File::Create(const char targetFile[260], const char data[])
 	{
-		std::ofstream ofs(std::filesystem::path(targetFile));
-		
-		return false;
+		std::ofstream file(targetFile);
+		file << data;
+		file.close();
+
+		return file.good();
 	}
 
 	/** Class FileInfo methods**/
 
 	FileInfo::FileInfo(const char path[260])
 	{
+		std::ifstream file(path, std::ifstream::in | std::ifstream::binary);
+
+		if (!file.is_open())
+		{
+			return;
+		}
+
+		file.seekg(0, std::ios::end);
+		const auto end = file.tellg();
+		file.close();
+
+		Size = end;
+
 		std::filesystem::path p = std::filesystem::path(path);
 		Name = p.filename().generic_string();
 		Extension = p.extension().generic_string();
 		ParentDirectory = p.parent_path().string();
 		FullName = p.string();
-		Size = -1;
 	}
 
 	FileInfo::~FileInfo()

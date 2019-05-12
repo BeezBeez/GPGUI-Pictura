@@ -6,10 +6,9 @@ using namespace Pictura::Filesystem;
 
 int main()
 {
-	const char* FileSrc = "C:\\Windows\\cTest.txt";
+	const char* FileSrc = "C:\\Windows\\test.txt";
 
-	File::Create(FileSrc, "Test content\nTest text");
-
+	Log::Trace("File size is " + std::to_string(FileInfo(FileSrc).Size) + " bytes"); 
 	Log::Success("Press [ENTER] to exit the program");
 
 	std::getchar();
