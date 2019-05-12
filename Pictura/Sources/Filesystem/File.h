@@ -2,31 +2,31 @@
 
 namespace Pictura::Filesystem
 {
-	class File
+	class PICTURA_API File
 	{
 	public:
 		File();
 		~File();
 
 	public:
-		static bool Exist(char sourceFile[260]);
-		static bool Move(char sourceFile[260], char destinationFile[260], bool Overwrite = false);
-		static bool Copy(char sourceFile[260], char destinationFile[260], bool Overwrite = false);
-		static bool Delete(char targetFile[260]);
+		static bool Exist(const char sourceFile[260]);
+		static bool Move(const char sourceFile[260], const char destinationFile[260], bool Overwrite = false);
+		static bool Copy(const char sourceFile[260], const char destinationFile[260], bool Overwrite = false);
+		static bool Delete(const char targetFile[260]);
 
-		static bool Create(char targetFile[260], char data[]);
-		static PString Read(char targetFile[260]);
-		static PString* ReadLines(char targetFile[260]);
+		static bool Create(const char targetFile[260], const char data[]);
+		static PString Read(const char targetFile[260]);
+		static PString* ReadLines(const char targetFile[260]);
 
-		static bool Encrypt(char sourceFile[260], char destinationFile[260], PString key);
-		static bool Decrypt(char sourceFile[260], char destinationFile[260], PString key);
+		static bool Encrypt(const char sourceFile[260], const char destinationFile[260], PString key);
+		static bool Decrypt(const char sourceFile[260], const char destinationFile[260], PString key);
 
 	};
 
-	class FileInfo
+	class PICTURA_API FileInfo
 	{
 	public:
-		FileInfo(char path[260]);
+		FileInfo(const char path[260]);
 		~FileInfo();
 
 	public:
@@ -35,7 +35,6 @@ namespace Pictura::Filesystem
 		PString ParentDirectory;
 		PString Extension;
 		long Size;
-		bool StillExist;
 	};
 }
 

@@ -31,4 +31,9 @@ namespace Pictura::Debug
 		Console::WriteLine("[" + Pictura::DateTime::GetCurrentTimeFormat() + " - " + context + "] " + message, Console::ConsoleColor::Red);
 	}
 
+	void Log::BlankLine()
+	{
+		Console::WriteLine("");
+	}
+
 }

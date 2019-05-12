@@ -9,7 +9,6 @@ namespace Pictura
 
 	}
 
-
 	Console::~Console()
 	{
 
@@ -89,9 +88,8 @@ namespace Pictura
 	}
 
 	bool Console::IsANSISupported()
-	{
-		//TODO : Implement IsANSISupported
-		return false;
+	{	
+		return !(Runtime::GetOperatingSystem() == Runtime::OperatingSystem::Windows);
 	}
 }
 

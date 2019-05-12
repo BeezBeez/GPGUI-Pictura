@@ -3,19 +3,19 @@
 
 namespace Pictura
 {
-	enum class OperatingSystem
-	{
-		Windows, Linux, Mac
-	};
-
 	class PICTURA_API Runtime
 	{
 	public:
 		Runtime();
 		~Runtime();
 
+		enum class OperatingSystem
+		{
+			Windows, Linux, Mac
+		};
+
 	public:
-		static OperatingSystem GetOperatingSystem();
+		static Runtime::OperatingSystem GetOperatingSystem();
 		static PString GetOperatingSystemText();
 		static void Debugbreak();
 	};

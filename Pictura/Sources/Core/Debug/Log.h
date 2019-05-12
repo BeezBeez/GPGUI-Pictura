@@ -16,6 +16,7 @@ namespace Pictura::Debug
 		static void Success(PString message, PString context   = "PICTURA");
 		static void Warning(PString message, PString context   = "PICTURA");
 		static void Error  (PString message, PString context   = "PICTURA");
+		static void BlankLine();
 	};
 }
 

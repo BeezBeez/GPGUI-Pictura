@@ -11,21 +11,21 @@ namespace Pictura
 
 	}
 
-    OperatingSystem Runtime::GetOperatingSystem()
+    Runtime::OperatingSystem Runtime::GetOperatingSystem()
 	{
 		if (PLATFORM_WINDOWS)
 		{
-			return OperatingSystem::Windows;
+			return Runtime::OperatingSystem::Windows;
 		}
 
 		if (PLATFORM_LINUX)
 		{
-			return OperatingSystem::Linux;
+			return Runtime::OperatingSystem::Linux;
 		}
 
 		if (PLATFORM_OSX)
 		{
-			return OperatingSystem::Mac;
+			return Runtime::OperatingSystem::Mac;
 		}
 	}
 
@@ -33,13 +33,13 @@ namespace Pictura
 	{
 		switch (GetOperatingSystem())
 		{
-		case OperatingSystem::Windows:
+		case Runtime::OperatingSystem::Windows:
 			return "Windows";
 			break;
-		case OperatingSystem::Linux:
+		case Runtime::OperatingSystem::Linux:
 			return "Linux";
 			break;
-		case OperatingSystem::Mac:
+		case Runtime::OperatingSystem::Mac:
 			return "Mac";
 			break;
 		default:
