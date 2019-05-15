@@ -19,6 +19,8 @@
 #include <unordered_map>
 #include <unordered_set>
 
+#include <typeinfo>
+
 #include "Core/Core.h"
 
 #ifdef PLATFORM_WINDOWS

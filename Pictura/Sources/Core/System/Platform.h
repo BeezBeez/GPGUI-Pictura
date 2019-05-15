@@ -1,5 +1,4 @@
 #pragma once
-#include "PicturaPCH.h"
 
 namespace Pictura
 {

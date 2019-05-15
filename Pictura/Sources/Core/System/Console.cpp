@@ -76,7 +76,7 @@ namespace Pictura
 		hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 		int color;
 
-		color = to_underlying(TextColor);
+		color = Pictura::Types::ToUnderlying(TextColor);
 
 		FlushConsoleInputBuffer(hConsole);
 		SetConsoleTextAttribute(hConsole, color);
@@ -85,6 +85,15 @@ namespace Pictura
 
 		SetConsoleTextAttribute(hConsole, 7);
 #endif
+	}
+	
+	void Console::Pause(PString pauseMessage)
+	{
+		Console::WriteLine(pauseMessage);
+		do
+		{
+
+		} while (std::getchar() != '\n');
 	}
 
 	bool Console::IsANSISupported()

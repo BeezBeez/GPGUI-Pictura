@@ -16,6 +16,7 @@ namespace Pictura
 
 	public:
 		static void WriteLine(PString message,Console::ConsoleColor TextColor = ConsoleColor::Grey);
+		static void Pause(PString pauseMessage = "Press [ENTER] to continue program execution...");
 		static bool IsANSISupported();
 	};
 };

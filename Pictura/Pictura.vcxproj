@@ -95,6 +95,10 @@
     <ClCompile Include="Sources\PicturaPCH.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Sources\Core\CoreException.h" />
+    <ClInclude Include="Sources\Core\Exceptions\IOException.h" />
+    <ClInclude Include="Sources\Core\Exceptions\Exception.h" />
+    <ClInclude Include="Sources\Core\Exceptions\TypeException.h" />
     <ClInclude Include="Sources\Filesystem\File.h" />
     <ClInclude Include="Sources\Core\System\Console.h" />
     <ClInclude Include="Sources\Core\Core.h" />

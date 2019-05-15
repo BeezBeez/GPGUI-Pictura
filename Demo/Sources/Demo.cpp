@@ -6,10 +6,16 @@ using namespace Pictura::Filesystem;
 
 int main()
 {
-	const char* FileSrc = "C:\\Windows\\test.txt";
+	FileInfo fi = FileInfo("C:\\testFile.txt");
+	Log::Trace("File size is : " + Pictura::Types::ToString(fi.Size));
+	Console::Pause();
 
-	Log::Trace("File size is " + std::to_string(FileInfo(FileSrc).Size) + " bytes"); 
+	PString content = File::Read("C:\\testFile.txt");
+
+	Log::Trace("Showing file content...");
+	Log::Trace("-- BEGIN OF FILE\n" + content);
+	Log::Trace("-- END OF FILE\n");
+
 	Log::Success("Press [ENTER] to exit the program");
-
 	std::getchar();
 }

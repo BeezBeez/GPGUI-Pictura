@@ -1,5 +1,6 @@
 #include "PicturaPCH.h"
 #include "File.h"
+#include "Core\Exceptions\IOException.h"
 
 namespace Pictura::Filesystem
 {
@@ -44,7 +45,7 @@ namespace Pictura::Filesystem
 
 		std::filesystem::copy_options cOptions = Overwrite ? std::filesystem::copy_options::overwrite_existing : std::filesystem::copy_options::none;
 
-		return std::filesystem::copy_file(from, to, cOptions);;
+		return std::filesystem::copy_file(from, to, cOptions);
 	}
 
 	bool File::Delete(const char targetFile[260])
@@ -61,28 +62,54 @@ namespace Pictura::Filesystem
 		return file.good();
 	}
 
+	PString File::Read(const char targetFile[260])
+	{
+		std::ifstream file(targetFile, std::ios::in | std::ios::binary | std::ios::ate);
+
+		std::ifstream::pos_type fileSize = file.tellg();
+
+		if (fileSize < 0) {
+			throw IOException("Failed to allocate memory for the file! File size was unhandled by program!");
+		}
+
+		file.seekg(0, std::ios::beg);
+
+		std::vector<char> bytes(fileSize);
+		file.read(&bytes[0], fileSize);
+
+		return PString(&bytes[0], fileSize);
+	}
+
 	/** Class FileInfo methods**/
 
 	FileInfo::FileInfo(const char path[260])
 	{
 		std::ifstream file(path, std::ifstream::in | std::ifstream::binary);
 
-		if (!file.is_open())
+		if (file.is_open() || File::Exist(path))
 		{
-			return;
+			file.seekg(0, std::ios::end);
+			const auto end = file.tellg();
+			file.close();
+		
+			Size = end;
+
+			if (Size < 0)
+			{
+				Size = 0;
+			}
+
+			std::filesystem::path p = std::filesystem::path(path);
+			Name = p.filename().generic_string();
+			Extension = p.extension().generic_string();
+			ParentDirectory = p.parent_path().string();
+			FullName = p.string();			
+		}
+		else
+		{
+			throw IOException("File not found, check the path");
 		}
 
-		file.seekg(0, std::ios::end);
-		const auto end = file.tellg();
-		file.close();
-
-		Size = end;
-
-		std::filesystem::path p = std::filesystem::path(path);
-		Name = p.filename().generic_string();
-		Extension = p.extension().generic_string();
-		ParentDirectory = p.parent_path().string();
-		FullName = p.string();
 	}
 
 	FileInfo::~FileInfo()

@@ -1,4 +1,6 @@
+#include "PicturaPCH.h"
 #include "Platform.h"
+
 namespace Pictura
 {
 	Runtime::Runtime()
