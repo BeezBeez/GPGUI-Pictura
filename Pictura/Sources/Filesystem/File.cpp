@@ -80,6 +80,22 @@ namespace Pictura::Filesystem
 		return PString(&bytes[0], fileSize);
 	}
 
+	PVector<PString> File::ReadLines(const char targetFile[260])
+	{
+		std::ifstream file(targetFile);
+		std::string str;
+		PVector<PString> r;
+		
+		while (std::getline(file, str))
+		{
+			if (str.size() > 0) {
+				r.push_back(str);
+			}
+		}
+		file.close();
+		return r;
+	}
+
 	/** Class FileInfo methods**/
 
 	FileInfo::FileInfo(const char path[260])
