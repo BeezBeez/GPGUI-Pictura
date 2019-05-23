@@ -6,12 +6,15 @@ using namespace Pictura::Filesystem;
 
 int main()
 {
-	FileInfo fi = FileInfo("C:\\testFile.txt");
+	FileInfo fi = FileInfo("C:\\setup.log");
 	Log::Trace("File size is : " + Pictura::Types::ToString(fi.Size));
 	Console::Pause();
-	for (auto &line : File::ReadLines(fi.FullName.c_str()))
+
+	PVector<PString> v = File::ReadLines(fi.FullName.c_str());
+
+	for (size_t i = 0; i < v.size(); ++i)
 	{
-		Log::Trace("Line : " + line);
+		Log::Trace("Line (" + Types::ToString(i) + ") : " + v[i]);
 	}
 
 	Log::Success("Press [ENTER] to exit the program");

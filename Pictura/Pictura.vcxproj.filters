@@ -33,6 +33,9 @@
     <ClCompile Include="Sources\Filesystem\File.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Sources\Filesystem\Directory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\Core\Debug\Log.h">
@@ -72,6 +75,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Sources\Core\CoreException.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Filesystem\Directory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

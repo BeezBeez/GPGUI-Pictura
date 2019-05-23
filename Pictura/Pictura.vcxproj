@@ -87,6 +87,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Sources\Filesystem\Directory.cpp" />
     <ClCompile Include="Sources\Filesystem\File.cpp" />
     <ClCompile Include="Sources\Core\System\Console.cpp" />
     <ClCompile Include="Sources\Core\DateTime.cpp" />
@@ -99,6 +100,7 @@
     <ClInclude Include="Sources\Core\Exceptions\IOException.h" />
     <ClInclude Include="Sources\Core\Exceptions\Exception.h" />
     <ClInclude Include="Sources\Core\Exceptions\TypeException.h" />
+    <ClInclude Include="Sources\Filesystem\Directory.h" />
     <ClInclude Include="Sources\Filesystem\File.h" />
     <ClInclude Include="Sources\Core\System\Console.h" />
     <ClInclude Include="Sources\Core\Core.h" />
