@@ -6,9 +6,6 @@ using namespace Pictura::Filesystem;
 
 int main()
 {
-<<<<<<< HEAD
-	
-=======
 	FileInfo fi = FileInfo("C:\\setup.log");
 	Log::Trace("File size is : " + Pictura::Types::ToString(fi.Size));
 	Console::Pause();
@@ -22,5 +19,4 @@ int main()
 
 	Log::Success("Press [ENTER] to exit the program");
 	std::getchar();
->>>>>>> 17077c2851c226428e7b85a6c97a084e893ab5f1
 }

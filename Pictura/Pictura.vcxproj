@@ -87,11 +87,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <ClCompile Include="Application.cpp" />
-=======
     <ClCompile Include="Sources\Filesystem\Directory.cpp" />
->>>>>>> 17077c2851c226428e7b85a6c97a084e893ab5f1
     <ClCompile Include="Sources\Filesystem\File.cpp" />
     <ClCompile Include="Sources\Core\System\Console.cpp" />
     <ClCompile Include="Sources\Core\DateTime.cpp" />
