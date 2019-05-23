@@ -3,7 +3,7 @@
 
 namespace Pictura::Widgets
 {
-	Window::Window()
+	Window::Window() : WindowSize(Size(640, 480))
 	{
 	}
 

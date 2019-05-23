@@ -1,95 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
+    <ClCompile Include="Sources\Filesystem\Directory.cpp" />
+    <ClCompile Include="Sources\Filesystem\File.cpp" />
+    <ClCompile Include="Sources\Core\System\Console.cpp" />
+    <ClCompile Include="Sources\Core\DateTime.cpp" />
+    <ClCompile Include="Sources\Core\Debug\Log.cpp" />
+    <ClCompile Include="Sources\Core\System\Platform.cpp" />
+    <ClCompile Include="Sources\PicturaPCH.cpp" />
+    <ClCompile Include="Sources\Core\Application.cpp" />
+    <ClCompile Include="Sources\Widgets\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Sources\Core\Debug\Log.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Sources\Core\DateTime.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Sources\PicturaPCH.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Sources\Core\System\Console.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Sources\Core\System\Platform.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Sources\Filesystem\File.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Window.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Application.cpp">
-    <ClCompile Include="Sources\Filesystem\Directory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Sources\Core\Debug\Log.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\Core\Core.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\Core\DateTime.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\Pictura.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\PicturaPCH.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\PicturaTypes.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\Core\System\Console.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\Core\System\Platform.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\Filesystem\File.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\Core\Exceptions\IOException.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\Core\Exceptions\Exception.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\Core\Exceptions\TypeException.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\Core\CoreException.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Window.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\Maths\Size.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Application.h">
-    <ClInclude Include="Sources\Filesystem\Directory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <ClInclude Include="Sources\Core\CoreException.h" />
+    <ClInclude Include="Sources\Core\Exceptions\IOException.h" />
+    <ClInclude Include="Sources\Core\Exceptions\Exception.h" />
+    <ClInclude Include="Sources\Core\Exceptions\TypeException.h" />
+    <ClInclude Include="Sources\Filesystem\Directory.h" />
+    <ClInclude Include="Sources\Filesystem\File.h" />
+    <ClInclude Include="Sources\Core\System\Console.h" />
+    <ClInclude Include="Sources\Core\Core.h" />
+    <ClInclude Include="Sources\Core\DateTime.h" />
+    <ClInclude Include="Sources\Core\Debug\Log.h" />
+    <ClInclude Include="Sources\Core\System\Platform.h" />
+    <ClInclude Include="Sources\Maths\Size.h" />
+    <ClInclude Include="Sources\Pictura.h" />
+    <ClInclude Include="Sources\PicturaPCH.h" />
+    <ClInclude Include="Sources\PicturaTypes.h" />
+    <ClInclude Include="Sources\Core\Application.h" />
+    <ClInclude Include="Sources\Widgets\Window.h" />
   </ItemGroup>
 </Project>

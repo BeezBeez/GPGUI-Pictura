@@ -38,6 +38,11 @@ namespace Pictura::Filesystem
 		return false;
 	}
 
+	bool Directory::Delete(const char sourceDirectory[260], bool recursive)
+	{
+		return false;
+	}
+
 	/** Class DirectoryInfo methods **/
 
 	DirectoryInfo::DirectoryInfo()

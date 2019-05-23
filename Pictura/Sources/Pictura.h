@@ -5,6 +5,7 @@
 
 /** Pictura **/
 #include "Core\System\Platform.h"
+#include "Core\Application.h"
 #include "Core\DateTime.h"
 
 /** Pictura::Debug **/

@@ -87,7 +87,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Application.cpp" />
+    <ClCompile Include="Sources\Core\Application.cpp" />
     <ClCompile Include="Sources\Filesystem\Directory.cpp" />
     <ClCompile Include="Sources\Filesystem\File.cpp" />
     <ClCompile Include="Sources\Core\System\Console.cpp" />
@@ -95,10 +95,10 @@
     <ClCompile Include="Sources\Core\Debug\Log.cpp" />
     <ClCompile Include="Sources\Core\System\Platform.cpp" />
     <ClCompile Include="Sources\PicturaPCH.cpp" />
-    <ClCompile Include="Window.cpp" />
+    <ClCompile Include="Sources\Widgets\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Application.h" />
+    <ClInclude Include="Sources\Core\Application.h" />
     <ClInclude Include="Sources\Core\CoreException.h" />
     <ClInclude Include="Sources\Core\Exceptions\IOException.h" />
     <ClInclude Include="Sources\Core\Exceptions\Exception.h" />
@@ -114,7 +114,7 @@
     <ClInclude Include="Sources\Pictura.h" />
     <ClInclude Include="Sources\PicturaPCH.h" />
     <ClInclude Include="Sources\PicturaTypes.h" />
-    <ClInclude Include="Window.h" />
+    <ClInclude Include="Sources\Widgets\Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

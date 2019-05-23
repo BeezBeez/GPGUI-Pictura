@@ -4,19 +4,27 @@ using namespace Pictura;
 using namespace Pictura::Debug;
 using namespace Pictura::Filesystem;
 
-int main()
+class DemoApplication : public Application
 {
-	FileInfo fi = FileInfo("C:\\setup.log");
-	Log::Trace("File size is : " + Pictura::Types::ToString(fi.Size));
-	Console::Pause();
-
-	PVector<PString> v = File::ReadLines(fi.FullName.c_str());
-
-	for (size_t i = 0; i < v.size(); ++i)
+public:
+	DemoApplication()
 	{
-		Log::Trace("Line (" + Types::ToString(i) + ") : " + v[i]);
+
 	}
 
-	Log::Success("Press [ENTER] to exit the program");
-	std::getchar();
+	void Run() override
+	{
+		Application::Run();
+		Log::Trace("Salut toi!");
+	}
+
+private:
+
+};
+
+/** MOVE ENTRY POINT TO EXTERNAL HEADER IN PICTURA FRAMEWORK **/
+int main()
+{
+	DemoApplication app = DemoApplication();
+	app.Run();
 }

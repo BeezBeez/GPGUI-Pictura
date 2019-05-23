@@ -12,10 +12,10 @@ namespace Pictura
 	{
 
 	}
-	
+
 	void Application::SetRenderer(Application::Renderer RendererType)
 	{
-
+		sRenderer = RendererType;
 	}
 }
 

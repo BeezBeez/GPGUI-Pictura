@@ -1,4 +1,6 @@
 #pragma once
+#include "Core\Debug\Log.h"
+
 namespace Pictura
 {
 	class PICTURA_API Application
@@ -14,11 +16,14 @@ namespace Pictura
 	public:
 		Application();
 		~Application();
-	private:
-		static Renderer sRenderer;
-	public:
-		virtual const void Main() = 0;
 
-		static void SetRenderer(Application::Renderer RendererType);
+		virtual void Run() {
+			Debug::Log::Trace("Application init!");
+		}
+	private:
+		Renderer sRenderer;
+	public:
+		void SetRenderer(Application::Renderer RendererType);
+
 	};
 }
