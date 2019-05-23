@@ -5,10 +5,13 @@
 #define TRUESTRING "true"
 #define FALSESTRING "false"
 
-typedef std::string PString;
+using PString = std::string;
 
 template <typename T>
-using PVector = std::vector<T, Alloc<T>>;
+using PVector = std::vector<T>;
+
+template <typename T, typename T2>
+using PMap = std::map<T, T2>;
 
 namespace Pictura::Types
 {
@@ -30,17 +33,5 @@ namespace Pictura::Types
 	template <typename E>
 	constexpr typename std::underlying_type<E>::type ToUnderlying(E e) noexcept {
 		return static_cast<typename std::underlying_type<E>::type>(e);
-	}
-
-	template <typename... T>
-	constexpr auto MakeArray(T&& ... values) ->
-		std::array<
-		typename std::decay<
-		typename std::common_type<T...>::type>::type,
-		sizeof...(T)> {
-		return std::array<
-			typename std::decay<
-			typename std::common_type<T...>::type>::type,
-			sizeof...(T)>{std::forward<T>(values)...};
 	}
 }

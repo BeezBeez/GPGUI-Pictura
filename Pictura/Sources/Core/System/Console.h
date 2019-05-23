@@ -1,3 +1,5 @@
+#pragma once
+
 namespace Pictura
 {
 	class PICTURA_API Console

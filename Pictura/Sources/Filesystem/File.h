@@ -18,9 +18,6 @@ namespace Pictura::Filesystem
 		static PString Read(const char targetFile[260]);
 		static PVector<PString> ReadLines(const char targetFile[260]);
 
-		static bool Encrypt(const char sourceFile[260], const char destinationFile[260], PString key);
-		static bool Decrypt(const char sourceFile[260], const char destinationFile[260], PString key);
-
 	};
 
 	class PICTURA_API FileInfo
