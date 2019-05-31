@@ -4,12 +4,12 @@
     <ClCompile Include="Sources\Filesystem\Directory.cpp" />
     <ClCompile Include="Sources\Filesystem\File.cpp" />
     <ClCompile Include="Sources\Core\System\Console.cpp" />
-    <ClCompile Include="Sources\Core\DateTime.cpp" />
     <ClCompile Include="Sources\Core\Debug\Log.cpp" />
-    <ClCompile Include="Sources\Core\System\Platform.cpp" />
     <ClCompile Include="Sources\PicturaPCH.cpp" />
-    <ClCompile Include="Sources\Core\Application.cpp" />
     <ClCompile Include="Sources\Widgets\Window.cpp" />
+    <ClCompile Include="Sources\Core\Timers\DateTime.cpp" />
+    <ClCompile Include="Sources\Core\System\Application.cpp" />
+    <ClCompile Include="Sources\Core\System\Runtime.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\Core\CoreException.h" />
@@ -20,14 +20,18 @@
     <ClInclude Include="Sources\Filesystem\File.h" />
     <ClInclude Include="Sources\Core\System\Console.h" />
     <ClInclude Include="Sources\Core\Core.h" />
-    <ClInclude Include="Sources\Core\DateTime.h" />
     <ClInclude Include="Sources\Core\Debug\Log.h" />
-    <ClInclude Include="Sources\Core\System\Platform.h" />
     <ClInclude Include="Sources\Maths\Size.h" />
     <ClInclude Include="Sources\Pictura.h" />
     <ClInclude Include="Sources\PicturaPCH.h" />
     <ClInclude Include="Sources\PicturaTypes.h" />
-    <ClInclude Include="Sources\Core\Application.h" />
     <ClInclude Include="Sources\Widgets\Window.h" />
+    <ClInclude Include="Sources\Core\Timers\DateTime.h" />
+    <ClInclude Include="Sources\Core\Events\Event.h" />
+    <ClInclude Include="Sources\Core\System\Application.h" />
+    <ClInclude Include="Sources\Core\System\EntryPoint.h" />
+    <ClInclude Include="Sources\Core\Events\EventsArgs\EventArgs.h" />
+    <ClInclude Include="Sources\Core\Events\EventsArgs\StartupEventArgs.h" />
+    <ClInclude Include="Sources\Core\System\Runtime.h" />
   </ItemGroup>
 </Project>

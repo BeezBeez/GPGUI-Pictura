@@ -18,6 +18,10 @@
 #endif
 
 #ifdef PLATFORM_WINDOWS
+#include <Windows.h>
+	#ifdef _MSC_VER
+		#define VISUALSTUDIO_VERSION _MSC_VER
+	#endif
 	#define DEBUGBREAK DebugBreak()
 #else
 	#define DEBUGBREAK __debugbreak()
@@ -29,5 +33,13 @@
 	#define PICTURA_API __declspec(dllimport)
 #endif
 
+#ifdef VISUALSTUDIO_VERSION
+	#define DEBUG_OUTPUT( s )            \
+	{                             \
+	   std::ostringstream os_;    \
+	   os_ << s;                   \
+	   OutputDebugString( os_.str().c_str() );  \
+	}
+#endif
+
 #include "PicturaTypes.h"
-#include "Core\System\Platform.h"

@@ -1,4 +1,5 @@
 #include "PicturaPCH.h"
+#include "Core\System\Runtime.h"
 #include "Console.h"
 
 namespace Pictura
@@ -84,6 +85,9 @@ namespace Pictura
 		std::cout << message << std::endl;
 
 		SetConsoleTextAttribute(hConsole, 7);
+#endif
+#ifdef VISUALSTUDIO_VERSION
+		DEBUG_OUTPUT(message)
 #endif
 	}
 	

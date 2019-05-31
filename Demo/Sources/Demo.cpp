@@ -7,24 +7,17 @@ using namespace Pictura::Filesystem;
 class DemoApplication : public Application
 {
 public:
-	DemoApplication()
+	virtual void OnApplicationStart(StartupEventArgs& e) override
 	{
-
+		Log::Trace("Application started !");
+		std::getchar();
 	}
 
-	void Run() override
+
+	virtual void OnApplicationClose() override
 	{
-		Application::Run();
-		Log::Trace("Salut toi!");
+		Log::Trace("Application closed !");
+		std::getchar();
 	}
-
-private:
-
 };
-
-/** MOVE ENTRY POINT TO EXTERNAL HEADER IN PICTURA FRAMEWORK **/
-int main()
-{
-	DemoApplication app = DemoApplication();
-	app.Run();
-}
+APPLICATION(DemoApplication)

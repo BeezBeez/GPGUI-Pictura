@@ -1,5 +1,6 @@
 #include "PicturaPCH.h"
-#include "Platform.h"
+#include "Runtime.h"
+#include "Core\Debug\Log.h"
 
 namespace Pictura
 {
@@ -53,5 +54,14 @@ namespace Pictura
 	void Runtime::Debugbreak()
 	{
 		DEBUGBREAK;
+	}
+
+	void Runtime::Assert(bool condition, PString message, PString context)
+	{
+		if (!(condition))
+		{
+			Debug::Log::Error("Assertion failed : " + message, context);
+			Debugbreak();
+		}
 	}
 }
