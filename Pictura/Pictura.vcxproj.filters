@@ -6,10 +6,10 @@
     <ClCompile Include="Sources\Core\System\Console.cpp" />
     <ClCompile Include="Sources\Core\Debug\Log.cpp" />
     <ClCompile Include="Sources\PicturaPCH.cpp" />
-    <ClCompile Include="Sources\Widgets\Window.cpp" />
     <ClCompile Include="Sources\Core\Timers\DateTime.cpp" />
     <ClCompile Include="Sources\Core\System\Application.cpp" />
     <ClCompile Include="Sources\Core\System\Runtime.cpp" />
+    <ClCompile Include="Sources\Widgets\Window\Win32Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\Core\CoreException.h" />
@@ -25,7 +25,6 @@
     <ClInclude Include="Sources\Pictura.h" />
     <ClInclude Include="Sources\PicturaPCH.h" />
     <ClInclude Include="Sources\PicturaTypes.h" />
-    <ClInclude Include="Sources\Widgets\Window.h" />
     <ClInclude Include="Sources\Core\Timers\DateTime.h" />
     <ClInclude Include="Sources\Core\Events\Event.h" />
     <ClInclude Include="Sources\Core\System\Application.h" />
@@ -33,5 +32,10 @@
     <ClInclude Include="Sources\Core\Events\EventsArgs\EventArgs.h" />
     <ClInclude Include="Sources\Core\Events\EventsArgs\StartupEventArgs.h" />
     <ClInclude Include="Sources\Core\System\Runtime.h" />
+    <ClInclude Include="Sources\Widgets\Window\Window.h" />
+    <ClInclude Include="Sources\Widgets\Window\Win32Window.h" />
+    <ClInclude Include="Sources\Core\Rendering\Renderer.h" />
+    <ClInclude Include="Sources\Core\Rendering\Vulkan\VKRenderer.h" />
+    <ClInclude Include="Sources\Core\Rendering\D3D12\D3D12Renderer.h" />
   </ItemGroup>
 </Project>

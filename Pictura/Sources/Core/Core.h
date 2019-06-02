@@ -37,7 +37,7 @@
 	#define DEBUG_OUTPUT( s )            \
 	{                             \
 	   std::ostringstream os_;    \
-	   os_ << s;                   \
+	   os_ << s << '\n';                   \
 	   OutputDebugString( os_.str().c_str() );  \
 	}
 #endif

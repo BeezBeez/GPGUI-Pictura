@@ -7,14 +7,21 @@ using namespace Pictura::Filesystem;
 class DemoApplication : public Application
 {
 public:
-	virtual void OnApplicationStart(StartupEventArgs& e) override
+	
+	void OnApplicationStart(StartupEventArgs& e) override
 	{
 		Log::Trace("Application started !");
+		Log::Trace("Application arguments : ");
+		int i = 0;
+		for (PString arg : e.args)
+		{
+			Log::Trace("[" + Types::ToString(i) + "] : " + arg);
+			i++;
+		}
 		std::getchar();
 	}
 
-
-	virtual void OnApplicationClose() override
+	void OnApplicationClose() override
 	{
 		Log::Trace("Application closed !");
 		std::getchar();

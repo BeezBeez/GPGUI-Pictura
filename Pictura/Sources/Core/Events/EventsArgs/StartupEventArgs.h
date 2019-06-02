@@ -1,23 +1,19 @@
 #pragma once
 #include "EventArgs.h"
-#include "Core\System\Runtime.h"
 
 namespace Pictura::Events
 {
 	class PICTURA_API StartupEventArgs : public EventArgs
 	{
 	public:
-		inline StartupEventArgs()
+		StartupEventArgs(PVector<PString> arguments)
 		{
-			args = Runtime::Arguments;
+			args = arguments;
 		}
-		~StartupEventArgs();
 
-	private:
+		~StartupEventArgs() {}
+
+	public:
 		PVector<PString> args;
 	};
-
-	StartupEventArgs::~StartupEventArgs()
-	{
-	}
 }

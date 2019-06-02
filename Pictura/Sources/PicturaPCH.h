@@ -23,8 +23,6 @@
 
 #include <typeinfo>
 
-#include "Core/Core.h"
-
 #ifdef PLATFORM_WINDOWS
 	#include <Windows.h>
 #endif

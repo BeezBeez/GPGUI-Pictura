@@ -1,9 +1,5 @@
 #pragma once
-
 #include "PicturaPCH.h"
-
-#define TRUESTRING "true"
-#define FALSESTRING "false"
 
 using PString = std::string;
 

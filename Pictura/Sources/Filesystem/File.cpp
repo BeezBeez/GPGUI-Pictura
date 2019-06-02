@@ -1,6 +1,6 @@
 #include "PicturaPCH.h"
 #include "File.h"
-#include "Core\Exceptions\IOException.h"
+#include "Core/Exceptions/IOException.h"
 
 namespace Pictura::Filesystem
 {

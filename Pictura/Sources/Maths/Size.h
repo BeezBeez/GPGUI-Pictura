@@ -1,10 +1,10 @@
 #pragma once
 namespace Pictura::Maths
 {
-	struct Size
+	struct PSize
 	{
 		int Width, Height;
-		Size() : Width(0), Height(0) {}
-		Size(int Width, int Height) : Width(Width), Height(Height) {}
+		PSize() : Width(0), Height(0) {}
+		PSize(int Width, int Height) : Width(Width), Height(Height) {}
 	};
 }

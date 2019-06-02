@@ -1,5 +1,5 @@
 #pragma once
-#include "Core\Core.h"
+#include "Core/Core.h"
 #include "Application.h"
 
 #if PLATFORM_WINDOWS == 1
@@ -14,11 +14,15 @@ extern Pictura::Application* Pictura::InitApplication();
 
 int main(int argc, char** argv)
 {
-	PVector<PString> args(argv, argv + argc);
-	Pictura::Runtime::Arguments = args;
-
+	const PVector<PString> args(argv, argv + argc);
 	auto app = Pictura::InitApplication();
-	app->Run();
+
+	app->Arguments = args;
+	StartupEventArgs e = StartupEventArgs(app->Arguments);
+
+	app->ApplicationStart(e);
+	app->ApplicationClose();
+
 	delete app;
 }
 

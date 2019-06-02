@@ -1,5 +1,5 @@
 #pragma once
-#include "Core\Core.h"
+#include "Core/Core.h"
 
 namespace Pictura::Events {
 	class PICTURA_API EventArgs
@@ -7,7 +7,5 @@ namespace Pictura::Events {
 	public:
 		EventArgs() {}
 		~EventArgs() {}
-	private:
-
 	};
 }

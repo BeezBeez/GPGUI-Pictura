@@ -1,9 +1,10 @@
 #pragma once
-#include "Core\Core.h"
-#include "Core\Events\Event.h"
-#include "Core\Events\EventsArgs\StartupEventArgs.h"
-#include "Core\Debug\Log.h"
+#include "Core/Core.h"
+#include "Core/Events/Event.h"
+#include "Core/Events/EventsArgs/StartupEventArgs.h"
+#include "Widgets/Window/Window.h"
 
+using namespace Pictura::Widgets;
 using namespace Pictura::Events;
 
 namespace Pictura
@@ -13,15 +14,14 @@ namespace Pictura
 	public:
 		enum class Renderer
 		{
-			OpenGL,
-			DirectX11,
+			Null,
 			DirectX12,
 			Vulkan
 		};
 
 	public:
 		Application();
-		~Application();
+		virtual ~Application();
 
 		Event<StartupEventArgs> ApplicationStart;
 		virtual void OnApplicationStart(StartupEventArgs& e) {}
@@ -29,15 +29,18 @@ namespace Pictura
 		Event<void> ApplicationClose;
 		virtual void OnApplicationClose() {}
 
-		virtual void Run() {
-			StartupEventArgs e = StartupEventArgs();
-			ApplicationStart(e);
-		}
 	private:
 		Renderer sRenderer;
+		PVector<Window> WindowCollection;
+
+	public:
+		PVector<PString> Arguments;
+		static Application* CurrentApplication;
+		static PString* CurrentRenderer;
+
 	public:
 		void SetRenderer(Application::Renderer RendererType);
-		Application::Renderer GetRenderer();
+		Application::Renderer GetRenderer() const;
 	};
 
 	Application* InitApplication();

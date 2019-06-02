@@ -1,6 +1,6 @@
 #include "PicturaPCH.h"
 #include "Runtime.h"
-#include "Core\Debug\Log.h"
+#include "Core/Debug/Log.h"
 
 namespace Pictura
 {

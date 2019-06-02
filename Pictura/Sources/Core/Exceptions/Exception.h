@@ -1,6 +1,7 @@
 #pragma once
 #include "PicturaPCH.h"
-#include "Core\Debug\Log.h"
+#include "Core/Core.h"
+#include "Core/Debug/Log.h"
 
 namespace Pictura
 {

@@ -1,6 +1,9 @@
 #include "PicturaPCH.h"
 #include "Log.h"
 
+#include "Core/Timers/DateTime.h"
+#include "Core/System/Console.h"
+
 namespace Pictura::Debug
 {
 	Log::Log()
