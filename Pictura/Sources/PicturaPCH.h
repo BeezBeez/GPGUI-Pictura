@@ -23,6 +23,8 @@
 
 #include <typeinfo>
 
-#ifdef PLATFORM_WINDOWS
+#include "Core/PlatformMacro.h"
+
+#if PLATFORM_WINDOWS == 1
 	#include <Windows.h>
 #endif

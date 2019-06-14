@@ -20,5 +20,14 @@
 /** Pictura::Filesystem **/
 #include "Filesystem/File.h"
 
+/** Pictura::Graphics **/
+#include "Core/Rendering/Renderer.h"
+#include "Core/Rendering/D3D12/D3D12Renderer.h"
+#include "Core/Rendering/Vulkan/VKRenderer.h"
+
+/** Pictura::Widget **/
+#include "Widgets/Window/Window.h"
+#include "Widgets/Window/Win32Window.h"
+
 /** Pictura Application Entry Point **/
 #include "Core/System/EntryPoint.h"

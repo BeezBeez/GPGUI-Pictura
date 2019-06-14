@@ -1,12 +1,11 @@
 ﻿#pragma once
 #include "Window.h"
-#include <Windows.h>
-#include <gl/GL.h>
-#include <gl/GLU.h>
+
+using namespace Pictura::Widgets;
 
 namespace Pictura::Widgets::Windows
 {
-	class Win32Window : public Window
+	class PICTURA_API Win32Window : public Window
 	{
 	public:
 		Win32Window();

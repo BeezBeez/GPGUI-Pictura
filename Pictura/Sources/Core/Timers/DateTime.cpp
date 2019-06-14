@@ -39,7 +39,7 @@ namespace Pictura
 	{
 		auto currentTime = std::chrono::system_clock::now();
 		std::time_t time = std::chrono::system_clock::to_time_t(currentTime);
-
+		
 		std::time_t t = std::time(nullptr);
 		std::tm tm;
 		localtime_s(&tm, &t);
@@ -48,7 +48,5 @@ namespace Pictura
 		buffer << std::put_time(&tm, format.c_str());
 
 		return buffer.str();
-
-		//return ctime(&time);
 	}
 }

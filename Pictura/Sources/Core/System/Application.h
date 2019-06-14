@@ -2,9 +2,9 @@
 #include "Core/Core.h"
 #include "Core/Events/Event.h"
 #include "Core/Events/EventsArgs/StartupEventArgs.h"
-#include "Widgets/Window/Window.h"
+//#include "Core/Rendering/Vulkan/VKRenderer.h"
+//#include "Widgets/Window/Window.h"
 
-using namespace Pictura::Widgets;
 using namespace Pictura::Events;
 
 namespace Pictura
@@ -12,7 +12,7 @@ namespace Pictura
 	class PICTURA_API Application
 	{
 	public:
-		enum class Renderer
+		enum class RendererType
 		{
 			Null,
 			DirectX12,
@@ -24,14 +24,20 @@ namespace Pictura
 		virtual ~Application();
 
 		Event<StartupEventArgs> ApplicationStart;
-		virtual void OnApplicationStart(StartupEventArgs& e) {}
+		virtual void OnApplicationStart(StartupEventArgs& e)
+		{
+			//Graphics::Vulkan::VKRenderer vkRenderer;
+		}
 
 		Event<void> ApplicationClose;
-		virtual void OnApplicationClose() {}
+		virtual void OnApplicationClose()
+		{
+			
+		}
 
 	private:
-		Renderer sRenderer;
-		PVector<Window> WindowCollection;
+		RendererType sRenderer;
+		//PVector<Window> WindowCollection;
 
 	public:
 		PVector<PString> Arguments;
@@ -39,8 +45,8 @@ namespace Pictura
 		static PString* CurrentRenderer;
 
 	public:
-		void SetRenderer(Application::Renderer RendererType);
-		Application::Renderer GetRenderer() const;
+		void SetRenderer(Application::RendererType RendererType);
+		RendererType GetRenderer() const;
 	};
 
 	Application* InitApplication();

@@ -12,8 +12,8 @@ namespace Pictura
 		CurrentApplication = this;
 		ApplicationStart += EventHandler::Bind(&Application::OnApplicationStart, this);
 		ApplicationClose += EventHandler::Bind(&Application::OnApplicationClose, this);
-		sRenderer = Renderer::Null;
-		SetRenderer(Renderer::OpenGL);
+		sRenderer = RendererType::Null;
+		SetRenderer(RendererType::Vulkan);
 	}
 
 	Application::~Application()
@@ -21,12 +21,12 @@ namespace Pictura
 
 	}
 
-	void Application::SetRenderer(Application::Renderer RendererType)
+	void Application::SetRenderer(Application::RendererType RendererType)
 	{
 		sRenderer = RendererType;
 	}
 
-	Application::Renderer Application::GetRenderer() const
+	Application::RendererType Application::GetRenderer() const
 	{
 		return sRenderer;
 	}

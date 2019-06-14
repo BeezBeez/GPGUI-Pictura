@@ -10,6 +10,7 @@
     <ClCompile Include="Sources\Core\System\Application.cpp" />
     <ClCompile Include="Sources\Core\System\Runtime.cpp" />
     <ClCompile Include="Sources\Widgets\Window\Win32Window.cpp" />
+    <ClCompile Include="Sources\Widgets\Window\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\Core\CoreException.h" />
@@ -37,5 +38,6 @@
     <ClInclude Include="Sources\Core\Rendering\Renderer.h" />
     <ClInclude Include="Sources\Core\Rendering\Vulkan\VKRenderer.h" />
     <ClInclude Include="Sources\Core\Rendering\D3D12\D3D12Renderer.h" />
+    <ClInclude Include="Sources\Core\PlatformMacro.h" />
   </ItemGroup>
 </Project>

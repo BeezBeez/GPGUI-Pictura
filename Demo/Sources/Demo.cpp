@@ -10,6 +10,7 @@ public:
 	
 	void OnApplicationStart(StartupEventArgs& e) override
 	{
+		Application::OnApplicationStart(e);
 		Log::Trace("Application started !");
 		Log::Trace("Application arguments : ");
 		int i = 0;
@@ -23,6 +24,7 @@ public:
 
 	void OnApplicationClose() override
 	{
+		Application::OnApplicationClose();
 		Log::Trace("Application closed !");
 		std::getchar();
 	}

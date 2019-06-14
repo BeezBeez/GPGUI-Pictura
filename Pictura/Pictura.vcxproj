@@ -65,6 +65,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <ShowProgress>LinkVerbose</ShowProgress>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -84,6 +85,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <ShowProgress>LinkVerbose</ShowProgress>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -96,10 +98,12 @@
     <ClCompile Include="Sources\Core\System\Runtime.cpp" />
     <ClCompile Include="Sources\PicturaPCH.cpp" />
     <ClCompile Include="Sources\Widgets\Window\Win32Window.cpp" />
+    <ClCompile Include="Sources\Widgets\Window\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\Core\Events\EventsArgs\EventArgs.h" />
     <ClInclude Include="Sources\Core\Events\EventsArgs\StartupEventArgs.h" />
+    <ClInclude Include="Sources\Core\PlatformMacro.h" />
     <ClInclude Include="Sources\Core\Rendering\D3D12\D3D12Renderer.h" />
     <ClInclude Include="Sources\Core\Rendering\Renderer.h" />
     <ClInclude Include="Sources\Core\Rendering\Vulkan\VKRenderer.h" />

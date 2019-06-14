@@ -1,5 +1,4 @@
 #pragma once
-#include "PicturaPCH.h"
 
 #include "Core/Core.h"
 #include "Maths/Size.h"
@@ -11,8 +10,9 @@ namespace Pictura::Widgets
 	class PICTURA_API Window
 	{
 	public:
-		Window();
-		~Window();
+		Window() {}
+		virtual ~Window() {}
+
 	public:
 		void Show();
 		void Close();
@@ -21,4 +21,3 @@ namespace Pictura::Widgets
 		PSize Size;
 	};
 }
-
