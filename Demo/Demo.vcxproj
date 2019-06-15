@@ -46,11 +46,15 @@
     <OutDir>$(SolutionDir)Binaries\</OutDir>
     <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\</IntDir>
     <TargetName>$(ProjectName)-$(Configuration)</TargetName>
+    <IncludePath>$(VULKAN_SDK)\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(VULKAN_SDK)\Lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)Binaries\</OutDir>
     <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\</IntDir>
     <TargetName>$(ProjectName)-$(Configuration)</TargetName>
+    <IncludePath>$(VULKAN_SDK)\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(VULKAN_SDK)\Lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Development|x64'">
     <ClCompile>

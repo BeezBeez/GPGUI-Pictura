@@ -18,6 +18,6 @@ namespace Pictura
 		static Runtime::OperatingSystem GetOperatingSystem();
 		static PString GetOperatingSystemText();
 		static void Debugbreak();
-		static void Assert(bool condition, PString message = "Unknown reason", PString context = "PICTURA");
+		static void Assert(bool condition, const PString& message = "Unknown reason", PString context = "PICTURA");
 	};
 }

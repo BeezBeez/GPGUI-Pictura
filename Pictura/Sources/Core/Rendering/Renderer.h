@@ -4,17 +4,24 @@
 
 namespace Pictura::Graphics
 {
-	class Renderer
+	class PICTURA_API Renderer
 	{
 	public:
-		Renderer()
+		enum class RendererType
 		{
-			Debug::Log::Trace("Inside parent renderer", "RENDERER");
-		}
-	
-		virtual ~Renderer();
+			Null,
+			DirectX12,
+			Vulkan
+		};
 
-		virtual void Init();
-		virtual void Destroy();
+	public:
+		virtual ~Renderer()
+		{
+
+		}
+
+	public:
+		virtual void Init() = 0;
+		virtual void Destroy() = 0;
 	};
 }

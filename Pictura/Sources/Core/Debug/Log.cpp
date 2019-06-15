@@ -19,9 +19,14 @@ namespace Pictura::Debug
 		Console::WriteLine("[" + Pictura::DateTime::GetCurrentTimeFormat() + " - " + context + "] " + message);
 	}
 
+	void Log::Info(PString message, PString context)
+	{
+		Console::WriteLine("[" + Pictura::DateTime::GetCurrentTimeFormat() + " - " + context + "] " + message, Console::ConsoleColor::Cyan);
+	}
+
 	void Log::Success(PString message, PString context)
 	{
-		Console::WriteLine("[" + Pictura::DateTime::GetCurrentTimeFormat() + " - " + context + "] " + message, Console::ConsoleColor::Green);
+		Console::WriteLine("[" + Pictura::DateTime::GetCurrentTimeFormat() + " - " + context + "] " + message, Console::ConsoleColor::DarkGreen);
 	}
 
 	void Log::Warning(PString message, PString context)

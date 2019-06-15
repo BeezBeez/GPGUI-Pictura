@@ -11,6 +11,7 @@ namespace Pictura::Debug
 
 	public:
 		static void Trace  (PString message, PString context   = "PICTURA");
+		static void Info   (PString message, PString context   = "PICTURA");
 		static void Success(PString message, PString context   = "PICTURA");
 		static void Warning(PString message, PString context   = "PICTURA");
 		static void Error  (PString message, PString context   = "PICTURA");

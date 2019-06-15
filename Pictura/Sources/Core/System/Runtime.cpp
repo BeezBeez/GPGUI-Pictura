@@ -1,5 +1,6 @@
 #include "PicturaPCH.h"
 #include "Runtime.h"
+#include <utility>
 #include "Core/Debug/Log.h"
 
 namespace Pictura
@@ -16,33 +17,30 @@ namespace Pictura
 
     Runtime::OperatingSystem Runtime::GetOperatingSystem()
 	{
-		if (PLATFORM_WINDOWS)
-		{
+		#if PLATFORM_WINDOWS == 1	
 			return Runtime::OperatingSystem::Windows;
-		}
+		#endif
 
-		if (PLATFORM_LINUX)
-		{
+		#if PLATFORM_LINUX == 1	
 			return Runtime::OperatingSystem::Linux;
-		}
+		#endif
 
-		if (PLATFORM_OSX)
-		{
+		#if PLATFORM_OSX == 1	
 			return Runtime::OperatingSystem::Mac;
-		}
+		#endif
 	}
 
 	PString Runtime::GetOperatingSystemText()
 	{
 		switch (GetOperatingSystem())
 		{
-		case Runtime::OperatingSystem::Windows:
+		case OperatingSystem::Windows:
 			return "Windows";
 			break;
-		case Runtime::OperatingSystem::Linux:
+		case OperatingSystem::Linux:
 			return "Linux";
 			break;
-		case Runtime::OperatingSystem::Mac:
+		case OperatingSystem::Mac:
 			return "Mac";
 			break;
 		default:
@@ -56,11 +54,11 @@ namespace Pictura
 		DEBUGBREAK;
 	}
 
-	void Runtime::Assert(bool condition, PString message, PString context)
+	void Runtime::Assert(bool condition, const PString& message, PString context)
 	{
-		if (!(condition))
+		if (condition)
 		{
-			Debug::Log::Error("Assertion failed : " + message, context);
+			Debug::Log::Error("Assertion failed : " + message, std::move(context));
 			Debugbreak();
 		}
 	}

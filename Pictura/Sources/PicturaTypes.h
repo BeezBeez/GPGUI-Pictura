@@ -9,10 +9,16 @@ using PVector = std::vector<T>;
 template <typename T, typename T2>
 using PMap = std::map<T, T2>;
 
+template <typename T>
+using PUniquePtr = std::unique_ptr<T>;
+
+template <typename T>
+using PSharedPtr = std::shared_ptr<T>;
+
 namespace Pictura::Types
 {
 	template <class T>
-	inline PString ToString(const T& t)
+	PString ToString(const T& t)
 	{
 		try
 		{
@@ -29,5 +35,17 @@ namespace Pictura::Types
 	template <typename E>
 	constexpr typename std::underlying_type<E>::type ToUnderlying(E e) noexcept {
 		return static_cast<typename std::underlying_type<E>::type>(e);
+	}
+
+	template <typename T>
+	PUniquePtr<T> MakeUnique()
+	{
+		return std::make_unique<T>();
+	}
+
+	template <class T>
+	void Move(const T& a)
+	{
+		std::move(a);
 	}
 }
