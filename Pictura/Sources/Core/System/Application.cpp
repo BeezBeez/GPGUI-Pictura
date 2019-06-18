@@ -22,7 +22,7 @@ namespace Pictura
 
 	}
 
-	void Application::SetRenderer(Renderer::RendererType RendererType)
+	void Application::SetRenderer(Renderer::RendererType RendererType, bool enableDebugMessages)
 	{
 		if (CurrentRenderer != nullptr)
 		{
@@ -53,6 +53,7 @@ namespace Pictura
 
 		if (CurrentRenderer != nullptr)
 		{
+			CurrentRenderer->ShowDebugMessage = enableDebugMessages;
 			CurrentRenderer->Init();
 		}
 

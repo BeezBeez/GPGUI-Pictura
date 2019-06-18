@@ -38,7 +38,7 @@ namespace Pictura
 		Graphics::Renderer* CurrentRenderer;
 
 	public:
-		void SetRenderer(Renderer::RendererType RendererType);
+		void SetRenderer(Renderer::RendererType RendererType, bool enableDebugMessages = false);
 		Renderer::RendererType GetRendererType() const;
 	};
 

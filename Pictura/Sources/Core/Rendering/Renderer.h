@@ -23,5 +23,9 @@ namespace Pictura::Graphics
 	public:
 		virtual void Init() = 0;
 		virtual void Destroy() = 0;
+	
+	public:
+		bool ShowDebugMessage = false;
+
 	};
 }

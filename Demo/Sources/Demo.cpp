@@ -12,7 +12,7 @@ public:
 	void OnApplicationStart(StartupEventArgs& e) override
 	{
 		Application::OnApplicationStart(e);
-		SetRenderer(Renderer::RendererType::Vulkan);
+		SetRenderer(Renderer::RendererType::Vulkan,false);
 		std::getchar();
 	}
 
