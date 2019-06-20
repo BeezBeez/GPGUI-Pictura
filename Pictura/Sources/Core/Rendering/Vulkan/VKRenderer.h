@@ -37,8 +37,8 @@ namespace Pictura::Graphics::Vulkan
 			InitInstance();
 			InitDevice();
 
-			CreateCommandBuffer();
 			CreateCommandPool();
+			CreateCommandBuffer();
 			DemoVulkan();
 
 			Debug::Log::Success("Vulkan renderer creation completed !", "RENDERER");
