@@ -39,9 +39,9 @@ namespace Pictura::Graphics::Vulkan
 
 			CreateCommandPool();
 			CreateCommandBuffer();
-			DemoVulkan();
-
 			Debug::Log::Success("Vulkan renderer creation completed !", "RENDERER");
+
+			DemoVulkan();
 		}
 
 		void Destroy() override
@@ -61,74 +61,112 @@ namespace Pictura::Graphics::Vulkan
 		}
 
 	public:
-		VkInstance GetInstance() const { return _instance; }
-		VkDevice GetDevice() const { return _device; }
-		VkPhysicalDevice GetPhysicalDevice() const { return _gpu; }
-		VkPhysicalDeviceProperties GetPhysicalDeviceProperties() const { return _physicalDeviceProperties; }
+		VkInstance* GetInstance() { return &_instance; }
+		VkDevice* GetDevice() { return &_device; }
+		VkPhysicalDevice* GetPhysicalDevice() { return &_gpu; }
+		VkQueue* GetQueue() { return &_queue; }
 
 		uint32_t GetGraphicsFamilyIndex() const { return _graphicsFamilyIndex; }
 
 		void CheckErrors(VkResult result)
 		{
-			if (result < 0)
+			if (result != VK_SUCCESS)
 			{
+				bool throwAtEnd = true;
 				switch (result)
 				{
+				case VK_TIMEOUT:
+					Debug::Log::Error("Vulkan wait operation has not completed in the specified time!");
+					break;
 				case VK_ERROR_OUT_OF_HOST_MEMORY:
-					Debug::Log::Error("VK_ERROR_OUT_OF_HOST_MEMORY");
+					Debug::Log::Error("Vulkan host memory allocation has failed!");
 					break;
 				case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-					Debug::Log::Error("VK_ERROR_OUT_OF_DEVICE_MEMORY");
+					Debug::Log::Error("Vulkan device memory allocation has failed!");
 					break;
 				case VK_ERROR_INITIALIZATION_FAILED:
-					Debug::Log::Error("VK_ERROR_INITIALIZATION_FAILED");
+					Debug::Log::Error("Vulkan initialization failed!");
 					break;
 				case VK_ERROR_DEVICE_LOST:
-					Debug::Log::Error("VK_ERROR_DEVICE_LOST");
+					Debug::Log::Error("Vulkan logical or physical device has been lost!");
 					break;
 				case VK_ERROR_MEMORY_MAP_FAILED:
-					Debug::Log::Error("VK_ERROR_MEMORY_MAP_FAILED");
+					Debug::Log::Error("Vulkan error, memory map failed!");
 					break;
 				case VK_ERROR_LAYER_NOT_PRESENT:
-					Debug::Log::Error("VK_ERROR_LAYER_NOT_PRESENT");
+					Debug::Log::Error("Vulkan layer not found!");
 					break;
 				case VK_ERROR_EXTENSION_NOT_PRESENT:
-					Debug::Log::Error("VK_ERROR_EXTENSION_NOT_PRESENT");
+					Debug::Log::Error("Vulkan extension not found or not supported!");
 					break;
 				case VK_ERROR_FEATURE_NOT_PRESENT:
-					Debug::Log::Error("VK_ERROR_FEATURE_NOT_PRESENT");
+					Debug::Log::Error("Vulkan feature not available or not supported!");
 					break;
 				case VK_ERROR_INCOMPATIBLE_DRIVER:
-					Debug::Log::Error("VK_ERROR_INCOMPATIBLE_DRIVER");
+					Debug::Log::Error("Vulkan not supported GPU drivers!");
 					break;
 				case VK_ERROR_TOO_MANY_OBJECTS:
-					Debug::Log::Error("VK_ERROR_TOO_MANY_OBJECTS");
+					Debug::Log::Error("Vulkan error, too many objects of the type have already been created!");
 					break;
 				case VK_ERROR_FORMAT_NOT_SUPPORTED:
-					Debug::Log::Error("VK_ERROR_FORMAT_NOT_SUPPORTED");
+					Debug::Log::Error("Vulkan format not supported");
 					break;
 				case VK_ERROR_SURFACE_LOST_KHR:
-					Debug::Log::Error("VK_ERROR_SURFACE_LOST_KHR");
+					Debug::Log::Error("Vulkan surface is no longer available!");
 					break;
 				case VK_ERROR_NATIVE_WINDOW_IN_USE_KHR:
-					Debug::Log::Error("VK_ERROR_NATIVE_WINDOW_IN_USE_KHR");
-					break;
-				case VK_SUBOPTIMAL_KHR:
-					Debug::Log::Error("VK_SUBOPTIMAL_KHR");
+					Debug::Log::Error("Vulkan error, the requested window is already in use by Vulkan or another API in a manner which prevents it from being used again.!");
 					break;
 				case VK_ERROR_OUT_OF_DATE_KHR:
-					Debug::Log::Error("VK_ERROR_OUT_OF_DATE_KHR");
+					Debug::Log::Error("Vulkan outdated KHR");
 					break;
 				case VK_ERROR_INCOMPATIBLE_DISPLAY_KHR:
-					Debug::Log::Error("VK_ERROR_INCOMPATIBLE_DISPLAY_KHR");
+					Debug::Log::Error("Vulkan error, not supported display!");
 					break;
 				case VK_ERROR_VALIDATION_FAILED_EXT:
-					Debug::Log::Error("VK_ERROR_VALIDATION_FAILED_EXT");
+					Debug::Log::Error("Vulkan error, validation failed!");
+					break;
+				case VK_NOT_READY:
+					Debug::Log::Error("Vulkan error, a fence or query has not yet completed!");
+					break;
+				case VK_INCOMPLETE:
+					Debug::Log::Error("Vulkan error, a return array was too small for the result!");
+					break;
+				case VK_ERROR_FRAGMENTED_POOL:
+					Debug::Log::Error("Vulkan error, pool allocation has failed due to fragmentation of the pool's memory!");
+					break;
+				case VK_ERROR_OUT_OF_POOL_MEMORY:
+					Debug::Log::Error("Vulkan error, a pool memory allocation has failed!");
+					break;
+				case VK_ERROR_INVALID_EXTERNAL_HANDLE:
+					Debug::Log::Error("Vulkan invalid external handle!");
+					break;
+				case VK_ERROR_INVALID_SHADER_NV:
+					Debug::Log::Error("Vulkan error, invalid shader!");
+					break;
+				case VK_ERROR_INVALID_DRM_FORMAT_MODIFIER_PLANE_LAYOUT_EXT:
+					Debug::Log::Error("Vulkan error, invalid DRM FORMAT");
+					break;
+				case VK_ERROR_FRAGMENTATION_EXT:
+					Debug::Log::Error("Vulkan error, a descriptor pool creation has failed due to fragmentation!");
+					break;
+				case VK_ERROR_INVALID_DEVICE_ADDRESS_EXT:
+					Debug::Log::Error("Vulkan buffer creation failed because the requested address is not available!");
+					break;
+				case VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT:
+					Debug::Log::Error("Vulkan error, an operation on a swapchain created with VK_FULL_SCREEN_EXCLUSIVE_APPLICATION_CONTROLLED_EXT failed as it did not have exlusive full-screen access. This may occur due to implementation-dependent reasons, outside of the application's control.");
 					break;
 				default:
+					Debug::Log::Warning("Unknown vulkan error occured!");
+					Debug::Log::Warning("The renderer will not be killed, but if you see this message frequently, then consider reviewing your program's code");
+					throwAtEnd = false;
 					break;
 				}
-				throw RendererException("Vulkan runtime fatal error!");
+
+				if(throwAtEnd)
+				{
+					throw RendererException("Vulkan runtime fatal error!");
+				}
 			}
 		}
 
@@ -136,6 +174,7 @@ namespace Pictura::Graphics::Vulkan
 		VkInstance _instance = nullptr;
 		VkDevice   _device = nullptr;
 		VkPhysicalDevice _gpu = nullptr;
+		VkQueue _queue = nullptr;
 		VkPhysicalDeviceProperties _physicalDeviceProperties = {};
 
 		uint32_t _graphicsFamilyIndex = 0;
@@ -253,6 +292,7 @@ namespace Pictura::Graphics::Vulkan
 
 			CheckErrors(vkCreateDevice(_gpu, &deviceCreateInfo, nullptr, &_device));
 
+			vkGetDeviceQueue(_device, _graphicsFamilyIndex, 0, &_queue);
 		}
 
 		void DestroyDevice()
@@ -274,6 +314,18 @@ namespace Pictura::Graphics::Vulkan
 		void DemoVulkan()
 		{
 			CommandBuffer->Begin();
+
+			VkViewport viewport = {
+				0,
+				0,
+				1280,
+				720,
+				0.0f,
+				1.0f
+			};
+
+			vkCmdSetViewport(*CastTo<VKCommandBuffer*>(CommandBuffer)->GetVkCmdBuffer(), 0, 1, &viewport);
+			
 			CommandBuffer->End();
 			CommandBuffer->Send();
 		}

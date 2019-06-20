@@ -25,6 +25,8 @@ constexpr T ReinterpretCastTo(O o) noexcept {
 	return reinterpret_cast<T>(o);
 }
 
+constexpr uint64_t UINT64_MAXVALUE = 0xffffffffffffffffui64;
+
 namespace Pictura::Types
 {
 	template <class T>

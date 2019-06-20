@@ -19,7 +19,7 @@ namespace Pictura::Graphics::Vulkan
 		commandBufferAllocateInfo.commandPool = *m_vkCmdPool;
 		commandBufferAllocateInfo.commandBufferCount = 1;
 		commandBufferAllocateInfo.level = bufferLevel;
-		vkr->CheckErrors(vkAllocateCommandBuffers(vkr->GetDevice(), &commandBufferAllocateInfo, &_commandBuffer));
+		vkr->CheckErrors(vkAllocateCommandBuffers(*vkr->GetDevice(), &commandBufferAllocateInfo, &_commandBuffer));
 
 		if (vkr->ShowDebugMessage)
 		{
@@ -34,7 +34,7 @@ namespace Pictura::Graphics::Vulkan
 			return;
 		}
 
-		vkFreeCommandBuffers(vkr->GetDevice(), *m_vkCmdPool, 1, &_commandBuffer);
+		vkFreeCommandBuffers(*vkr->GetDevice(), *m_vkCmdPool, 1, &_commandBuffer);
 	}
 
 	void VKCommandBuffer::Begin()
@@ -49,6 +49,12 @@ namespace Pictura::Graphics::Vulkan
 		commandBufferBeginInfo.flags = VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT;
 		vkr->CheckErrors(vkBeginCommandBuffer(_commandBuffer, &commandBufferBeginInfo));
 		isRunning = true;
+
+		
+		VkSemaphoreCreateInfo signalSemaphoreCreateInfo = {};
+		signalSemaphoreCreateInfo.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
+		vkCreateSemaphore(*vkr->GetDevice(), &signalSemaphoreCreateInfo, nullptr, &signalSemaphore);
+
 
 		if (vkr->ShowDebugMessage)
 		{
@@ -74,6 +80,37 @@ namespace Pictura::Graphics::Vulkan
 
 	void VKCommandBuffer::Send()
 	{
+		if (isRunning)
+		{
+			End();
+		}
+
+		VkSubmitInfo submitInfo = {};
+		submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
+		submitInfo.commandBufferCount = 1;
+		submitInfo.pCommandBuffers = &_commandBuffer;
+
+		if (waitSemaphore != nullptr)
+		{
+			static VkPipelineStageFlags submitPipelineStages = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
+			submitInfo.pWaitDstStageMask = &submitPipelineStages;
+			submitInfo.waitSemaphoreCount = 1;
+			submitInfo.pWaitSemaphores = &waitSemaphore;
+		}
+
+		if (signalSemaphore != nullptr)
+		{
+			submitInfo.signalSemaphoreCount = 1;
+			submitInfo.pSignalSemaphores = &signalSemaphore;
+		}
+
+		if (_fence != nullptr)
+		{
+			vkr->CheckErrors(vkResetFences(*vkr->GetDevice(), 1, &_fence));
+		}
+
+		vkr->CheckErrors(vkQueueSubmit(*vkr->GetQueue(), 1, &submitInfo, _fence));
+
 		if (vkr->ShowDebugMessage)
 		{
 			Debug::Log::Trace("VkCommandBuffer -> SEND", "VULKAN");
@@ -82,6 +119,26 @@ namespace Pictura::Graphics::Vulkan
 
 	void VKCommandBuffer::SendAndWait()
 	{
+		if (isRunning)
+		{
+			End();
+		}
+
+		VkSubmitInfo submitInfo = {};
+		submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
+		submitInfo.commandBufferCount = 1;
+		submitInfo.pCommandBuffers = &_commandBuffer;
+
+		VkFenceCreateInfo fenceCreateInfo = {};
+		fenceCreateInfo.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
+		vkr->CheckErrors(vkCreateFence(*vkr->GetDevice(), &fenceCreateInfo, nullptr, &_fence));
+
+		vkr->CheckErrors(vkResetFences(*vkr->GetDevice(), 1, &_fence));
+		vkr->CheckErrors(vkQueueSubmit(*vkr->GetQueue(), 1, &submitInfo, _fence));
+		vkr->CheckErrors(vkWaitForFences(*vkr->GetDevice(), 1, &_fence, true, UINT64_MAXVALUE));
+
+		vkDestroyFence(*vkr->GetDevice(), _fence, nullptr);
+
 		if (vkr->ShowDebugMessage)
 		{
 			Debug::Log::Trace("VkCommandBuffer -> SEND_AND_WAIT", "VULKAN");
