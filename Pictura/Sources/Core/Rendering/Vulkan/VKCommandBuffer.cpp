@@ -9,6 +9,11 @@ namespace Pictura::Graphics::Vulkan
 		vkr = renderer;
 		m_vkCmdPool = CastTo<VKCommandPool*>(renderer->CommandPool)->GetVkCmdPool();
 
+		if (m_vkCmdPool == nullptr)
+		{
+			throw RendererException("Creation of command buffer failed. No command pool was created before.");
+		}
+
 		VkCommandBufferAllocateInfo commandBufferAllocateInfo{};
 		commandBufferAllocateInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
 		commandBufferAllocateInfo.commandPool = *m_vkCmdPool;
@@ -24,6 +29,11 @@ namespace Pictura::Graphics::Vulkan
 
 	VKCommandBuffer::~VKCommandBuffer()
 	{
+		if (m_vkCmdPool == nullptr)
+		{
+			return;
+		}
+
 		vkFreeCommandBuffers(vkr->GetDevice(), *m_vkCmdPool, 1, &_commandBuffer);
 	}
 
