@@ -22,6 +22,7 @@
 #include <unordered_set>
 
 #include <typeinfo>
+#include <thread>
 
 #include "Core/PlatformMacro.h"
 

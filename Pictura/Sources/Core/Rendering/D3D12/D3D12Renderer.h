@@ -15,5 +15,15 @@ namespace Pictura::Graphics::D3D12
 		{
 			
 		}
+
+		void CreateCommandPool() override
+		{
+
+		}
+
+		void CreateCommandBuffer() override
+		{
+			
+		}
 	};
 }

@@ -10,9 +10,11 @@
 #if PLATFORM_OSX == 1
 #define VK_USE_PLATFORM_MACOS_MVK
 #endif
+
 #include <vulkan/vulkan.h>
 #include "Core/Rendering/Renderer.h"
-#include "Core/Exceptions/RendererException.h"
+#include "VKCommandPool.h"
+#include "VKCommandBuffer.h"
 
 namespace Pictura::Graphics::Vulkan
 {
@@ -34,6 +36,11 @@ namespace Pictura::Graphics::Vulkan
 			EnableStandardLayers();
 			InitInstance();
 			InitDevice();
+
+			CreateCommandPool();
+			CreateCommandBuffer();
+			DemoVulkan();
+
 			Debug::Log::Success("Vulkan renderer creation completed !", "RENDERER");
 		}
 
@@ -41,6 +48,88 @@ namespace Pictura::Graphics::Vulkan
 		{
 			DestroyInstance();
 			DestroyDevice();
+		}
+
+		void CreateCommandPool() override
+		{
+			CommandPool = new VKCommandPool(this);
+		}
+
+		void CreateCommandBuffer() override
+		{
+			CommandBuffer = new VKCommandBuffer(this);
+		}
+
+	public:
+		VkInstance GetInstance() const { return _instance; }
+		VkDevice GetDevice() const { return _device; }
+		VkPhysicalDevice GetPhysicalDevice() const { return _gpu; }
+		VkPhysicalDeviceProperties GetPhysicalDeviceProperties() const { return _physicalDeviceProperties; }
+
+		uint32_t GetGraphicsFamilyIndex() const { return _graphicsFamilyIndex; }
+
+		void CheckErrors(VkResult result)
+		{
+			if (result < 0)
+			{
+				switch (result)
+				{
+				case VK_ERROR_OUT_OF_HOST_MEMORY:
+					Debug::Log::Error("VK_ERROR_OUT_OF_HOST_MEMORY");
+					break;
+				case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+					Debug::Log::Error("VK_ERROR_OUT_OF_DEVICE_MEMORY");
+					break;
+				case VK_ERROR_INITIALIZATION_FAILED:
+					Debug::Log::Error("VK_ERROR_INITIALIZATION_FAILED");
+					break;
+				case VK_ERROR_DEVICE_LOST:
+					Debug::Log::Error("VK_ERROR_DEVICE_LOST");
+					break;
+				case VK_ERROR_MEMORY_MAP_FAILED:
+					Debug::Log::Error("VK_ERROR_MEMORY_MAP_FAILED");
+					break;
+				case VK_ERROR_LAYER_NOT_PRESENT:
+					Debug::Log::Error("VK_ERROR_LAYER_NOT_PRESENT");
+					break;
+				case VK_ERROR_EXTENSION_NOT_PRESENT:
+					Debug::Log::Error("VK_ERROR_EXTENSION_NOT_PRESENT");
+					break;
+				case VK_ERROR_FEATURE_NOT_PRESENT:
+					Debug::Log::Error("VK_ERROR_FEATURE_NOT_PRESENT");
+					break;
+				case VK_ERROR_INCOMPATIBLE_DRIVER:
+					Debug::Log::Error("VK_ERROR_INCOMPATIBLE_DRIVER");
+					break;
+				case VK_ERROR_TOO_MANY_OBJECTS:
+					Debug::Log::Error("VK_ERROR_TOO_MANY_OBJECTS");
+					break;
+				case VK_ERROR_FORMAT_NOT_SUPPORTED:
+					Debug::Log::Error("VK_ERROR_FORMAT_NOT_SUPPORTED");
+					break;
+				case VK_ERROR_SURFACE_LOST_KHR:
+					Debug::Log::Error("VK_ERROR_SURFACE_LOST_KHR");
+					break;
+				case VK_ERROR_NATIVE_WINDOW_IN_USE_KHR:
+					Debug::Log::Error("VK_ERROR_NATIVE_WINDOW_IN_USE_KHR");
+					break;
+				case VK_SUBOPTIMAL_KHR:
+					Debug::Log::Error("VK_SUBOPTIMAL_KHR");
+					break;
+				case VK_ERROR_OUT_OF_DATE_KHR:
+					Debug::Log::Error("VK_ERROR_OUT_OF_DATE_KHR");
+					break;
+				case VK_ERROR_INCOMPATIBLE_DISPLAY_KHR:
+					Debug::Log::Error("VK_ERROR_INCOMPATIBLE_DISPLAY_KHR");
+					break;
+				case VK_ERROR_VALIDATION_FAILED_EXT:
+					Debug::Log::Error("VK_ERROR_VALIDATION_FAILED_EXT");
+					break;
+				default:
+					break;
+				}
+				throw RendererException("Vulkan runtime fatal error!");
+			}
 		}
 
 	private:
@@ -130,15 +219,6 @@ namespace Pictura::Graphics::Vulkan
 			PVector<VkLayerProperties> layerPropertyList(layerCount);
 			vkEnumerateInstanceLayerProperties(&layerCount, layerPropertyList.data());
 
-			if (ShowDebugMessage)
-			{
-				Debug::Log::Trace("Instance layers : ", "VULKAN");
-				for (auto layer : layerPropertyList)
-				{
-					Debug::Log::Trace("		- " + PString(layer.layerName) + " | DESCRIPTION : " + PString(layer.description), "VULKAN");
-				}
-			}
-
 			/* VULKAN DEVICE LAYERS ENUMERATION */
 			uint32_t deviceLayerCount = 0;
 			vkEnumerateDeviceLayerProperties(_gpu, &deviceLayerCount, nullptr);
@@ -189,71 +269,13 @@ namespace Pictura::Graphics::Vulkan
 
 			deviceLayers.push_back("VK_LAYER_LUNARG_standard_validation");
 			deviceLayers.push_back("VK_LAYER_LUNARG_core_validation");
-
 		}
 
-		void CheckErrors(VkResult result)
+		void DemoVulkan()
 		{
-			if (result < 0)
-			{
-				switch (result)
-				{
-				case VK_ERROR_OUT_OF_HOST_MEMORY:
-					Debug::Log::Error("VK_ERROR_OUT_OF_HOST_MEMORY");
-					break;
-				case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-					Debug::Log::Error("VK_ERROR_OUT_OF_DEVICE_MEMORY");
-					break;
-				case VK_ERROR_INITIALIZATION_FAILED:
-					Debug::Log::Error("VK_ERROR_INITIALIZATION_FAILED");
-					break;
-				case VK_ERROR_DEVICE_LOST:
-					Debug::Log::Error("VK_ERROR_DEVICE_LOST");
-					break;
-				case VK_ERROR_MEMORY_MAP_FAILED:
-					Debug::Log::Error("VK_ERROR_MEMORY_MAP_FAILED");
-					break;
-				case VK_ERROR_LAYER_NOT_PRESENT:
-					Debug::Log::Error("VK_ERROR_LAYER_NOT_PRESENT");
-					break;
-				case VK_ERROR_EXTENSION_NOT_PRESENT:
-					Debug::Log::Error("VK_ERROR_EXTENSION_NOT_PRESENT");
-					break;
-				case VK_ERROR_FEATURE_NOT_PRESENT:
-					Debug::Log::Error("VK_ERROR_FEATURE_NOT_PRESENT");
-					break;
-				case VK_ERROR_INCOMPATIBLE_DRIVER:
-					Debug::Log::Error("VK_ERROR_INCOMPATIBLE_DRIVER");
-					break;
-				case VK_ERROR_TOO_MANY_OBJECTS:
-					Debug::Log::Error("VK_ERROR_TOO_MANY_OBJECTS");
-					break;
-				case VK_ERROR_FORMAT_NOT_SUPPORTED:
-					Debug::Log::Error("VK_ERROR_FORMAT_NOT_SUPPORTED");
-					break;
-				case VK_ERROR_SURFACE_LOST_KHR:
-					Debug::Log::Error("VK_ERROR_SURFACE_LOST_KHR");
-					break;
-				case VK_ERROR_NATIVE_WINDOW_IN_USE_KHR:
-					Debug::Log::Error("VK_ERROR_NATIVE_WINDOW_IN_USE_KHR");
-					break;
-				case VK_SUBOPTIMAL_KHR:
-					Debug::Log::Error("VK_SUBOPTIMAL_KHR");
-					break;
-				case VK_ERROR_OUT_OF_DATE_KHR:
-					Debug::Log::Error("VK_ERROR_OUT_OF_DATE_KHR");
-					break;
-				case VK_ERROR_INCOMPATIBLE_DISPLAY_KHR:
-					Debug::Log::Error("VK_ERROR_INCOMPATIBLE_DISPLAY_KHR");
-					break;
-				case VK_ERROR_VALIDATION_FAILED_EXT:
-					Debug::Log::Error("VK_ERROR_VALIDATION_FAILED_EXT");
-					break;
-				default:
-					break;
-				}
-				throw RendererException("Vulkan runtime fatal error!");
-			}
+			CommandBuffer->Begin();
+			CommandBuffer->End();
+			CommandBuffer->Send();
 		}
 	};
 }
