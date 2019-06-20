@@ -15,6 +15,16 @@ using PUniquePtr = std::unique_ptr<T>;
 template <typename T>
 using PSharedPtr = std::shared_ptr<T>;
 
+template <typename T, typename O>
+constexpr T CastTo(O o) noexcept {
+	return static_cast<T>(o);
+}
+
+template <typename T, typename O>
+constexpr T ReinterpretCastTo(O o) noexcept {
+	return reinterpret_cast<T>(o);
+}
+
 namespace Pictura::Types
 {
 	template <class T>
@@ -28,7 +38,7 @@ namespace Pictura::Types
 		}
 		catch (const std::exception& e)
 		{
-			
+			return "";
 		}
 	}
 

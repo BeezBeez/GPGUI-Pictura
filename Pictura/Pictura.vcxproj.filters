@@ -12,6 +12,8 @@
     <ClCompile Include="Sources\Widgets\Window\Win32Window.cpp" />
     <ClCompile Include="Sources\Widgets\Window\Window.cpp" />
     <ClCompile Include="Sources\Widgets\Window\X11Window.cpp" />
+    <ClCompile Include="Sources\Core\Rendering\Vulkan\VKCommandPool.cpp" />
+    <ClCompile Include="Sources\Core\Rendering\Vulkan\VKCommandBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\Core\CoreException.h" />
@@ -43,5 +45,9 @@
     <ClInclude Include="Sources\Core\Exceptions\InvalidOperationException.h" />
     <ClInclude Include="Sources\Widgets\Window\X11Window.h" />
     <ClInclude Include="Sources\Core\Exceptions\RendererException.h" />
+    <ClInclude Include="Sources\Core\Rendering\CommandPool.h" />
+    <ClInclude Include="Sources\Core\Rendering\Vulkan\VKCommandPool.h" />
+    <ClInclude Include="Sources\Core\Rendering\Vulkan\VKCommandBuffer.h" />
+    <ClInclude Include="Sources\Core\Rendering\CommandBuffer.h" />
   </ItemGroup>
 </Project>
