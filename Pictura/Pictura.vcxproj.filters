@@ -14,6 +14,7 @@
     <ClCompile Include="Sources\Widgets\Window\X11Window.cpp" />
     <ClCompile Include="Sources\Core\Rendering\Vulkan\VKCommandPool.cpp" />
     <ClCompile Include="Sources\Core\Rendering\Vulkan\VKCommandBuffer.cpp" />
+    <ClCompile Include="Sources\Threading\Thread.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\Core\CoreException.h" />
@@ -37,17 +38,18 @@
     <ClInclude Include="Sources\Core\Events\EventsArgs\StartupEventArgs.h" />
     <ClInclude Include="Sources\Core\System\Runtime.h" />
     <ClInclude Include="Sources\Widgets\Window\Window.h" />
-    <ClInclude Include="Sources\Widgets\Window\Win32Window.h" />
     <ClInclude Include="Sources\Core\Rendering\Renderer.h" />
     <ClInclude Include="Sources\Core\Rendering\Vulkan\VKRenderer.h" />
     <ClInclude Include="Sources\Core\Rendering\D3D12\D3D12Renderer.h" />
     <ClInclude Include="Sources\Core\PlatformMacro.h" />
     <ClInclude Include="Sources\Core\Exceptions\InvalidOperationException.h" />
-    <ClInclude Include="Sources\Widgets\Window\X11Window.h" />
     <ClInclude Include="Sources\Core\Exceptions\RendererException.h" />
     <ClInclude Include="Sources\Core\Rendering\CommandPool.h" />
     <ClInclude Include="Sources\Core\Rendering\Vulkan\VKCommandPool.h" />
     <ClInclude Include="Sources\Core\Rendering\Vulkan\VKCommandBuffer.h" />
     <ClInclude Include="Sources\Core\Rendering\CommandBuffer.h" />
+    <ClInclude Include="Sources\Threading\Thread.h" />
+    <ClInclude Include="Sources\Core\Exceptions\ThreadException.h" />
+    <ClInclude Include="Sources\Maths\Convert.h" />
   </ItemGroup>
 </Project>

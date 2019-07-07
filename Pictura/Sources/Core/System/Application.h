@@ -30,12 +30,12 @@ namespace Pictura
 
 	private:
 		Renderer::RendererType sRenderer;
-		PVector<Widgets::Window> WindowCollection;
 
 	public:
 		PVector<PString> Arguments;
 		static Application* CurrentApplication;
-		Graphics::Renderer* CurrentRenderer;
+		Renderer* CurrentRenderer;
+		PVector<Widgets::Window*> WindowCollection;
 
 	public:
 		void SetRenderer(Renderer::RendererType RendererType, bool enableDebugMessages = false);

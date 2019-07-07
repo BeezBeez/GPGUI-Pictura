@@ -3,8 +3,8 @@ namespace Pictura::Maths
 {
 	struct PSize
 	{
-		int Width, Height;
+		uint32_t Width, Height;
 		PSize() : Width(0), Height(0) {}
-		PSize(int Width, int Height) : Width(Width), Height(Height) {}
+		PSize(uint32_t Width, uint32_t Height) : Width(Width), Height(Height) {}
 	};
 }

@@ -62,4 +62,10 @@ namespace Pictura
 			Debugbreak();
 		}
 	}
+
+	void Runtime::ForceExitApplication()
+	{
+		std::exit(9999);
+	}
+
 }

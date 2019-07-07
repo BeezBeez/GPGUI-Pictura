@@ -23,6 +23,8 @@
 
 #include <typeinfo>
 #include <thread>
+#include <mutex>
+#include <shared_mutex>
 
 #include "Core/PlatformMacro.h"
 

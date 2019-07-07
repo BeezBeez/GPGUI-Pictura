@@ -5,6 +5,8 @@
 namespace Pictura
 {
 
+	PMutex Console::ConsoleMutex;
+
 	Console::Console()
 	{
 
@@ -18,8 +20,8 @@ namespace Pictura
 	void Console::WriteLine(PString message, Console::ConsoleColor TextColor)
 	{
 		PString code;
-
-#ifndef PLATFORM_WINDOWS //Unix system code (Use ANSI escape sequence)
+		ConsoleMutex.lock();
+#if PLATFORM_WINDOWS == 0 //Unix system code (Use ANSI escape sequence)
 		switch (TextColor)
 		{
 		case Pictura::Console::ConsoleColor::Black:
@@ -73,11 +75,8 @@ namespace Pictura
 		}
 		std::cout << code + message + "/033[0m" << std::endl;
 #else                    //Windows NT system code (Use Console API)
-		HANDLE hConsole;
-		hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-		int color;
-
-		color = Pictura::Types::ToUnderlying(TextColor);
+		const auto hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+		const auto color = Types::ToUnderlying(TextColor);
 
 		FlushConsoleInputBuffer(hConsole);
 		SetConsoleTextAttribute(hConsole, color);
@@ -86,18 +85,17 @@ namespace Pictura
 
 		SetConsoleTextAttribute(hConsole, 7);
 #endif
+
 #ifdef VISUALSTUDIO_VERSION
 		DEBUG_OUTPUT(message)
 #endif
+		ConsoleMutex.unlock();
 	}
 	
 	void Console::Pause(PString pauseMessage)
 	{
 		Console::WriteLine(pauseMessage);
-		do
-		{
-
-		} while (std::getchar() != '/n');
+		std::cin.ignore();
 	}
 
 	bool Console::IsANSISupported()

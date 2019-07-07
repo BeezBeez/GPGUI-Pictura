@@ -1,34 +1,74 @@
 #pragma once
-
 #include "Core/Core.h"
+#include "Core/CoreException.h"
 #include "Maths/Size.h"
+#include "Core/Events/Event.h"
 #include "Core/Debug/Log.h"
+#include "Threading/Thread.h"
+#include "Core/Rendering/Vulkan/VKRenderer.h"
+#include "Core/Rendering/D3D12/D3D12Renderer.h"
 
 using namespace Pictura::Maths;
+using namespace Pictura::Threading;
 
 namespace Pictura::Widgets
 {
 	class PICTURA_API Window
 	{
 	public:
-
-		Window() {}
-
-		virtual ~Window()
-		{
-			
-		}
+		Window();
+		virtual ~Window();
 
 	public:
-		virtual void Show() {}
-		virtual void Close() {}
+		Event<void> Shown;
+		virtual void OnShown() {}
+		void Show();
+
+		Event<void> Closed;
+		virtual void OnClosed() {}
+		void Close();
+
+		Event<void> GotFocus;
+		virtual void OnGotFocus() {}
+		void Focus();
+
+		Event<void> Updated;
+		virtual void OnUpdate() {}
+		void Update();
+
+		Event<void> Reset;
+		virtual void OnReset() {}
+		void ResetWindow(bool finalPhase = false);
 
 	public:
 		PSize Size;
 		PString Title;
-	public:
-		static PUniquePtr<Window> Create();
-	private:
 		
+	private:
+		void DisplayWindow();
+
+		void InitWindow();
+		void RemoveWindow();
+		void RenderWindow();
+
+		void BindSurface();
+		void InitSurface();
+
+		void DestroySurface();
+
+	private:
+		PUniquePtr<Thread> windowThread = nullptr;
+		bool isOnScreen = false;
+
+		//Vulkan specific objects
+		VkSurfaceKHR vkSurface = nullptr;
+		VkSurfaceFormatKHR vkSurfaceFormat = {};
+		VkSurfaceCapabilitiesKHR vkSurfaceCapabilities = {};
+
+#if PLATFORM_WINDOWS == 1
+		PString	  win32ClassName;
+		HINSTANCE win32Instance = nullptr;
+		HWND	  win32Window = nullptr;
+#endif
 	};
 }

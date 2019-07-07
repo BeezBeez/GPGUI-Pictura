@@ -1,5 +1,4 @@
 ﻿#pragma once
-#include <vulkan/vulkan.h>
 #include "Core/Rendering/CommandBuffer.h"
 namespace Pictura::Graphics::Vulkan
 {

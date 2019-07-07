@@ -12,6 +12,7 @@ namespace Pictura
 	{
 		Runtime::Assert(CurrentApplication, "Application was already initialized");
 		CurrentApplication = this;
+		CurrentRenderer = nullptr;
 		ApplicationStart += EventHandler::Bind(&Application::OnApplicationStart, this);
 		ApplicationClose += EventHandler::Bind(&Application::OnApplicationClose, this);
 		sRenderer = Renderer::RendererType::Null;
@@ -19,11 +20,26 @@ namespace Pictura
 
 	Application::~Application()
 	{
-
+		for (auto &window : WindowCollection)
+		{
+			window->Close();
+		}
 	}
 
 	void Application::SetRenderer(Renderer::RendererType RendererType, bool enableDebugMessages)
 	{
+		if (RendererType != Renderer::RendererType::Null && GetRendererType() != Renderer::RendererType::Null)
+		{
+			throw RendererException("You can't select a second time the application renderer at runtime !");
+			Runtime::ForceExitApplication();
+		}
+
+
+		for (Widgets::Window* window : WindowCollection)
+		{
+			window->ResetWindow(true);
+		}
+
 		if (CurrentRenderer != nullptr)
 		{
 			Debug::Log::Trace("Destroying previous renderer...","APPLICATION");
@@ -55,6 +71,11 @@ namespace Pictura
 		{
 			CurrentRenderer->ShowDebugMessage = enableDebugMessages;
 			CurrentRenderer->Init();
+		}
+
+		for (Widgets::Window* window : WindowCollection)
+		{
+			window->ResetWindow(true);
 		}
 
 		sRenderer = RendererType;

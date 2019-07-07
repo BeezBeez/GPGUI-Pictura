@@ -1,17 +1,5 @@
 #pragma once
-#if PLATFORM_WINDOWS == 1
-#define VK_USE_PLATFORM_WIN32_KHR
-#endif
 
-#if PLATFORM_LINUX == 1
-
-#endif
-
-#if PLATFORM_OSX == 1
-#define VK_USE_PLATFORM_MACOS_MVK
-#endif
-
-#include <vulkan/vulkan.h>
 #include "Core/Rendering/Renderer.h"
 #include "VKCommandPool.h"
 #include "VKCommandBuffer.h"
@@ -41,11 +29,16 @@ namespace Pictura::Graphics::Vulkan
 			CreateCommandBuffer();
 			Debug::Log::Success("Vulkan renderer creation completed !", "RENDERER");
 
-			DemoVulkan();
+			//DemoVulkan();
 		}
 
 		void Destroy() override
 		{
+			if (ShowDebugMessage)
+			{
+				Debug::Log::Info("Send VKDevice destroy request...", "VULKAN");
+			}
+
 			DestroyInstance();
 			DestroyDevice();
 		}
@@ -191,7 +184,7 @@ namespace Pictura::Graphics::Vulkan
 			VkApplicationInfo applicationInfo{};
 			applicationInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
 			applicationInfo.apiVersion = VK_API_VERSION_1_1;
-			applicationInfo.pApplicationName = "Vulkan pictura renderer";
+			applicationInfo.pApplicationName = "Vulkan Pictura renderer";
 
 			VkInstanceCreateInfo instanceCreateInfo{};
 			instanceCreateInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
@@ -225,8 +218,6 @@ namespace Pictura::Graphics::Vulkan
 				Debug::Log::Trace("A GPU Device was automatically selected :", "VULKAN");
 				Debug::Log::Trace("		- GPU Name : " + PString(_physicalDeviceProperties.deviceName), "VULKAN");
 				Debug::Log::Trace("		- GPU Device ID : " + Types::ToString(_physicalDeviceProperties.deviceID), "VULKAN");
-				Debug::Log::Trace("		- GPU DriverVersion : " + Types::ToString(_physicalDeviceProperties.driverVersion), "VULKAN");
-				Debug::Log::Trace("		- GPU Vendor ID : " + Types::ToString(_physicalDeviceProperties.vendorID), "VULKAN");
 				Debug::Log::Trace("		- GPU Device Type : " + Types::ToString(_physicalDeviceProperties.deviceType), "VULKAN");
 			}
 
@@ -297,6 +288,8 @@ namespace Pictura::Graphics::Vulkan
 
 		void DestroyDevice()
 		{
+			vkDeviceWaitIdle(_device);
+			
 			vkDestroyDevice(_device, nullptr);
 			_device = nullptr;
 		}
@@ -305,7 +298,9 @@ namespace Pictura::Graphics::Vulkan
 		{
 			instanceLayers.push_back("VK_LAYER_LUNARG_standard_validation");
 			instanceLayers.push_back("VK_LAYER_LUNARG_core_validation");
-			instanceExtensions.push_back(VK_EXT_DEBUG_REPORT_EXTENSION_NAME);
+			
+			instanceExtensions.push_back(VK_KHR_SURFACE_EXTENSION_NAME);
+			instanceExtensions.push_back(SURFACE_EXTENSION_NAME);
 
 			deviceLayers.push_back("VK_LAYER_LUNARG_standard_validation");
 			deviceLayers.push_back("VK_LAYER_LUNARG_core_validation");
