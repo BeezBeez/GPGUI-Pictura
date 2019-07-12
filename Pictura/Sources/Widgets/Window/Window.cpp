@@ -24,7 +24,26 @@ namespace Pictura::Widgets
 
 	Window::~Window()
 	{
-		Close();
+		if (!isClosing)
+		{
+			Close();
+			auto app = Application::CurrentApplication;
+
+			if (app->MainWindow == this && app->ApplicationCloseBehavior == Application::CloseBehavior::OnMainWindowClose)
+			{
+				app->Exit();
+			}
+
+			if (app->WindowCollection.size() == 1)
+			{
+				app->Exit();
+			}
+
+			if (this != nullptr)
+			{
+				delete this;
+			}
+		}
 	}
 
 	void Window::Update()
@@ -97,6 +116,17 @@ namespace Pictura::Widgets
 				break;
 			default:
 				break;
+		}
+	}
+
+	void Window::Close()
+	{
+		if (isOnScreen) {
+			Types::Vector::RemoveElement(Application::CurrentApplication->WindowCollection, this);
+			isClosing = true;
+			RemoveWindow();
+			Closed();
+			isOnScreen = false;
 		}
 	}
 

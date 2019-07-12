@@ -42,19 +42,21 @@ public:
 	void OnApplicationStart(StartupEventArgs& e) override
 	{
 		Application::OnApplicationStart(e);
-
+		
+		ApplicationCloseBehavior = CloseBehavior::OnMainWindowClose;
 		SetRenderer(Renderer::RendererType::Vulkan, false);
 
-		auto defaultWnd = new MyWindow();
-		defaultWnd->Show();
+		MainWindow = new MyWindow();
+		MainWindow->Show();
 
-		Thread::Delay(2000);
+		Thread::Delay(1000);
 
-		auto anotherWnd = new Window();
-		anotherWnd->Size.Width = 1024;
-		anotherWnd->Size.Height = 600;
-		anotherWnd->Title = "Another window !";
-		anotherWnd->Show();
+		for (int i = 0; i < 5; i++)
+		{
+			auto wnd = new Window();
+			wnd->Title = "Window num" + Types::ToString(i);
+			wnd->Show();
+		}
 
 		Console::Pause();
 	}

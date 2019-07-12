@@ -59,6 +59,7 @@ namespace Pictura::Widgets
 	private:
 		PUniquePtr<Thread> windowThread = nullptr;
 		bool isOnScreen = false;
+		bool isClosing = false;
 
 		//Vulkan specific objects
 		VkSurfaceKHR vkSurface = nullptr;

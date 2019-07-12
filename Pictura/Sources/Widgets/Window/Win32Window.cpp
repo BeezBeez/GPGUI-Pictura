@@ -143,15 +143,5 @@ namespace Pictura::Widgets
 		isOnScreen = true;
 		Update();
 	}
-
-	void Window::Close()
-	{
-		if (isOnScreen) {
-			Types::Vector::RemoveElement(Application::CurrentApplication->WindowCollection, this);
-			RemoveWindow();
-			Closed();
-			isOnScreen = false;
-		}
-	}
 }
 #endif

@@ -13,6 +13,14 @@ namespace Pictura
 	class PICTURA_API Application
 	{
 	public:
+		enum class CloseBehavior
+		{
+			OnMainWindowClose,
+			OnLastWindowClose,
+			OnRequestExit
+		};
+
+	public:
 		Application();
 		virtual ~Application();
 
@@ -29,17 +37,23 @@ namespace Pictura
 		}
 
 	private:
-		Renderer::RendererType sRenderer;
+		Renderer::RendererType mRenderer;
 
 	public:
 		PVector<PString> Arguments;
+		Application::CloseBehavior ApplicationCloseBehavior;
+
 		static Application* CurrentApplication;
 		Renderer* CurrentRenderer;
+
+		Widgets::Window* MainWindow;
 		PVector<Widgets::Window*> WindowCollection;
 
 	public:
-		void SetRenderer(Renderer::RendererType RendererType, bool enableDebugMessages = false);
+		void SetRenderer(Renderer::RendererType rendererType, bool enableDebugMessages = false);
 		Renderer::RendererType GetRendererType() const;
+		void Exit();
+
 	};
 
 	Application* InitApplication();

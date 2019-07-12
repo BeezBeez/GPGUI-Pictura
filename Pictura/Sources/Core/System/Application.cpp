@@ -11,11 +11,14 @@ namespace Pictura
 	Application::Application()
 	{
 		Runtime::Assert(CurrentApplication, "Application was already initialized");
+
+		MainWindow = nullptr;
 		CurrentApplication = this;
 		CurrentRenderer = nullptr;
 		ApplicationStart += EventHandler::Bind(&Application::OnApplicationStart, this);
 		ApplicationClose += EventHandler::Bind(&Application::OnApplicationClose, this);
-		sRenderer = Renderer::RendererType::Null;
+		mRenderer = Renderer::RendererType::Null;
+		ApplicationCloseBehavior = CloseBehavior::OnRequestExit;
 	}
 
 	Application::~Application()
@@ -26,9 +29,9 @@ namespace Pictura
 		}
 	}
 
-	void Application::SetRenderer(Renderer::RendererType RendererType, bool enableDebugMessages)
+	void Application::SetRenderer(Renderer::RendererType rendererType, bool enableDebugMessages)
 	{
-		if (RendererType != Renderer::RendererType::Null && GetRendererType() != Renderer::RendererType::Null)
+		if (rendererType != Renderer::RendererType::Null && GetRendererType() != Renderer::RendererType::Null)
 		{
 			throw RendererException("You can't select a second time the application renderer at runtime !");
 			Runtime::ForceExitApplication();
@@ -47,7 +50,7 @@ namespace Pictura
 			delete CurrentRenderer;
 		}
 
-		switch (RendererType)
+		switch (rendererType)
 		{
 		case Renderer::RendererType::Null:
 			Debug::Log::Trace("Null renderer created.");
@@ -78,12 +81,20 @@ namespace Pictura
 			window->ResetWindow(true);
 		}
 
-		sRenderer = RendererType;
+		mRenderer = rendererType;
 	}
 
 	Renderer::RendererType Application::GetRendererType() const
 	{
-		return sRenderer;
+		return mRenderer;
+	}
+
+	void Application::Exit()
+	{
+		while (WindowCollection.size() > 0)
+		{
+			WindowCollection[0]->Close();
+		}
 	}
 }
 
