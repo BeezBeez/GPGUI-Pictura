@@ -4,6 +4,8 @@
 
 #if PLATFORM_WINDOWS == 1
 #include <Windows.h>
+#include <wrl.h>
+using namespace Microsoft::WRL;
 
 #define VK_USE_PLATFORM_WIN32_KHR 1
 #define SURFACE_EXTENSION_NAME "VK_KHR_win32_surface"

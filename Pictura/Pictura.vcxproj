@@ -114,10 +114,10 @@
     <ClInclude Include="Sources\Core\Exceptions\InvalidOperationException.h" />
     <ClInclude Include="Sources\Core\Exceptions\RendererException.h" />
     <ClInclude Include="Sources\Core\Exceptions\ThreadException.h" />
+    <ClInclude Include="Sources\Core\Exceptions\WinException.h" />
     <ClInclude Include="Sources\Core\PlatformMacro.h" />
     <ClInclude Include="Sources\Core\Rendering\CommandBuffer.h" />
     <ClInclude Include="Sources\Core\Rendering\CommandPool.h" />
-    <ClInclude Include="Sources\Core\Rendering\D3D12\D3D12Renderer.h" />
     <ClInclude Include="Sources\Core\Rendering\Renderer.h" />
     <ClInclude Include="Sources\Core\Rendering\Vulkan\VKCommandBuffer.h" />
     <ClInclude Include="Sources\Core\Rendering\Vulkan\VKCommandPool.h" />
