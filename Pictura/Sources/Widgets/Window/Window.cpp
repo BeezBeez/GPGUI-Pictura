@@ -18,8 +18,6 @@ namespace Pictura::Widgets
 
 		Size.Width = 0;
 		Size.Height = 0;
-
-		Application::CurrentApplication->WindowCollection.push_back(this);
 	}
 
 	Window::~Window()
@@ -34,16 +32,17 @@ namespace Pictura::Widgets
 				app->Exit();
 			}
 
-			if (app->WindowCollection.size() == 1)
+			if (app->WindowCollection.size() == 1 && app->ApplicationCloseBehavior == Application::CloseBehavior::OnLastWindowClose)
 			{
 				app->Exit();
 			}
-
-			if (this != nullptr)
-			{
-				delete this;
-			}
 		}
+	}
+
+	void Window::Show()
+	{
+		windowThread = Types::MakeUnique<Thread>(&Window::DisplayWindow, this);
+		Application::CurrentApplication->WindowCollection.push_back(this);
 	}
 
 	void Window::Update()

@@ -91,6 +91,7 @@ namespace Pictura
 
 	void Application::Exit()
 	{
+		ApplicationCloseBehavior = CloseBehavior::OnRequestExit;
 		while (WindowCollection.size() > 0)
 		{
 			WindowCollection[0]->Close();

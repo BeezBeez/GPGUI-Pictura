@@ -127,11 +127,6 @@ namespace Pictura::Widgets
 		GotFocus();
 	}
 
-	void Window::Show()
-	{
-		windowThread = Types::MakeUnique<Thread>(&Window::DisplayWindow, this);
-	}
-
 	void Window::DisplayWindow()
 	{
 		InitWindow();

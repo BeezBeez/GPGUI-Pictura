@@ -16,7 +16,7 @@ public:
 		Size.Height = 400;
 		Title = "My custom window";
 		Shown += EventHandler::Bind(&MyWindow::MyWindow_Shown, this);
-		//Closed += EventHandler::Bind(&MyWindow::MyWindow_Closed, this);
+		Closed += EventHandler::Bind(&MyWindow::MyWindow_Closed, this);
 	}
 
 	~MyWindow()
@@ -32,7 +32,7 @@ public:
 	void MyWindow_Closed()
 	{
 		Debug::Log::Trace("Bye MyWindow !");
-		Runtime::ForceExitApplication();
+		Application::CurrentApplication->Exit();
 	}
 };
 
