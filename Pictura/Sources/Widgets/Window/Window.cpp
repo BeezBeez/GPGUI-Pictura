@@ -2,7 +2,7 @@
 #include "Window.h"
 #include "Core/CoreException.h"
 #include "Core/System/Application.h"
-#include <Core\System\Runtime.h>
+#include "Core/System/Runtime.h"
 
 namespace Pictura::Widgets
 {
@@ -26,7 +26,7 @@ namespace Pictura::Widgets
 		{
 			Close();
 			auto app = Application::CurrentApplication;
-
+			Debug::Log::Warning("DESTROYED");
 			if (app->MainWindow == this && app->ApplicationCloseBehavior == Application::CloseBehavior::OnMainWindowClose)
 			{
 				app->Exit();
@@ -110,9 +110,6 @@ namespace Pictura::Widgets
 
 				break;
 			}
-			case Renderer::RendererType::DirectX12:
-				throw RendererException("D3D12 Surface was not implemented yet !");
-				break;
 			default:
 				break;
 		}
@@ -127,6 +124,8 @@ namespace Pictura::Widgets
 			Closed();
 			isOnScreen = false;
 		}
+
+		delete this;
 	}
 
 	void Window::DestroySurface()

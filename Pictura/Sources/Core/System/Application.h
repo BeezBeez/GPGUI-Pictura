@@ -53,6 +53,8 @@ namespace Pictura
 		void SetRenderer(Renderer::RendererType rendererType, bool enableDebugMessages = false);
 		Renderer::RendererType GetRendererType() const;
 		void Exit();
+	private:
+		bool isQuitting = false;
 
 	};
 

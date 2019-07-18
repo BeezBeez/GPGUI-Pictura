@@ -21,7 +21,7 @@ namespace Pictura::Widgets
 		default: 
 			break;
 		}
-
+		
 		return DefWindowProc(hWnd, uMsg, wParam, lParam);
 	}
 
@@ -78,6 +78,28 @@ namespace Pictura::Widgets
 		}
 
 		SetWindowLongPtr(win32Window, GWLP_USERDATA, LONG_PTR(this));
+
+		win32hdc = GetDC(win32Window);
+		if (win32hdc == nullptr)
+		{
+			DestroyWindow(win32Window);
+			throw WinException("Failed to get Window's device context !");
+		}
+
+		PIXELFORMATDESCRIPTOR pfd = { };
+		pfd.nSize = sizeof(pfd);
+		pfd.nSize = sizeof(PIXELFORMATDESCRIPTOR);
+		pfd.dwFlags = PFD_DOUBLEBUFFER | PFD_SUPPORT_OPENGL | PFD_DRAW_TO_WINDOW;
+		pfd.iPixelType = PFD_TYPE_RGBA;
+		pfd.cColorBits = 32; 
+		pfd.cDepthBits = 32;        
+		pfd.iLayerType = PFD_MAIN_PLANE;
+		int format = ChoosePixelFormat(win32hdc, &pfd);
+		if (format == 0 || SetPixelFormat(win32hdc, format, &pfd) == FALSE) {
+			ReleaseDC(win32Window, win32hdc);
+			DestroyWindow(win32Window);
+			throw RendererException("Failed to set a compatible pixel format !");
+		}
 	}
 
 	void Window::RemoveWindow()
@@ -102,9 +124,6 @@ namespace Pictura::Widgets
 				vkCreateWin32SurfaceKHR(*VKRendererRef->GetInstance(), &createInfo, nullptr, &vkSurface);
 				break;
 			}
-			case Renderer::RendererType::DirectX12:
-				throw RendererException("D3D12 Surface was not implemented yet !");
-				break;
 			default:
 				break;
 		}

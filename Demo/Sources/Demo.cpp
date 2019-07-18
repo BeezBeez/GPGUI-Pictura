@@ -16,7 +16,7 @@ public:
 		Size.Height = 400;
 		Title = "My custom window";
 		Shown += EventHandler::Bind(&MyWindow::MyWindow_Shown, this);
-		Closed += EventHandler::Bind(&MyWindow::MyWindow_Closed, this);
+		//Closed += EventHandler::Bind(&MyWindow::MyWindow_Closed, this);
 	}
 
 	~MyWindow()
@@ -44,19 +44,19 @@ public:
 		Application::OnApplicationStart(e);
 		
 		ApplicationCloseBehavior = CloseBehavior::OnMainWindowClose;
-		SetRenderer(Renderer::RendererType::Vulkan, false);
-
+		SetRenderer(Renderer::RendererType::Null, false);
+		
 		MainWindow = new MyWindow();
 		MainWindow->Show();
 
-		Thread::Delay(1000);
+		/**Thread::Delay(1000);
 
 		for (int i = 0; i < 5; i++)
 		{
 			auto wnd = new Window();
 			wnd->Title = "Window num" + Types::ToString(i);
 			wnd->Show();
-		}
+		}**/
 
 		Console::Pause();
 	}

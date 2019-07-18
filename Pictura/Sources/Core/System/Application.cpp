@@ -2,7 +2,6 @@
 #include "Application.h"
 #include "Runtime.h"
 #include "Core/Rendering/Vulkan/VKRenderer.h"
-#include "Core/Rendering/D3D12/D3D12Renderer.h"
 
 namespace Pictura
 {
@@ -52,22 +51,17 @@ namespace Pictura
 
 		switch (rendererType)
 		{
-		case Renderer::RendererType::Null:
-			Debug::Log::Trace("Null renderer created.");
-			break;
+			case Renderer::RendererType::Null:
+				Debug::Log::Trace("Null renderer created.");
+				break;
 
-		case Renderer::RendererType::DirectX12:
-			Debug::Log::Trace("Creating a DirectX 12 renderer...", "APPLICATION");
-			CurrentRenderer = new D3D12::D3D12Renderer();
-			break;
-
-		case Renderer::RendererType::Vulkan:
-			Debug::Log::Trace("Creating a Vulkan renderer...", "APPLICATION");
-			CurrentRenderer = new Vulkan::VKRenderer();
-			break;
-
-		default: 
-			break;
+			case Renderer::RendererType::Vulkan:
+				Debug::Log::Trace("Creating a Vulkan renderer...", "APPLICATION");
+				CurrentRenderer = new Vulkan::VKRenderer();
+				break;
+			default:
+				throw RendererException("Failed to instantiate a non implemented renderer...");
+				break;
 		}
 
 		if (CurrentRenderer != nullptr)
@@ -91,10 +85,15 @@ namespace Pictura
 
 	void Application::Exit()
 	{
-		ApplicationCloseBehavior = CloseBehavior::OnRequestExit;
-		while (WindowCollection.size() > 0)
+		if (!isQuitting)
 		{
-			WindowCollection[0]->Close();
+			isQuitting = true;
+
+			ApplicationCloseBehavior = CloseBehavior::OnRequestExit;
+			while (WindowCollection.size() > 0)
+			{
+				WindowCollection[0]->Close();
+			}
 		}
 	}
 }

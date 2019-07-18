@@ -12,7 +12,6 @@ namespace Pictura::Graphics
 		enum class RendererType
 		{
 			Null,
-			DirectX12,
 			Vulkan
 		};
 

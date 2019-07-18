@@ -6,7 +6,6 @@
 #include "Core/Debug/Log.h"
 #include "Threading/Thread.h"
 #include "Core/Rendering/Vulkan/VKRenderer.h"
-#include "Core/Rendering/D3D12/D3D12Renderer.h"
 
 using namespace Pictura::Maths;
 using namespace Pictura::Threading;
@@ -56,6 +55,7 @@ namespace Pictura::Widgets
 
 		void DestroySurface();
 
+
 	private:
 		PUniquePtr<Thread> windowThread = nullptr;
 		bool isOnScreen = false;
@@ -70,6 +70,7 @@ namespace Pictura::Widgets
 		PString	  win32ClassName;
 		HINSTANCE win32Instance = nullptr;
 		HWND	  win32Window = nullptr;
+		HDC win32hdc = nullptr;
 #endif
 	};
 }

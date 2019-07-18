@@ -30,7 +30,6 @@
 
 /** Pictura::Graphics **/
 #include "Core/Rendering/Renderer.h"
-#include "Core/Rendering/D3D12/D3D12Renderer.h"
 #include "Core/Rendering/Vulkan/VKRenderer.h"
 
 #include "Core/Rendering/CommandBuffer.h"
