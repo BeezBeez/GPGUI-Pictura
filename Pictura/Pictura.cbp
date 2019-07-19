@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Pictura" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="../Binaries/x64-Linux/Pictura" prefix_auto="1" extension_auto="1" />
+				<Option object_output="../Intermediate/Linux/Pictura/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="../Binaries/x64-Linux/Pictura" prefix_auto="1" extension_auto="1" />
+				<Option object_output="../Intermediate/Linux/Pictura/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="Sources/Core/Core.h" />
+		<Unit filename="Sources/Core/CoreException.h" />
+		<Unit filename="Sources/Core/Debug/Log.cpp" />
+		<Unit filename="Sources/Core/Debug/Log.h" />
+		<Unit filename="Sources/Core/Events/Event.h" />
+		<Unit filename="Sources/Core/Events/EventsArgs/EventArgs.h" />
+		<Unit filename="Sources/Core/Events/EventsArgs/StartupEventArgs.h" />
+		<Unit filename="Sources/Core/Exceptions/Exception.h" />
+		<Unit filename="Sources/Core/Exceptions/IOException.h" />
+		<Unit filename="Sources/Core/Exceptions/InvalidOperationException.h" />
+		<Unit filename="Sources/Core/Exceptions/RendererException.h" />
+		<Unit filename="Sources/Core/Exceptions/ThreadException.h" />
+		<Unit filename="Sources/Core/Exceptions/TypeException.h" />
+		<Unit filename="Sources/Core/Exceptions/WinException.h" />
+		<Unit filename="Sources/Core/PlatformMacro.h" />
+		<Unit filename="Sources/Core/Rendering/CommandBuffer.h" />
+		<Unit filename="Sources/Core/Rendering/CommandPool.h" />
+		<Unit filename="Sources/Core/Rendering/Renderer.h" />
+		<Unit filename="Sources/Core/Rendering/Vulkan/VKCommandBuffer.cpp" />
+		<Unit filename="Sources/Core/Rendering/Vulkan/VKCommandBuffer.h" />
+		<Unit filename="Sources/Core/Rendering/Vulkan/VKCommandPool.cpp" />
+		<Unit filename="Sources/Core/Rendering/Vulkan/VKCommandPool.h" />
+		<Unit filename="Sources/Core/Rendering/Vulkan/VKRenderer.h" />
+		<Unit filename="Sources/Core/System/Application.cpp" />
+		<Unit filename="Sources/Core/System/Application.h" />
+		<Unit filename="Sources/Core/System/Console.cpp" />
+		<Unit filename="Sources/Core/System/Console.h" />
+		<Unit filename="Sources/Core/System/EntryPoint.h" />
+		<Unit filename="Sources/Core/System/Runtime.cpp" />
+		<Unit filename="Sources/Core/System/Runtime.h" />
+		<Unit filename="Sources/Core/Timers/DateTime.cpp" />
+		<Unit filename="Sources/Core/Timers/DateTime.h" />
+		<Unit filename="Sources/Filesystem/Directory.cpp" />
+		<Unit filename="Sources/Filesystem/Directory.h" />
+		<Unit filename="Sources/Filesystem/File.cpp" />
+		<Unit filename="Sources/Filesystem/File.h" />
+		<Unit filename="Sources/Maths/Convert.h" />
+		<Unit filename="Sources/Maths/Size.h" />
+		<Unit filename="Sources/Pictura.h" />
+		<Unit filename="Sources/PicturaPCH.cpp" />
+		<Unit filename="Sources/PicturaPCH.h" />
+		<Unit filename="Sources/PicturaTypes.h" />
+		<Unit filename="Sources/Threading/Thread.cpp" />
+		<Unit filename="Sources/Threading/Thread.h" />
+		<Unit filename="Sources/Widgets/Window/Win32Window.cpp" />
+		<Unit filename="Sources/Widgets/Window/Window.cpp" />
+		<Unit filename="Sources/Widgets/Window/Window.h" />
+		<Unit filename="Sources/Widgets/Window/X11Window.cpp" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
