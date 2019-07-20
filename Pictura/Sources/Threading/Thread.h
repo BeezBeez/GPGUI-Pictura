@@ -8,6 +8,8 @@ namespace Pictura::Threading
 	class PICTURA_API Thread
 	{
 	public:
+		typedef void *ThreadHandle;
+
 		enum class ThreadPriority
 		{
 			Low = -2,
@@ -24,9 +26,14 @@ namespace Pictura::Threading
 			if (function != nullptr)
 			{
 				threadObj = new std::thread(function, args...);
+				isRunning = true;
+
 				ThreadId = std::hash<std::thread::id>{}(threadObj->get_id());
 				ThreadName = "THREAD_" + Types::ToString(Maths::Convert::ToHexadecimal(ThreadId));
+				Handle = threadObj->native_handle();
 				threadObj->detach();
+
+				ThreadStack.push_back(Types::MakeTuple(ThreadId, this));
 
 				Debug::Log::Trace("Creating thread [" + ThreadName + "]");
 			}
@@ -38,9 +45,11 @@ namespace Pictura::Threading
 			if (function != nullptr)
 			{
 				threadObj = Types::MakeUnique<std::thread>(function, thisPtr, args...);
+				isRunning = true;
 
 				ThreadId = std::hash<std::thread::id>{}(threadObj->get_id());
 				ThreadName = "THREAD_" + Types::ToString(Maths::Convert::ToHexadecimal(ThreadId));
+				Handle = threadObj->native_handle();
 				threadObj->detach();
 
 				ThreadStack.push_back(Types::MakeTuple(ThreadId, this));
@@ -51,16 +60,7 @@ namespace Pictura::Threading
 
 		~Thread()
 		{
-			if (threadObj != nullptr)
-			{
-				threadObj.reset();
-				Debug::Log::Trace("Stopping thread [" + ThreadName + "]");
-			}
-			else
-			{
-				Debug::Log::Warning("Thread [" + ThreadName + "] was stopped but not correctly...");
-				Debug::Log::Warning("A memory leak is possible !");
-			}
+			StopThread();
 		}
 
 		void StopThread();
@@ -69,14 +69,14 @@ namespace Pictura::Threading
 		static void Delay(int milliseconds);
 		static void SetPriority(Thread &thread, ThreadPriority priority);
 		static Thread* CurrentThread();
-
 	public:
 		PString ThreadName;
+		ThreadHandle Handle;
 		
 	private:
+		bool isRunning;
 		PUniquePtr<std::thread> threadObj;
 		uint64 ThreadId;
-		PMutex ThreadLock;
 
 		static PVector<PTuple<uint64, Thread*>> ThreadStack;
 	};	

@@ -90,10 +90,12 @@ namespace Pictura
 			isQuitting = true;
 
 			ApplicationCloseBehavior = CloseBehavior::OnRequestExit;
+			Debug::Log::Info("Closing all windows before exiting application...");
 			while (WindowCollection.size() > 0)
 			{
 				WindowCollection[0]->Close();
 			}
+			Debug::Log::Success("All windows were closed !");
 		}
 	}
 }

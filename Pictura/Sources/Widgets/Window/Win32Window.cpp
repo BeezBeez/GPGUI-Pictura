@@ -95,6 +95,7 @@ namespace Pictura::Widgets
 		pfd.cDepthBits = 32;        
 		pfd.iLayerType = PFD_MAIN_PLANE;
 		int format = ChoosePixelFormat(win32hdc, &pfd);
+
 		if (format == 0 || SetPixelFormat(win32hdc, format, &pfd) == FALSE) {
 			ReleaseDC(win32Window, win32hdc);
 			DestroyWindow(win32Window);
@@ -104,9 +105,10 @@ namespace Pictura::Widgets
 
 	void Window::RemoveWindow()
 	{
-		windowThread.get()->StopThread();
 		DestroyWindow(win32Window);
 		UnregisterClass(win32ClassName.c_str(), win32Instance);
+		windowThread.reset();
+		isOnScreen = false;
 	}
 
 	void Window::BindSurface()
@@ -126,6 +128,36 @@ namespace Pictura::Widgets
 			}
 			default:
 				break;
+		}
+	}
+
+	void Window::Show()
+	{
+		if (win32Window == nullptr)
+		{
+			windowThread = Types::MakeUnique<Thread>(&Window::DisplayWindow, this);
+			Application::CurrentApplication->WindowCollection.push_back(this);
+		}
+		else
+		{
+			if (!IsWindowVisible(win32Window))
+			{
+				ShowWindow(win32Window, SW_SHOW);
+				UpdateWindow(win32Window);
+				Focus();
+				Shown();
+			}
+			else {
+				Debug::Log::Error("WOOOOOOOOOW !!!");
+			}
+		}
+	}
+
+	void Window::Hide()
+	{
+		if (isOnScreen)
+		{
+			ShowWindow(win32Window, SW_HIDE);
 		}
 	}
 

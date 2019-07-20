@@ -22,35 +22,30 @@ namespace Pictura::Widgets
 
 	Window::~Window()
 	{
-		if (!isClosing)
+		auto app = Application::CurrentApplication;
+		if (app->MainWindow == this && app->ApplicationCloseBehavior == Application::CloseBehavior::OnMainWindowClose)
 		{
-			Close();
-			auto app = Application::CurrentApplication;
-			Debug::Log::Warning("DESTROYED");
-			if (app->MainWindow == this && app->ApplicationCloseBehavior == Application::CloseBehavior::OnMainWindowClose)
-			{
-				app->Exit();
-			}
-
-			if (app->WindowCollection.size() == 1 && app->ApplicationCloseBehavior == Application::CloseBehavior::OnLastWindowClose)
-			{
-				app->Exit();
-			}
+			Debug::Log::Trace("Main window was closed, exiting application...");
+			app->Exit();
 		}
-	}
 
-	void Window::Show()
-	{
-		windowThread = Types::MakeUnique<Thread>(&Window::DisplayWindow, this);
-		Application::CurrentApplication->WindowCollection.push_back(this);
+		if (app->WindowCollection.size() == 1 && app->ApplicationCloseBehavior == Application::CloseBehavior::OnLastWindowClose)
+		{
+			Debug::Log::Trace("Last window was closed, exiting application...");
+			app->Exit();
+		}
 	}
 
 	void Window::Update()
 	{
 		while (isOnScreen)
 		{
-			RenderWindow();
-			Updated();
+			if (IsWindowVisible(win32Window)) //TODO : Make platform independent.
+			{
+				Debug::Log::Info("COUCOU");
+				RenderWindow();
+				Updated();
+			}
 		}
 	}
 
@@ -117,15 +112,13 @@ namespace Pictura::Widgets
 
 	void Window::Close()
 	{
-		if (isOnScreen) {
-			Types::Vector::RemoveElement(Application::CurrentApplication->WindowCollection, this);
+		if (isOnScreen && !isClosing) {
 			isClosing = true;
 			RemoveWindow();
 			Closed();
-			isOnScreen = false;
+			Types::Vector::RemoveElement(Application::CurrentApplication->WindowCollection, this);
+			delete this;
 		}
-
-		delete this;
 	}
 
 	void Window::DestroySurface()

@@ -27,6 +27,10 @@ namespace Pictura::Widgets
 		virtual void OnClosed() {}
 		void Close();
 
+		Event<void> Hidden;
+		virtual void OnHid() {}
+		void Hide();
+
 		Event<void> GotFocus;
 		virtual void OnGotFocus() {}
 		void Focus();

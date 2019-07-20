@@ -44,19 +44,25 @@ public:
 		Application::OnApplicationStart(e);
 		
 		ApplicationCloseBehavior = CloseBehavior::OnMainWindowClose;
-		SetRenderer(Renderer::RendererType::Null, false);
+		SetRenderer(Renderer::RendererType::Vulkan, false);
 		
 		MainWindow = new MyWindow();
 		MainWindow->Show();
 
-		/**Thread::Delay(1000);
+		Thread::Delay(5000);
 
-		for (int i = 0; i < 5; i++)
+		for (int i = 0; i < 2; i++)
 		{
 			auto wnd = new Window();
-			wnd->Title = "Window num" + Types::ToString(i);
+			wnd->Title = "Window number " + Types::ToString(i);
 			wnd->Show();
-		}**/
+		}
+
+		Thread::Delay(1500);
+		MainWindow->Hide();
+
+		Thread::Delay(2000);
+		MainWindow->Show();
 
 		Console::Pause();
 	}

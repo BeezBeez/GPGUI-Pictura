@@ -1,0 +1,269 @@
+# depslib dependency file v1.0
+1560565328 source:c:\dev\pictura\pictura\sources\core\debug\log.cpp
+	"PicturaPCH.h"
+	"Log.h"
+	"Core/Timers/DateTime.h"
+	"Core/System/Console.h"
+
+1561817564 c:\dev\pictura\pictura\sources\picturapch.h
+	<cstdio>
+	<iomanip>
+	<iostream>
+	<fstream>
+	<memory>
+	<utility>
+	<algorithm>
+	<functional>
+	<filesystem>
+	<chrono>
+	<ctime>
+	<time.h>
+	<string>
+	<sstream>
+	<vector>
+	<map>
+	<unordered_map>
+	<unordered_set>
+	<typeinfo>
+	<thread>
+	<mutex>
+	<shared_mutex>
+	"Core/PlatformMacro.h"
+	<Windows.h>
+
+1559671462 c:\dev\pictura\pictura\sources\filesystem
+
+1559678957 c:\dev\pictura\pictura\sources\core\platformmacro.h
+
+1560565205 c:\dev\pictura\pictura\sources\core\debug\log.h
+	"Core/Core.h"
+
+1563022183 c:\dev\pictura\pictura\sources\core\core.h
+	"PlatformMacro.h"
+	<Windows.h>
+	<wrl.h>
+	<vulkan/vulkan.h>
+	"PicturaTypes.h"
+
+1555449914 c:\vulkansdk\include\vulkan\vulkan.h
+	"vk_platform.h"
+	"vulkan_core.h"
+	"vulkan_android.h"
+	<zircon/types.h>
+	"vulkan_fuchsia.h"
+	"vulkan_ios.h"
+	"vulkan_macos.h"
+	"vulkan_metal.h"
+	"vulkan_vi.h"
+	<wayland-client.h>
+	"vulkan_wayland.h"
+	<windows.h>
+	"vulkan_win32.h"
+	<xcb/xcb.h>
+	"vulkan_xcb.h"
+	<X11/Xlib.h>
+	"vulkan_xlib.h"
+	<X11/Xlib.h>
+	<X11/extensions/Xrandr.h>
+	"vulkan_xlib_xrandr.h"
+	<ggp_c/vulkan_types.h>
+	"vulkan_ggp.h"
+
+1555449914 c:\vulkansdk\include\vulkan\vk_platform.h
+	<stddef.h>
+	<stdint.h>
+
+1555449914 c:\vulkansdk\include\vulkan\vulkan_core.h
+	"vk_platform.h"
+
+1555449914 c:\vulkansdk\include\vulkan\vulkan_android.h
+
+1555449914 c:\vulkansdk\include\vulkan\vulkan_fuchsia.h
+
+1555449914 c:\vulkansdk\include\vulkan\vulkan_ios.h
+
+1555449914 c:\vulkansdk\include\vulkan\vulkan_macos.h
+
+1555449914 c:\vulkansdk\include\vulkan\vulkan_metal.h
+
+1555449914 c:\vulkansdk\include\vulkan\vulkan_vi.h
+
+1555449914 c:\vulkansdk\include\vulkan\vulkan_wayland.h
+
+1555449914 c:\vulkansdk\include\vulkan\vulkan_win32.h
+
+1555449914 c:\vulkansdk\include\vulkan\vulkan_xcb.h
+
+1555449914 c:\vulkansdk\include\vulkan\vulkan_xlib.h
+
+1555449914 c:\vulkansdk\include\vulkan\vulkan_xlib_xrandr.h
+
+1555449914 c:\vulkansdk\include\vulkan\vulkan_ggp.h
+
+1563553802 c:\dev\pictura\pictura\sources\picturatypes.h
+	"PicturaPCH.h"
+
+1559671458 c:\dev\pictura\pictura\sources\core\timers\datetime.h
+	"Core/Core.h"
+
+1561995720 c:\dev\pictura\pictura\sources\core\system\console.h
+	"Core/Core.h"
+
+1561749009 source:c:\dev\pictura\pictura\sources\core\rendering\vulkan\vkcommandbuffer.cpp
+	"VKCommandBuffer.h"
+	"VKRenderer.h"
+
+1561802935 c:\dev\pictura\pictura\sources\core\rendering\vulkan\vkcommandbuffer.h
+	"Core/Rendering/CommandBuffer.h"
+
+1561075945 c:\dev\pictura\pictura\sources\core\rendering\commandbuffer.h
+	"Core/Core.h"
+	"CommandPool.h"
+
+1560985883 c:\dev\pictura\pictura\sources\core\rendering\commandpool.h
+	"Core/Core.h"
+
+1562290177 c:\dev\pictura\pictura\sources\core\rendering\vulkan\vkrenderer.h
+	"Core/Rendering/Renderer.h"
+	"VKCommandPool.h"
+	"VKCommandBuffer.h"
+
+1563461403 c:\dev\pictura\pictura\sources\core\rendering\renderer.h
+	"Core/Core.h"
+	"Core/Debug/Log.h"
+	"CommandBuffer.h"
+	"Core\Exceptions\RendererException.h"
+
+1561075567 c:\dev\pictura\pictura\sources\core\exceptions\rendererexception.h
+	"Exception.h"
+
+1559488266 c:\dev\pictura\pictura\sources\core\exceptions\exception.h
+	"PicturaPCH.h"
+	"Core/Core.h"
+	"Core/Debug/Log.h"
+
+1560991400 c:\dev\pictura\pictura\sources\core\rendering\vulkan\vkcommandpool.h
+	<vulkan/vulkan.h>
+	"Core/Rendering/CommandPool.h"
+
+1561071818 source:c:\dev\pictura\pictura\sources\core\rendering\vulkan\vkcommandpool.cpp
+	"VKCommandPool.h"
+	"VKRenderer.h"
+
+1563461403 source:c:\dev\pictura\pictura\sources\core\system\application.cpp
+	"PicturaPCH.h"
+	"Application.h"
+	"Runtime.h"
+	"Core/Rendering/Vulkan/VKRenderer.h"
+
+1563461403 c:\dev\pictura\pictura\sources\core\system\application.h
+	"Core/Core.h"
+	"Core/Events/Event.h"
+	"Core/Events/EventsArgs/StartupEventArgs.h"
+	"Widgets/Window/Window.h"
+	"Core/Rendering/Renderer.h"
+
+1561991543 c:\dev\pictura\pictura\sources\core\events\event.h
+	<list>
+	<utility>
+	<thread>
+	<mutex>
+	<shared_mutex>
+
+1559428371 c:\dev\pictura\pictura\sources\core\events\eventsargs\startupeventargs.h
+	"EventArgs.h"
+
+1559426856 c:\dev\pictura\pictura\sources\core\events\eventsargs\eventargs.h
+	"Core/Core.h"
+
+1563461403 c:\dev\pictura\pictura\sources\widgets\window\window.h
+	"Core/Core.h"
+	"Core/CoreException.h"
+	"Maths/Size.h"
+	"Core/Events/Event.h"
+	"Core/Debug/Log.h"
+	"Threading/Thread.h"
+	"Core/Rendering/Vulkan/VKRenderer.h"
+
+1563022183 c:\dev\pictura\pictura\sources\core\coreexception.h
+	"Core/Exceptions/Exception.h"
+	"Core/Exceptions/InvalidOperationException.h"
+	"Core/Exceptions/IOException.h"
+	"Core/Exceptions/RendererException.h"
+	"Core/Exceptions/ThreadException.h"
+	"Core/Exceptions/TypeException.h"
+	"Core/Exceptions/WinException.h"
+
+1560557071 c:\dev\pictura\pictura\sources\core\exceptions\invalidoperationexception.h
+	"Exception.h"
+
+1558125160 c:\dev\pictura\pictura\sources\core\exceptions\ioexception.h
+	"Exception.h"
+
+1561996452 c:\dev\pictura\pictura\sources\core\exceptions\threadexception.h
+	"Exception.h"
+
+1558125160 c:\dev\pictura\pictura\sources\core\exceptions\typeexception.h
+	"Exception.h"
+
+1563022183 c:\dev\pictura\pictura\sources\core\exceptions\winexception.h
+	"Exception.h"
+
+1561765711 c:\dev\pictura\pictura\sources\maths\size.h
+
+1562078385 c:\dev\pictura\pictura\sources\threading\thread.h
+	"Core/Core.h"
+	"Core/CoreException.h"
+	"Maths/Convert.h"
+
+1562027430 c:\dev\pictura\pictura\sources\maths\convert.h
+	"PicturaPCH.h"
+	"Core/Core.h"
+
+1561807028 c:\dev\pictura\pictura\sources\core\system\runtime.h
+	"Core/Core.h"
+
+1561996261 source:c:\dev\pictura\pictura\sources\core\system\console.cpp
+	"PicturaPCH.h"
+	"Core/System/Runtime.h"
+	"Console.h"
+
+1561807047 source:c:\dev\pictura\pictura\sources\core\system\runtime.cpp
+	"PicturaPCH.h"
+	"Runtime.h"
+	<utility>
+	"Core/Debug/Log.h"
+
+1559677930 source:c:\dev\pictura\pictura\sources\core\timers\datetime.cpp
+	"PicturaPCH.h"
+	"DateTime.h"
+
+1558645535 source:c:\dev\pictura\pictura\sources\filesystem\directory.cpp
+	"PicturaPCH.h"
+	"Directory.h"
+
+1559671462 c:\dev\pictura\pictura\sources\filesystem\directory.h
+	"Core/Core.h"
+
+1557086128 source:c:\dev\pictura\pictura\sources\picturapch.cpp
+	"PicturaPCH.h"
+
+1562027483 source:c:\dev\pictura\pictura\sources\threading\thread.cpp
+	"PicturaPCH.h"
+	"Thread.h"
+	"Core/Debug/Log.h"
+
+1563461403 source:c:\dev\pictura\pictura\sources\widgets\window\win32window.cpp
+	"Window.h"
+	"Core/System/Application.h"
+	"Core/System/Runtime.h"
+
+1563461403 source:c:\dev\pictura\pictura\sources\widgets\window\window.cpp
+	"Window.h"
+	"Core/CoreException.h"
+	"Core/System/Application.h"
+	"Core/System/Runtime.h"
+
+1561802381 source:c:\dev\pictura\pictura\sources\widgets\window\x11window.cpp
+	"Window.h"
+

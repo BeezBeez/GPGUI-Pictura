@@ -18,7 +18,23 @@ namespace Pictura::Threading
 
 	void Thread::StopThread()
 	{
-		delete this;
+		if (threadObj != nullptr && isRunning)
+		{
+			threadObj = Types::MakeUnique<std::thread>([]() {});
+			isRunning = false;
+			if (threadObj->joinable())
+			{
+				threadObj->join();
+			}
+
+			threadObj.reset();
+			Debug::Log::Trace("Stopping thread [" + ThreadName + "]");
+		}
+		else
+		{
+			Debug::Log::Warning("Thread [" + ThreadName + "] was stopped but not correctly...");
+			Debug::Log::Warning("A memory leak is possible !");
+		}
 	}
 
 	Thread* Thread::CurrentThread()

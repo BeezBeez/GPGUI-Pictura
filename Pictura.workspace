@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_workspace_file>
+	<Workspace title="Pictura">
+		<Project filename="Pictura/Pictura.cbp" />
+		<Project filename="Demo/Demo.cbp">
+			<Depends filename="Pictura/Pictura.cbp" />
+		</Project>
+	</Workspace>
+</CodeBlocks_workspace_file>

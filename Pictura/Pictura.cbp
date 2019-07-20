@@ -4,13 +4,14 @@
 	<Project>
 		<Option title="Pictura" />
 		<Option pch_mode="2" />
-		<Option compiler="gcc" />
+		<Option compiler="clang" />
+		<Option extended_obj_names="1" />
 		<Build>
 			<Target title="Debug">
-				<Option output="../Binaries/x64-Linux/Pictura" prefix_auto="1" extension_auto="1" />
-				<Option object_output="../Intermediate/Linux/Pictura/" />
-				<Option type="1" />
-				<Option compiler="gcc" />
+				<Option output="../Binaries/x64-clang/Pictura" imp_lib="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).a" def_file="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).def" prefix_auto="1" extension_auto="1" />
+				<Option object_output="../Intermediate/Clang/Pictura/" />
+				<Option type="3" />
+				<Option compiler="clang" />
 				<Compiler>
 					<Add option="-g" />
 				</Compiler>
@@ -19,7 +20,7 @@
 				<Option output="../Binaries/x64-Linux/Pictura" prefix_auto="1" extension_auto="1" />
 				<Option object_output="../Intermediate/Linux/Pictura/" />
 				<Option type="1" />
-				<Option compiler="gcc" />
+				<Option compiler="clang" />
 				<Compiler>
 					<Add option="-O2" />
 				</Compiler>
@@ -29,8 +30,18 @@
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-m64" />
+			<Add option="-O3" />
 			<Add option="-Wall" />
+			<Add option="-v" />
+			<Add option="-DPICTURA_LIB" />
+			<Add directory="Sources" />
+			<Add directory="C:/VulkanSDK/Include" />
 		</Compiler>
+		<Linker>
+			<Add option="-m64" />
+			<Add library="C:/VulkanSDK/Lib/vulkan-1.lib" />
+		</Linker>
 		<Unit filename="Sources/Core/Core.h" />
 		<Unit filename="Sources/Core/CoreException.h" />
 		<Unit filename="Sources/Core/Debug/Log.cpp" />
@@ -82,6 +93,7 @@
 		<Extensions>
 			<code_completion />
 			<debugger />
+			<envvars />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

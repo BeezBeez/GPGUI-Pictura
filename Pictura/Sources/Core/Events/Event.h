@@ -262,7 +262,8 @@ namespace Pictura
 		EventBase& operator=(const EventBase&);
 
 	protected:
-		std::list< EventHandlerImpl<T>* > m_eventHandlers;
+		std::list< EventHandlerImpl<T>* > m_eventHandlers{};
+
 	};
 	template<typename T>
 	class Event : public EventBase<T>
@@ -287,8 +288,9 @@ namespace Pictura
 	public:
 		void operator()()
 		{
-			for (auto pHandler : m_eventHandlers)
+			for (std::list< EventHandlerImpl<void>* >::iterator iter = m_eventHandlers.begin(); iter != m_eventHandlers.end(); ++iter)
 			{
+				EventHandlerImpl<void>* pHandler = *iter;
 				if (pHandler)
 				{
 					pHandler->OnEvent();
