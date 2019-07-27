@@ -18,11 +18,6 @@ namespace Pictura::Graphics::OpenGL
 
 		void Init() override
 		{
-			if (ShowDebugMessage)
-			{
-				Debug::Log::Trace("Creating an OpenGL Context...");
-			}
-
 			if (glfwInit() != 1) {
 				throw RendererException("Failed to initialize OpenGL !");
 			}
@@ -45,11 +40,14 @@ namespace Pictura::Graphics::OpenGL
 				throw RendererException("Failed to create an OpenGL context !");
 			}
 			
-			Debug::Log::Trace("OpenGL Renderer informations :", "OPENGL");
-			Debug::Log::Trace("		- Version : " + Types::ToString(GL->GetString(GL_VERSION)), "OPENGL");
-			Debug::Log::Trace("		- Vendor : " + Types::ToString(GL->GetString(GL_VENDOR)), "OPENGL");
-			Debug::Log::Trace("		- Renderer : " + Types::ToString(GL->GetString(GL_RENDERER)), "OPENGL");
-			Debug::Log::Trace("		- Shading Language Version : " + Types::ToString(GL->GetString(GL_SHADING_LANGUAGE_VERSION)), "OPENGL");
+			if (ShowDebugMessage)
+			{
+				Debug::Log::Trace("OpenGL Renderer informations :", "OPENGL");
+				Debug::Log::Trace("		- Version : " + Types::ToString(GL->GetString(GL_VERSION)), "OPENGL");
+				Debug::Log::Trace("		- Vendor : " + Types::ToString(GL->GetString(GL_VENDOR)), "OPENGL");
+				Debug::Log::Trace("		- Renderer : " + Types::ToString(GL->GetString(GL_RENDERER)), "OPENGL");
+				Debug::Log::Trace("		- Shading Language Version : " + Types::ToString(GL->GetString(GL_SHADING_LANGUAGE_VERSION)), "OPENGL");
+			}
 			Debug::Log::Success("OpenGL Renderer created successfully !", "RENDERER");
 		}
 

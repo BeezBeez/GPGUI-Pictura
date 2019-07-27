@@ -15,7 +15,7 @@ public:
 		Application::OnApplicationStart(e);
 		
 		ApplicationCloseBehavior = CloseBehavior::OnMainWindowClose;
-		PString mode = File::Read("C:\Renderer.txt");
+		PString mode = File::Read("C:\\Renderer.txt");
 		Renderer::RendererType RMode = (mode == "OpenGL" ? Renderer::RendererType::OpenGL : mode == "Vulkan" ? Renderer::RendererType::Vulkan : Renderer::RendererType::Null);
 		SetRenderer(RMode, true);
 
