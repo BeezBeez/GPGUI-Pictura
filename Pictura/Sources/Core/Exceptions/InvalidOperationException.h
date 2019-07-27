@@ -6,6 +6,6 @@ namespace Pictura
 	class PICTURA_API InvalidOperationException : public Exception
 	{
 	public:
-		explicit InvalidOperationException(PString message) : Exception(message) {}
+		explicit InvalidOperationException(PString message) : Exception(message, "InvalidOperationException") {}
 	};
 }

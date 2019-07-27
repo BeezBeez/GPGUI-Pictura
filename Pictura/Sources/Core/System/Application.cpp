@@ -51,7 +51,7 @@ namespace Pictura
 				break;
 			case Renderer::RendererType::OpenGL:
 				Debug::Log::Trace("Creating a OpenGL renderer...", "APPLICATION");
-				CurrentRenderer = new OpenGL::GLRenderer(4, 4);
+				CurrentRenderer = new OpenGL::GLRenderer(4, 3);
 				break;
 			default:
 				throw RendererException("Failed to instantiate a non implemented renderer...");

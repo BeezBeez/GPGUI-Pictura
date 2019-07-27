@@ -64,6 +64,11 @@ namespace Pictura::Filesystem
 
 	PString File::Read(const char targetFile[260])
 	{
+		if (!File::Exist(targetFile))
+		{
+			throw IOException("File not found !");
+		}
+
 		std::ifstream file(targetFile, std::ios::in | std::ios::binary | std::ios::ate);
 
 		std::ifstream::pos_type fileSize = file.tellg();

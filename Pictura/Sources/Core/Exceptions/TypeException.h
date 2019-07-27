@@ -6,6 +6,6 @@ namespace Pictura::Types
 	class PICTURA_API TypeException : public Exception
 	{
 	public:
-		explicit TypeException(PString message) : Exception(message) {}
+		explicit TypeException(PString message) : Exception(message, "TypeException") {}
 	};
 }

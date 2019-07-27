@@ -15,7 +15,9 @@ public:
 		Application::OnApplicationStart(e);
 		
 		ApplicationCloseBehavior = CloseBehavior::OnMainWindowClose;
-		SetRenderer(Renderer::RendererType::OpenGL, false);
+		PString mode = File::Read("C:\Renderer.txt");
+		Renderer::RendererType RMode = (mode == "OpenGL" ? Renderer::RendererType::OpenGL : mode == "Vulkan" ? Renderer::RendererType::Vulkan : Renderer::RendererType::Null);
+		SetRenderer(RMode, true);
 
 		MainWindow = new Window();
 		MainWindow->SetSize(PSize(640, 480));

@@ -6,6 +6,6 @@ namespace Pictura
 	class PICTURA_API WinException : public Exception
 	{
 	public:
-		explicit WinException(PString message) : Exception(message) {}
+		explicit WinException(PString message) : Exception(message, "WinException") {}
 	};
 }

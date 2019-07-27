@@ -6,6 +6,6 @@ namespace Pictura::Graphics
 	class PICTURA_API RendererException : public Exception
 	{
 	public:
-		explicit RendererException(PString message) : Exception(message) {}
+		explicit RendererException(PString message) : Exception(message, "RendererException") {}
 	};
 }
