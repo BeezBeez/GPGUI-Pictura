@@ -2,7 +2,7 @@
 #include "Core/Core.h"
 #include "Core/Debug/Log.h"
 #include "CommandBuffer.h"
-#include "Core\Exceptions\RendererException.h"
+#include "Core/Exceptions/RendererException.h"
 
 namespace Pictura::Graphics
 {
@@ -12,6 +12,7 @@ namespace Pictura::Graphics
 		enum class RendererType
 		{
 			Null,
+			OpenGL,
 			Vulkan
 		};
 

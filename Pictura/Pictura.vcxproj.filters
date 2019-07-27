@@ -9,12 +9,11 @@
     <ClCompile Include="Sources\Core\Timers\DateTime.cpp" />
     <ClCompile Include="Sources\Core\System\Application.cpp" />
     <ClCompile Include="Sources\Core\System\Runtime.cpp" />
-    <ClCompile Include="Sources\Widgets\Window\Win32Window.cpp" />
     <ClCompile Include="Sources\Widgets\Window\Window.cpp" />
-    <ClCompile Include="Sources\Widgets\Window\X11Window.cpp" />
     <ClCompile Include="Sources\Core\Rendering\Vulkan\VKCommandPool.cpp" />
     <ClCompile Include="Sources\Core\Rendering\Vulkan\VKCommandBuffer.cpp" />
     <ClCompile Include="Sources\Threading\Thread.cpp" />
+    <ClCompile Include="Libraries\Src\gl.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\Core\CoreException.h" />
@@ -51,5 +50,14 @@
     <ClInclude Include="Sources\Core\Exceptions\ThreadException.h" />
     <ClInclude Include="Sources\Maths\Convert.h" />
     <ClInclude Include="Sources\Core\Exceptions\WinException.h" />
+    <ClInclude Include="Libraries\Includes\GLFW\glfw3.h" />
+    <ClInclude Include="Libraries\Includes\GLFW\glfw3native.h" />
+    <ClInclude Include="Sources\Core\Rendering\OpenGL\GLRenderer.h" />
+    <ClInclude Include="Libraries\Includes\glad\gl.h" />
+    <ClInclude Include="Libraries\Includes\KHR\khrplatform.h" />
+    <ClInclude Include="Sources\Core\System\Property.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
   </ItemGroup>
 </Project>

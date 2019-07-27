@@ -47,3 +47,4 @@ using namespace Microsoft::WRL;
 
 #include <vulkan/vulkan.h>
 #include "PicturaTypes.h"
+#include "System/Property.h"
