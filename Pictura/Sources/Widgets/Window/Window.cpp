@@ -47,16 +47,14 @@ namespace Pictura::Widgets
 			glfwPollEvents();
 			if (GetWidgetVisibility() == Visibility::Visible)
 			{
-				if (isOpenGL) {
-					glfwMakeContextCurrent(WindowHandle);
-				}
+				Application::CurrentApplication->CurrentRenderer->SetRendererUserData(WindowHandle);
+				Application::CurrentApplication->GetOpenGLRenderer()->MakeContextCurrent();
 
 				Update();
 				Render();
 
-				if (isOpenGL) {
-					glfwSwapBuffers(WindowHandle);
-				}
+				Application::CurrentApplication->CurrentRenderer->SetRendererUserData(WindowHandle);
+				Application::CurrentApplication->CurrentRenderer->SwapBuffers();
 			}
 		}
 		

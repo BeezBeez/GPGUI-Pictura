@@ -18,7 +18,7 @@ namespace Pictura::Widgets
 		virtual void OnTextChanged(PString PreviousValue, PString NewValue) {}
 		void Render() override
 		{
-			Debug::Log::Trace(this->GetTextColor());
+
 		}
 	};
 }

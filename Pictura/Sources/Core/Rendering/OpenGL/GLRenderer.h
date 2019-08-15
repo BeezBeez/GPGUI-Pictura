@@ -80,9 +80,14 @@ namespace Pictura::Graphics::OpenGL
 			GL->Viewport(position.X, position.Y, size.Width, size.Height);
 		}
 
+		void MakeContextCurrent()
+		{
+			glfwMakeContextCurrent((GLFWwindow*)GetRendererUserData());
+		}
+
 		void SwapBuffers() override
 		{
-
+			glfwSwapBuffers((GLFWwindow*)GetRendererUserData());
 		}
 
 	private:

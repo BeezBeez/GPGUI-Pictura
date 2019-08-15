@@ -19,6 +19,9 @@ namespace Pictura::Graphics
 			Vulkan
 		};
 
+		typedef void* UserData;
+		PROPERTY(UserData, RendererUserData, nullptr)
+
 	public:
 		virtual ~Renderer() { }
 
@@ -39,6 +42,5 @@ namespace Pictura::Graphics
 	public:
 		CommandPool* CommandPool = nullptr;
 		CommandBuffer* CommandBuffer = nullptr;
-
 	};
 }

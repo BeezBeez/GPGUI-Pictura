@@ -19,7 +19,7 @@ public:
 	void DemoApplication_ApplicationStart(StartupEventArgs& e)
 	{
 		ApplicationCloseBehavior = CloseBehavior::OnLastWindowClose;
-		SetRenderer(Renderer::RendererType::OpenGL, true);
+		SetRenderer(Renderer::RendererType::Vulkan, true);
 
 		MainWindow = new Window();
 		MainWindow->SetSize(PSize(1024, 600));
@@ -32,7 +32,7 @@ public:
 
 		Label* Label1 = new Label();
 		Label1->SetName("Label1");
-		Label1->SetTextColor(Color::White);
+		Label1->SetTextColor(Color::PureRed);
 		MainWindow->AddWidget(Label1);
 
 		auto AnotherWindow = new Window();
