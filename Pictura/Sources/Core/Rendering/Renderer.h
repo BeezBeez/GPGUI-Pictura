@@ -32,10 +32,10 @@ namespace Pictura::Graphics
 		virtual void CreateCommandBuffer() = 0;
 
 	public:
+		virtual void MakeContextCurrent() = 0;
 		virtual void SwapBuffers() = 0;
 		virtual void ClearColor(Color color) = 0;
 		virtual void CreateViewport(Maths::PPosition position, Maths::PSize size) = 0;
-
 	public:
 		bool ShowDebugMessage = false;
 

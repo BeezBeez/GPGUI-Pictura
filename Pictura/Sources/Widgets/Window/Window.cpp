@@ -44,11 +44,11 @@ namespace Pictura::Widgets
 
 		while (!glfwWindowShouldClose(WindowHandle))
 		{
-			glfwPollEvents();
 			if (GetWidgetVisibility() == Visibility::Visible)
 			{
+				glfwPollEvents();
 				Application::CurrentApplication->CurrentRenderer->SetRendererUserData(WindowHandle);
-				Application::CurrentApplication->GetOpenGLRenderer()->MakeContextCurrent();
+				Application::CurrentApplication->CurrentRenderer->MakeContextCurrent();
 
 				Update();
 				Render();

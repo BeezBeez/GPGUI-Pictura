@@ -62,17 +62,21 @@ namespace Pictura::Graphics::Vulkan
 		}
 
 	public:
+		void MakeContextCurrent() override
+		{
+			
+		}
+
+		void SwapBuffers() override
+		{
+
+		}
 		void ClearColor(Color color) override
 		{
 			
 		}
 
 		void CreateViewport(Maths::PPosition position, Maths::PSize size) override
-		{
-
-		}
-
-		void SwapBuffers() override
 		{
 
 		}

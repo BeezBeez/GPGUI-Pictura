@@ -69,6 +69,16 @@ namespace Pictura::Graphics::OpenGL
 		}
 
 	public:
+		void MakeContextCurrent() override
+		{
+			glfwMakeContextCurrent((GLFWwindow*)GetRendererUserData());
+		}
+
+		void SwapBuffers() override
+		{
+			glfwSwapBuffers((GLFWwindow*)GetRendererUserData());
+		}
+
 		void ClearColor(Color color) override
 		{
 			GL->Clear(GL_COLOR_BUFFER_BIT);
@@ -80,15 +90,6 @@ namespace Pictura::Graphics::OpenGL
 			GL->Viewport(position.X, position.Y, size.Width, size.Height);
 		}
 
-		void MakeContextCurrent()
-		{
-			glfwMakeContextCurrent((GLFWwindow*)GetRendererUserData());
-		}
-
-		void SwapBuffers() override
-		{
-			glfwSwapBuffers((GLFWwindow*)GetRendererUserData());
-		}
 
 	private:
 		static void ErrorCallback(int error, const char* description)
