@@ -3,6 +3,7 @@
 #define PLATFORM_WINDOWS 0
 #define PLATFORM_LINUX 0
 #define PLATFORM_OSX 0
+#define _GLFW_VULKAN_STATIC
 
 #if defined(_WIN32) || defined(_MINGW32)
 #undef PLATFORM_WINDOWS

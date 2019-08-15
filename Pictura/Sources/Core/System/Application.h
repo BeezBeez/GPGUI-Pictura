@@ -1,7 +1,6 @@
 #pragma once
 #include "Core/Core.h"
 #include "Core/Events/Event.h"
-#include "Core/Events/EventsArgs/StartupEventArgs.h"
 #include "Widgets/Window/Window.h"
 #include "Core/Rendering/Renderer.h"
 
@@ -27,13 +26,13 @@ namespace Pictura
 		Event<StartupEventArgs> ApplicationStart;
 		virtual void OnApplicationStart(StartupEventArgs& e)
 		{
-			
+			ApplicationStart(e);
 		}
 
 		Event<void> ApplicationClose;
 		virtual void OnApplicationClose()
 		{
-			
+			ApplicationClose();
 		}
 
 	private:
@@ -47,12 +46,40 @@ namespace Pictura
 		Renderer* CurrentRenderer;
 
 		Widgets::Window* MainWindow;
-		PVector<Widgets::Window*> WindowCollection;
+		PList<Widgets::Window*> WindowCollection;
 
+		void Run(StartupEventArgs e);
+		PUniquePtr<Thread> ApplicationThread;
 	public:
 		void SetRenderer(Renderer::RendererType rendererType, bool enableDebugMessages = false);
 		Renderer::RendererType GetRendererType() const;
 		void Exit();
+
+		void Init(StartupEventArgs& e)
+		{
+			this->ApplicationThread.reset(new Thread(&Application::Run, this, e));
+		}
+	public:
+		static bool IsGLRenderer()
+		{
+			return DynamicCastTo<OpenGL::GLRenderer*>(Application::CurrentApplication->CurrentRenderer) != nullptr;
+		}
+
+		static bool IsVKRenderer()
+		{
+			return DynamicCastTo<Vulkan::VKRenderer*>(Application::CurrentApplication->CurrentRenderer) != nullptr;
+		}
+
+		static OpenGL::GLRenderer* GetOpenGLRenderer()
+		{
+			return CastTo<OpenGL::GLRenderer*>(Application::CurrentApplication->CurrentRenderer);
+		}
+
+		static Vulkan::VKRenderer* GetVulkanRenderer()
+		{
+			return CastTo<Vulkan::VKRenderer*>(Application::CurrentApplication->CurrentRenderer);
+		}
+
 	private:
 		bool isQuitting = false;
 

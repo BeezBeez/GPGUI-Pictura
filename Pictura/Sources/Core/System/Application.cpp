@@ -14,8 +14,6 @@ namespace Pictura
 		MainWindow = nullptr;
 		CurrentApplication = this;
 		CurrentRenderer = nullptr;
-		ApplicationStart += EventHandler::Bind(&Application::OnApplicationStart, this);
-		ApplicationClose += EventHandler::Bind(&Application::OnApplicationClose, this);
 		mRenderer = Renderer::RendererType::Null;
 		ApplicationCloseBehavior = CloseBehavior::OnRequestExit;
 	}
@@ -49,10 +47,12 @@ namespace Pictura
 				Debug::Log::Trace("Creating a Vulkan renderer...", "APPLICATION");
 				CurrentRenderer = new Vulkan::VKRenderer();
 				break;
+
 			case Renderer::RendererType::OpenGL:
 				Debug::Log::Trace("Creating a OpenGL renderer...", "APPLICATION");
 				CurrentRenderer = new OpenGL::GLRenderer(4, 3);
 				break;
+
 			default:
 				throw RendererException("Failed to instantiate a non implemented renderer...");
 				break;
@@ -72,14 +72,21 @@ namespace Pictura
 		return mRenderer;
 	}
 
+	void Application::Run(StartupEventArgs e)
+	{
+		this->OnApplicationStart(e);
+		while (!isQuitting) {}
+		this->OnApplicationClose();
+		ApplicationThread.reset();
+	}
+
 	void Application::Exit()
 	{
 		if (!isQuitting)
 		{
-			isQuitting = true;
-
 			ApplicationCloseBehavior = CloseBehavior::OnRequestExit;
 
+			isQuitting = true;
 		}
 	}
 }

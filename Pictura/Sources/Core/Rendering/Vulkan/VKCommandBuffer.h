@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "Core/Rendering/CommandBuffer.h"
+
 namespace Pictura::Graphics::Vulkan
 {
 	class VKRenderer;

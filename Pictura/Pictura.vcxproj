@@ -18,13 +18,13 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Development|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -43,18 +43,18 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Development|x64'">
-    <OutDir>$(SolutionDir)Binaries\$(Platform)\</OutDir>
+    <OutDir>$(SolutionDir)Binaries\</OutDir>
     <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\</IntDir>
-    <TargetName>$(ProjectName)</TargetName>
-    <IncludePath>$(VULKAN_SDK)\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)Libraries;$(VULKAN_SDK)\Lib;$(LibraryPath)</LibraryPath>
+    <TargetName>$(ProjectName)-Win$(PlatformArchitecture)</TargetName>
+    <IncludePath>$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)Libraries;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(SolutionDir)Binaries\$(Platform)\</OutDir>
+    <OutDir>$(SolutionDir)Binaries\</OutDir>
     <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\</IntDir>
-    <TargetName>$(ProjectName)</TargetName>
-    <IncludePath>$(VULKAN_SDK)\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)Libraries;$(VULKAN_SDK)\Lib;$(LibraryPath)</LibraryPath>
+    <TargetName>$(ProjectName)-Win$(PlatformArchitecture)</TargetName>
+    <IncludePath>$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)Libraries;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Development|x64'">
     <ClCompile>
@@ -62,9 +62,11 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <PreprocessorDefinitions>PICTURA_LIB;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>GLFW_INCLUDE_NONE;_GLFW_WIN32;PICTURA_LIB;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>$(ProjectDir)Libraries\Includes;$(SolutionDir)Pictura\Sources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>PicturaPCH.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -80,9 +82,11 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <PreprocessorDefinitions>PICTURA_LIB;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>GLFW_INCLUDE_NONE;_GLFW_WIN32;PICTURA_LIB;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>$(ProjectDir)Libraries\Includes;$(SolutionDir)Pictura\Sources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>PicturaPCH.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -94,6 +98,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Libraries\Src\gl.c" />
+    <ClCompile Include="Libraries\Src\vulkan.c" />
+    <ClCompile Include="Sources\Core\Rendering\Graphics\Color.cpp" />
     <ClCompile Include="Sources\Core\Rendering\Vulkan\VKCommandBuffer.cpp" />
     <ClCompile Include="Sources\Core\Rendering\Vulkan\VKCommandPool.cpp" />
     <ClCompile Include="Sources\Core\System\Application.cpp" />
@@ -109,18 +115,22 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Libraries\Includes\glad\gl.h" />
+    <ClInclude Include="Libraries\Includes\glad\vk_platform.h" />
+    <ClInclude Include="Libraries\Includes\glad\vulkan.h" />
     <ClInclude Include="Libraries\Includes\GLFW\glfw3.h" />
     <ClInclude Include="Libraries\Includes\GLFW\glfw3native.h" />
     <ClInclude Include="Libraries\Includes\KHR\khrplatform.h" />
     <ClInclude Include="Sources\Core\Events\EventsArgs\EventArgs.h" />
     <ClInclude Include="Sources\Core\Events\EventsArgs\StartupEventArgs.h" />
     <ClInclude Include="Sources\Core\Exceptions\InvalidOperationException.h" />
+    <ClInclude Include="Sources\Core\Exceptions\MemoryException.h" />
     <ClInclude Include="Sources\Core\Exceptions\RendererException.h" />
     <ClInclude Include="Sources\Core\Exceptions\ThreadException.h" />
     <ClInclude Include="Sources\Core\Exceptions\WinException.h" />
     <ClInclude Include="Sources\Core\PlatformMacro.h" />
     <ClInclude Include="Sources\Core\Rendering\CommandBuffer.h" />
     <ClInclude Include="Sources\Core\Rendering\CommandPool.h" />
+    <ClInclude Include="Sources\Core\Rendering\Graphics\Color.h" />
     <ClInclude Include="Sources\Core\Rendering\OpenGL\GLRenderer.h" />
     <ClInclude Include="Sources\Core\Rendering\Renderer.h" />
     <ClInclude Include="Sources\Core\Rendering\Vulkan\VKCommandBuffer.h" />
@@ -142,10 +152,13 @@
     <ClInclude Include="Sources\Core\Debug\Log.h" />
     <ClInclude Include="Sources\Core\System\Runtime.h" />
     <ClInclude Include="Sources\Maths\Convert.h" />
+    <ClInclude Include="Sources\Maths\Position.h" />
     <ClInclude Include="Sources\Maths\Size.h" />
     <ClInclude Include="Sources\Pictura.h" />
     <ClInclude Include="Sources\PicturaPCH.h" />
     <ClInclude Include="Sources\PicturaTypes.h" />
+    <ClInclude Include="Sources\Widgets\Label\Label.h" />
+    <ClInclude Include="Sources\Widgets\Widget.h" />
     <ClInclude Include="Sources\Widgets\Window\Window.h" />
     <ClInclude Include="Sources\Threading\Thread.h" />
   </ItemGroup>

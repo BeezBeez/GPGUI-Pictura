@@ -20,8 +20,9 @@ int main(int argc, char** argv)
 	app->Arguments = args;
 	StartupEventArgs e = StartupEventArgs(app->Arguments);
 
-	app->ApplicationStart(e);
-	app->ApplicationClose();
+	app->Init(e);
+
+	while (app->ApplicationThread) {}
 
 	delete app;
 }

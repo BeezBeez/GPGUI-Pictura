@@ -66,14 +66,18 @@ namespace Pictura::Threading
 		void StopThread();
 
 	public:
+		static void LockThread();
+		static void UnlockThread();
 		static void Delay(int milliseconds);
 		static void SetPriority(Thread &thread, ThreadPriority priority);
 		static Thread* CurrentThread();
+
 	public:
 		PString ThreadName;
 		ThreadHandle Handle;
 		
 	private:
+		static bool locker;
 		bool isRunning;
 		PUniquePtr<std::thread> threadObj;
 		uint64 ThreadId;

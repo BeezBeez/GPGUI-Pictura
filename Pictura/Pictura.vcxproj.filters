@@ -14,6 +14,8 @@
     <ClCompile Include="Sources\Core\Rendering\Vulkan\VKCommandBuffer.cpp" />
     <ClCompile Include="Sources\Threading\Thread.cpp" />
     <ClCompile Include="Libraries\Src\gl.c" />
+    <ClCompile Include="Sources\Core\Rendering\Graphics\Color.cpp" />
+    <ClCompile Include="Libraries\Src\vulkan.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\Core\CoreException.h" />
@@ -56,6 +58,13 @@
     <ClInclude Include="Libraries\Includes\glad\gl.h" />
     <ClInclude Include="Libraries\Includes\KHR\khrplatform.h" />
     <ClInclude Include="Sources\Core\System\Property.h" />
+    <ClInclude Include="Sources\Core\Exceptions\MemoryException.h" />
+    <ClInclude Include="Sources\Widgets\Widget.h" />
+    <ClInclude Include="Sources\Maths\Position.h" />
+    <ClInclude Include="Sources\Core\Rendering\Graphics\Color.h" />
+    <ClInclude Include="Sources\Widgets\Label\Label.h" />
+    <ClInclude Include="Libraries\Includes\glad\vk_platform.h" />
+    <ClInclude Include="Libraries\Includes\glad\vulkan.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

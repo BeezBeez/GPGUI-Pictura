@@ -1,6 +1,5 @@
 #pragma once
 #include "Core/Rendering/Renderer.h"
-#include "glad/gl.h"
 #include "GLFW/glfw3.h"
 
 namespace Pictura::Graphics::OpenGL
@@ -18,8 +17,9 @@ namespace Pictura::Graphics::OpenGL
 
 		void Init() override
 		{
+			glfwSetErrorCallback(&GLRenderer::ErrorCallback);
 			if (glfwInit() != 1) {
-				throw RendererException("Failed to initialize OpenGL !");
+				throw RendererException("Failed to initialize RenderingFramework !");
 			}
 
 			glfwWindowHint(GLFW_VISIBLE, 0);
@@ -32,12 +32,12 @@ namespace Pictura::Graphics::OpenGL
 
 			GL = (GladGLContext*)malloc(sizeof(GladGLContext));
 			if (!GL) {
-				throw RendererException("Failed to allocate memory for an OpenGL context !");
+				throw MemoryException("Failed to allocate memory for an OpenGL context !");
 			}
 
 			int version = gladLoadGLContext(GL, glfwGetProcAddress);
 			if (version == 0) {
-				throw RendererException("Failed to create an OpenGL context !");
+				throw RendererException("Failed to load OpenGL drivers !");
 			}
 			
 			if (ShowDebugMessage)
@@ -49,24 +49,50 @@ namespace Pictura::Graphics::OpenGL
 				Debug::Log::Trace("		- Shading Language Version : " + Types::ToString(GL->GetString(GL_SHADING_LANGUAGE_VERSION)), "OPENGL");
 			}
 			Debug::Log::Success("OpenGL Renderer created successfully !", "RENDERER");
+
+			glfwDestroyWindow(initWindow);
 		}
 
-		void Destroy()
+		void Destroy() override
 		{
 
 		}
 
-		void CreateCommandPool()
+		void CreateCommandPool() override
 		{
 
 		}
 
-		void CreateCommandBuffer()
+		void CreateCommandBuffer() override
 		{
 
 		}
+
 	public:
+		void ClearColor(Color color) override
+		{
+			GL->Clear(GL_COLOR_BUFFER_BIT);
+			GL->ClearColor(color.Red, color.Green, color.Blue, color.Alpha);
+		}
+
+		void CreateViewport(Maths::PPosition position, Maths::PSize size) override
+		{
+			GL->Viewport(position.X, position.Y, size.Width, size.Height);
+		}
+
+		void SwapBuffers() override
+		{
+
+		}
+
+	private:
+		static void ErrorCallback(int error, const char* description)
+		{
+			throw InvalidOperationException("RenderingFramework Error : " + Types::ToString(description));
+		}
+
 		GladGLContext* GL = nullptr;
+	public:
 		int MajorVersion;
 		int MinorVersion;
 	};

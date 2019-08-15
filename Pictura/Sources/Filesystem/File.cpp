@@ -113,7 +113,7 @@ namespace Pictura::Filesystem
 			const auto end = file.tellg();
 			file.close();
 		
-			Size = end;
+			Size = (long)end;
 
 			if (Size < 0)
 			{

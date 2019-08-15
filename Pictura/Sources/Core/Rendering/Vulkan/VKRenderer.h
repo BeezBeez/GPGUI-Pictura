@@ -1,8 +1,9 @@
 #pragma once
-
 #include "Core/Rendering/Renderer.h"
+#include "Core/CoreException.h"
 #include "VKCommandPool.h"
 #include "VKCommandBuffer.h"
+#include "GLFW/glfw3.h"
 
 namespace Pictura::Graphics::Vulkan
 {
@@ -21,10 +22,17 @@ namespace Pictura::Graphics::Vulkan
 
 		void Init() override
 		{
+			glfwSetErrorCallback(&VKRenderer::ErrorCallback);
+			if (glfwInit() != 1) {
+				throw RendererException("Failed to initialize RenderingFramework !");
+			}
+
+			gladLoadVulkanUserPtr(nullptr, VulkanLoaderCallback, nullptr);
+
 			EnableStandardLayers();
 			InitInstance();
 			InitDevice();
-
+			
 			CreateCommandPool();
 			CreateCommandBuffer();
 			Debug::Log::Success("Vulkan renderer creation completed !", "RENDERER");
@@ -51,6 +59,22 @@ namespace Pictura::Graphics::Vulkan
 		void CreateCommandBuffer() override
 		{
 			CommandBuffer = new VKCommandBuffer(this);
+		}
+
+	public:
+		void ClearColor(Color color) override
+		{
+			
+		}
+
+		void CreateViewport(Maths::PPosition position, Maths::PSize size) override
+		{
+
+		}
+
+		void SwapBuffers() override
+		{
+
 		}
 
 	public:
@@ -179,22 +203,40 @@ namespace Pictura::Graphics::Vulkan
 		PVector<const char*> deviceExtensions;
 
 	private:
+		static void ErrorCallback(int error, const char* description)
+		{
+			throw InvalidOperationException("RenderingFramework Error : " + Types::ToString(description));
+		}
+
+		static GLADapiproc VulkanLoaderCallback(void* user, const char* name)
+		{
+			return glfwGetInstanceProcAddress((VkInstance)user, name);
+		}
+
 		void InitInstance()
 		{
+			uint32 requiredExtensionsCount = 0;
+			const char** requiredExtensions = glfwGetRequiredInstanceExtensions(&requiredExtensionsCount);
+
+			for (uint32 i = 0; i < requiredExtensionsCount; i++) {
+				instanceExtensions.push_back(requiredExtensions[i]);
+			}
+
 			VkApplicationInfo applicationInfo{};
 			applicationInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
 			applicationInfo.apiVersion = VK_API_VERSION_1_1;
 			applicationInfo.pApplicationName = "Vulkan Pictura renderer";
-
+			
 			VkInstanceCreateInfo instanceCreateInfo{};
 			instanceCreateInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
 			instanceCreateInfo.pApplicationInfo = &applicationInfo;
-			instanceCreateInfo.enabledLayerCount = instanceLayers.size();
-			instanceCreateInfo.enabledExtensionCount = instanceExtensions.size();
+			instanceCreateInfo.enabledLayerCount = (uint32_t)instanceLayers.size();
+			instanceCreateInfo.enabledExtensionCount = (uint32_t)instanceExtensions.size();
 			instanceCreateInfo.ppEnabledLayerNames = instanceLayers.data();
 			instanceCreateInfo.ppEnabledExtensionNames = instanceExtensions.data();
 
 			CheckErrors(vkCreateInstance(&instanceCreateInfo, nullptr, &_instance));
+			gladLoadVulkanUserPtr(nullptr, VulkanLoaderCallback, _instance);
 		}
 
 		void DestroyInstance()
@@ -211,6 +253,8 @@ namespace Pictura::Graphics::Vulkan
 			PVector<VkPhysicalDevice> gpuList(gpuCount);
 			vkEnumeratePhysicalDevices(_instance, &gpuCount, gpuList.data());
 			_gpu = gpuList[0];
+
+			gladLoadVulkanUserPtr(_gpu, VulkanLoaderCallback, _instance);
 
 			vkGetPhysicalDeviceProperties(_gpu, &_physicalDeviceProperties);
 			if (ShowDebugMessage)
@@ -276,8 +320,8 @@ namespace Pictura::Graphics::Vulkan
 			deviceCreateInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
 			deviceCreateInfo.queueCreateInfoCount = 1;
 			deviceCreateInfo.pQueueCreateInfos = &deviceQueueCreateInfo;
-			deviceCreateInfo.enabledLayerCount = deviceLayers.size();
-			deviceCreateInfo.enabledExtensionCount = deviceExtensions.size();
+			deviceCreateInfo.enabledLayerCount = (uint32_t)deviceLayers.size();
+			deviceCreateInfo.enabledExtensionCount = (uint32_t)deviceExtensions.size();
 			deviceCreateInfo.ppEnabledLayerNames = deviceLayers.data();
 			deviceCreateInfo.ppEnabledExtensionNames = deviceExtensions.data();
 

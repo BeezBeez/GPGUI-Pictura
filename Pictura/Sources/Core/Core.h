@@ -30,12 +30,15 @@ using namespace Microsoft::WRL;
 #define SURFACE_EXTENSION_NAME "VK_MVK_macos_surface"
 #endif
 
-#ifdef PICTURA_LIB
-	#define PICTURA_API __declspec(dllexport)
+#ifdef BUILD_DYNAMIC_LIBRARY
+	#ifdef PICTURA_DLL
+		#define PICTURA_API __declspec(dllexport)
+	#else
+		#define PICTURA_API __declspec(dllimport)
+	#endif
 #else
-	#define PICTURA_API __declspec(dllimport)
+	#define PICTURA_API
 #endif
-
 #ifdef VISUALSTUDIO_VERSION
 	#define DEBUG_OUTPUT( s )            \
 	{                             \
@@ -45,6 +48,8 @@ using namespace Microsoft::WRL;
 	}
 #endif
 
-#include <vulkan/vulkan.h>
+//#include <vulkan/vulkan.h>
+#include "glad/gl.h"
+#include "glad/vulkan.h"
 #include "PicturaTypes.h"
 #include "System/Property.h"

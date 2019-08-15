@@ -18,6 +18,9 @@ using PSharedPtr = std::shared_ptr<T>;
 template <typename T>
 using PWeakPtr = std::weak_ptr<T>;
 
+template <typename T>
+using PList = std::list<T>;
+
 using PMutex = std::mutex;
 
 typedef unsigned char uint8;
@@ -39,6 +42,11 @@ constexpr T CastTo(O o) noexcept {
 }
 
 template <typename T, typename O>
+constexpr T DynamicCastTo(O o) noexcept {
+	return dynamic_cast<T>(o);
+}
+
+template <typename T, typename O>
 constexpr T ReinterpretCastTo(O o) noexcept {
 	return reinterpret_cast<T>(o);
 }
@@ -56,7 +64,7 @@ namespace Pictura::Types
 			ss << t;
 			return ss.str();
 		}
-		catch (const std::exception& e)
+		catch (const std::exception&)
 		{
 			return "";
 		}
@@ -73,10 +81,10 @@ namespace Pictura::Types
 		return std::make_unique<T>(args...);
 	}
 
-	template <typename T>
-	PSharedPtr<T> MakeShared()
+	template <typename T, typename... Args>
+	PSharedPtr<T> MakeShared(Args ...args)
 	{
-		return std::make_shared<T>();
+		return std::make_shared<T>(args...);
 	}
 
 	template <typename... A>
@@ -91,12 +99,26 @@ namespace Pictura::Types
 		std::move(a);
 	}
 
-	namespace Vector
+	namespace Vectors
 	{
 		template <typename T>
-		void RemoveElement(PVector<T> vector, T value)
+		void RemoveElement(PVector<T> &vector, T value)
 		{
-			vector.erase(std::remove(vector.begin(), vector.end(), value), vector.end());
+			std::vector<T>::iterator pos = std::find(vector.begin(), vector.end(), value);
+			if (pos != vector.end()) {
+				vector.erase(pos);
+			} else {
+				Debug::Log::Warning("Tried to remove a not found element of a PVector !");
+			}
+		}
+	}
+
+	namespace Lists
+	{
+		template <typename T>
+		void RemoveElement(PList<T> &list, T value)
+		{
+			list.remove(value);
 		}
 	}
 }

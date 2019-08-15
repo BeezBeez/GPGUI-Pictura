@@ -6,6 +6,9 @@
 #include <mutex>
 #include <shared_mutex>
 
+#include "EventsArgs/EventArgs.h"
+#include "EventsArgs/StartupEventArgs.h"
+
 namespace Pictura
 {
 	template<typename T>
