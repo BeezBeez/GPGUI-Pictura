@@ -51,6 +51,7 @@ namespace Pictura::Widgets
 		VkSurfaceKHR wndSurface = nullptr;
 		PUniquePtr<Thread> wndThread = nullptr;
 
+		void ProcessEvents();
 		void UpdateWindow();
 		void InitThread();
 		void InitCallbacks();

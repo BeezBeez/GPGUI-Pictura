@@ -37,6 +37,11 @@ namespace Pictura::Widgets
 		}
 	}
 
+	void Window::ProcessEvents()
+	{
+		glfwPollEvents();
+	}
+
 	void Window::UpdateWindow()
 	{
 		bool isOpenGL = Application::IsGLRenderer();
@@ -44,9 +49,9 @@ namespace Pictura::Widgets
 
 		while (!glfwWindowShouldClose(WindowHandle))
 		{
+			ProcessEvents();
 			if (GetWidgetVisibility() == Visibility::Visible)
 			{
-				glfwPollEvents();
 				Application::CurrentApplication->CurrentRenderer->SetRendererUserData(WindowHandle);
 				Application::CurrentApplication->CurrentRenderer->MakeContextCurrent();
 
