@@ -19,27 +19,21 @@ public:
 	void DemoApplication_ApplicationStart(StartupEventArgs& e)
 	{
 		ApplicationCloseBehavior = CloseBehavior::OnLastWindowClose;
-		SetRenderer(Renderer::RendererType::Vulkan, true);
+		SetRenderer(Renderer::RendererType::OpenGL, true);
 
 		MainWindow = new Window();
-		MainWindow->SetSize(PSize(1024, 600));
+		MainWindow->SetSize(PSize(1280, 720));
 		MainWindow->SetWindowState(Window::WindowState::Normal);
 		MainWindow->SetUseNativeWindowBorder(true);
 		MainWindow->SetTitle("Test window");
-		MainWindow->Updated += EventHandler::Bind(&DemoApplication::MainWindow_Updated, this);
-
-		MainWindow->Show();
+		MainWindow->Rendered += EventHandler::Bind(&DemoApplication::MainWindow_Rendered, this);
 
 		Label* Label1 = new Label();
 		Label1->SetName("Label1");
 		Label1->SetTextColor(Color::PureRed);
-		MainWindow->AddWidget(Label1);
 
-		auto AnotherWindow = new Window();
-		AnotherWindow->SetSize(PSize(800, 600));
-		AnotherWindow->SetTitle("Another window");
-		AnotherWindow->Updated += EventHandler::Bind(&DemoApplication::AnotherWnd_Updated, this);
-		AnotherWindow->Show();
+		MainWindow->Show();
+		MainWindow->AddWidget(Label1);
 	}
 
 	void DemoApplication_ApplicationClose()
@@ -47,14 +41,10 @@ public:
 		Log::Trace("Application closed !");
 	}
 
-	void MainWindow_Updated(Widget& widget)
+	void MainWindow_Rendered()
 	{
 		CurrentRenderer->ClearColor(Color(.07f, .07f, .07f, 1.f));
 	}
 
-	void AnotherWnd_Updated(Widget& widget)
-	{
-		CurrentRenderer->ClearColor(Color(.75f, .75f, .75f, 1.f));
-	}
 };
 APPLICATION(DemoApplication)

@@ -81,8 +81,8 @@ namespace Pictura::Graphics::OpenGL
 
 		void ClearColor(Color color) override
 		{
-			GL->Clear(GL_COLOR_BUFFER_BIT);
 			GL->ClearColor(color.Red, color.Green, color.Blue, color.Alpha);
+			GL->Clear(GL_COLOR_BUFFER_BIT);
 		}
 
 		void CreateViewport(Maths::PPosition position, Maths::PSize size) override
@@ -97,8 +97,8 @@ namespace Pictura::Graphics::OpenGL
 			throw InvalidOperationException("RenderingFramework Error : " + Types::ToString(description));
 		}
 
-		GladGLContext* GL = nullptr;
 	public:
+		GladGLContext* GL = nullptr; //TODO : Change modifier to private
 		int MajorVersion;
 		int MinorVersion;
 	};

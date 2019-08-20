@@ -48,7 +48,6 @@ using namespace Microsoft::WRL;
 	}
 #endif
 
-//#include <vulkan/vulkan.h>
 #include "glad/gl.h"
 #include "glad/vulkan.h"
 #include "PicturaTypes.h"
