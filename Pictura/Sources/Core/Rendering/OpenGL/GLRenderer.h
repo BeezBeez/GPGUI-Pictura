@@ -42,6 +42,8 @@ namespace Pictura::Graphics::OpenGL
 			
 			if (ShowDebugMessage)
 			{
+				GL->Enable(GL_DEBUG_OUTPUT);
+				GL->DebugMessageCallback(GLErrorCallback, 0);
 				Debug::Log::Trace("OpenGL Renderer informations :", "OPENGL");
 				Debug::Log::Trace("		- Version : " + Types::ToString(GL->GetString(GL_VERSION)), "OPENGL");
 				Debug::Log::Trace("		- Vendor : " + Types::ToString(GL->GetString(GL_VENDOR)), "OPENGL");
@@ -95,6 +97,11 @@ namespace Pictura::Graphics::OpenGL
 		static void ErrorCallback(int error, const char* description)
 		{
 			throw InvalidOperationException("RenderingFramework Error : " + Types::ToString(description));
+		}
+
+		static void GLAPIENTRY GLErrorCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam)
+		{
+			Debug::Log::Error("OpenGL Error : " + (PString)message);
 		}
 
 	public:
