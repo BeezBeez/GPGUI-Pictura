@@ -39,7 +39,7 @@ namespace Pictura::Widgets
 
 	void Window::ProcessEvents()
 	{
-		glfwPollEvents();
+		glfwWaitEvents();
 	}
 
 	void Window::UpdateWindow()
@@ -129,16 +129,16 @@ namespace Pictura::Widgets
 	GLFWwindow* Window::InitWindow()
 	{
 		glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
+		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, CastTo<OpenGL::GLRenderer*>(Application::CurrentApplication->CurrentRenderer)->MajorVersion);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, CastTo<OpenGL::GLRenderer*>(Application::CurrentApplication->CurrentRenderer)->MinorVersion);
-		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 		glfwWindowHint(GLFW_RESIZABLE, GetResizable());
 		glfwWindowHint(GLFW_DECORATED, GetUseNativeWindowBorder());
 		glfwWindowHint(GLFW_FOCUSED, GLFW_TRUE);
 		glfwWindowHint(GLFW_FOCUS_ON_SHOW, GLFW_TRUE);
 		glfwWindowHint(GLFW_MAXIMIZED, GetWindowState() == WindowState::Maximized);
 		glfwWindowHint(GLFW_CENTER_CURSOR, GLFW_FALSE);
-
+		
 		switch (Application::CurrentApplication->GetRendererType())
 		{
 		case Renderer::RendererType::OpenGL:

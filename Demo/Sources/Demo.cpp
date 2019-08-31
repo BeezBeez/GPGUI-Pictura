@@ -28,11 +28,17 @@ public:
 		MainWindow->SetTitle("Test window");
 		MainWindow->Rendered += EventHandler::Bind(&DemoApplication::MainWindow_Rendered, this);
 
+		auto wnd = new Window();
+		wnd->SetSize(PSize(640, 480));
+		wnd->SetTitle("Another window");
+		wnd->Rendered += EventHandler::Bind(&DemoApplication::wnd_Rendered, this);
+
 		Label* Label1 = new Label();
 		Label1->SetName("Label1");
 		Label1->SetTextColor(Color::PureRed);
 
 		MainWindow->Show();
+		wnd->Show();
 		MainWindow->AddWidget(Label1);
 	}
 
@@ -44,6 +50,11 @@ public:
 	void MainWindow_Rendered()
 	{
 		CurrentRenderer->ClearColor(Color(.07f, .07f, .07f, 1.f));
+	}
+
+	void wnd_Rendered()
+	{
+		CurrentRenderer->ClearColor(Color::PureBlue);
 	}
 
 };

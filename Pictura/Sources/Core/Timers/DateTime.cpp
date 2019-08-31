@@ -44,9 +44,16 @@ namespace Pictura
 		std::tm tm;
 		localtime_s(&tm, &t);
 
-		std::stringstream buffer;
-		buffer << std::put_time(&tm, format.c_str());
+		try
+		{
+			std::stringstream buffer;
+			buffer << std::put_time(&tm, format.c_str());
 
-		return buffer.str();
+			return buffer.str();
+		}
+		catch (const std::exception&)
+		{
+			return "INVALID TIME";
+		}
 	}
 }

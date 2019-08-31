@@ -42,17 +42,14 @@ namespace Pictura
 		{
 			case Renderer::RendererType::Null:
 				break;
-
 			case Renderer::RendererType::Vulkan:
 				Debug::Log::Trace("Creating a Vulkan renderer...", "APPLICATION");
 				CurrentRenderer = new Vulkan::VKRenderer();
 				break;
-
 			case Renderer::RendererType::OpenGL:
 				Debug::Log::Trace("Creating a OpenGL renderer...", "APPLICATION");
 				CurrentRenderer = new OpenGL::GLRenderer(4, 3);
 				break;
-
 			default:
 				throw RendererException("Failed to instantiate a non implemented renderer...");
 				break;
