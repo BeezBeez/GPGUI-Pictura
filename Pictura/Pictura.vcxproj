@@ -44,15 +44,15 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Development|x64'">
     <OutDir>$(SolutionDir)Binaries\</OutDir>
-    <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\</IntDir>
-    <TargetName>$(ProjectName)-Win$(PlatformArchitecture)</TargetName>
+    <IntDir>$(SolutionDir)Intermediate\$(ProjectName)-$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)-Win$(PlatformArchitecture)-$(Configuration)</TargetName>
     <IncludePath>$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)Libraries;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)Binaries\</OutDir>
-    <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\</IntDir>
-    <TargetName>$(ProjectName)-Win$(PlatformArchitecture)</TargetName>
+    <IntDir>$(SolutionDir)Intermediate\$(ProjectName)-$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)-Win$(PlatformArchitecture)-$(Configuration)</TargetName>
     <IncludePath>$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)Libraries;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
@@ -62,7 +62,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <PreprocessorDefinitions>GLFW_INCLUDE_NONE;_GLFW_WIN32;PICTURA_LIB;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>PICTURA_DEBUG;_CRT_SECURE_NO_WARNINGS;_GLFW_WIN32;PICTURA_LIB;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>$(ProjectDir)Libraries\Includes;$(SolutionDir)Pictura\Sources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -73,6 +73,10 @@
       <ShowProgress>LinkVerbose</ShowProgress>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;vulkan-1.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -82,7 +86,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <PreprocessorDefinitions>GLFW_INCLUDE_NONE;_GLFW_WIN32;PICTURA_LIB;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_GLFW_WIN32;PICTURA_LIB;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>$(ProjectDir)Libraries\Includes;$(SolutionDir)Pictura\Sources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -95,11 +99,17 @@
       <ShowProgress>LinkVerbose</ShowProgress>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;vulkan-1.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Libraries\Includes\NanoVG\nanovg.c" />
     <ClCompile Include="Libraries\Src\gl.c" />
     <ClCompile Include="Libraries\Src\vulkan.c" />
     <ClCompile Include="Sources\Core\Rendering\Graphics\Color.cpp" />
+    <ClCompile Include="Sources\Core\Rendering\Text\FontFamily.cpp" />
     <ClCompile Include="Sources\Core\Rendering\Vulkan\VKCommandBuffer.cpp" />
     <ClCompile Include="Sources\Core\Rendering\Vulkan\VKCommandPool.cpp" />
     <ClCompile Include="Sources\Core\System\Application.cpp" />
@@ -114,12 +124,21 @@
     <ClCompile Include="Sources\Threading\Thread.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Libraries\Includes\Fontstash\gl3corefontstash.h" />
+    <ClInclude Include="Libraries\Includes\Fontstash\gl3fontstash.h" />
+    <ClInclude Include="Libraries\Includes\Fontstash\glfontstash.h" />
     <ClInclude Include="Libraries\Includes\glad\gl.h" />
     <ClInclude Include="Libraries\Includes\glad\vk_platform.h" />
     <ClInclude Include="Libraries\Includes\glad\vulkan.h" />
     <ClInclude Include="Libraries\Includes\GLFW\glfw3.h" />
     <ClInclude Include="Libraries\Includes\GLFW\glfw3native.h" />
     <ClInclude Include="Libraries\Includes\KHR\khrplatform.h" />
+    <ClInclude Include="Libraries\Includes\NanoVG\fontstash.h" />
+    <ClInclude Include="Libraries\Includes\NanoVG\nanovg.h" />
+    <ClInclude Include="Libraries\Includes\NanoVG\nanovg_gl.h" />
+    <ClInclude Include="Libraries\Includes\NanoVG\nanovg_gl_utils.h" />
+    <ClInclude Include="Libraries\Includes\NanoVG\stb_image.h" />
+    <ClInclude Include="Libraries\Includes\NanoVG\stb_truetype.h" />
     <ClInclude Include="Sources\Core\Events\EventsArgs\EventArgs.h" />
     <ClInclude Include="Sources\Core\Events\EventsArgs\StartupEventArgs.h" />
     <ClInclude Include="Sources\Core\Exceptions\InvalidOperationException.h" />
@@ -130,11 +149,18 @@
     <ClInclude Include="Sources\Core\PlatformMacro.h" />
     <ClInclude Include="Sources\Core\Rendering\CommandBuffer.h" />
     <ClInclude Include="Sources\Core\Rendering\CommandPool.h" />
+    <ClInclude Include="Sources\Core\Rendering\Context.h" />
     <ClInclude Include="Sources\Core\Rendering\Graphics\Color.h" />
+    <ClInclude Include="Sources\Core\Rendering\Graphics\Effects.h" />
+    <ClInclude Include="Sources\Core\Rendering\OpenGL\GLContext.h" />
     <ClInclude Include="Sources\Core\Rendering\OpenGL\GLRenderer.h" />
     <ClInclude Include="Sources\Core\Rendering\Renderer.h" />
+    <ClInclude Include="Libraries\Includes\Fontstash\fontstash.h" />
+    <ClInclude Include="Libraries\Includes\Fontstash\stb_truetype.h" />
+    <ClInclude Include="Sources\Core\Rendering\Text\FontFamily.h" />
     <ClInclude Include="Sources\Core\Rendering\Vulkan\VKCommandBuffer.h" />
     <ClInclude Include="Sources\Core\Rendering\Vulkan\VKCommandPool.h" />
+    <ClInclude Include="Sources\Core\Rendering\Vulkan\VKContext.h" />
     <ClInclude Include="Sources\Core\Rendering\Vulkan\VKRenderer.h" />
     <ClInclude Include="Sources\Core\System\Application.h" />
     <ClInclude Include="Sources\Core\CoreException.h" />
@@ -152,13 +178,16 @@
     <ClInclude Include="Sources\Core\Debug\Log.h" />
     <ClInclude Include="Sources\Core\System\Runtime.h" />
     <ClInclude Include="Sources\Maths\Convert.h" />
+    <ClInclude Include="Sources\Maths\Margin.h" />
     <ClInclude Include="Sources\Maths\Position.h" />
     <ClInclude Include="Sources\Maths\Size.h" />
     <ClInclude Include="Sources\Pictura.h" />
+    <ClInclude Include="Sources\PicturaMain.h" />
     <ClInclude Include="Sources\PicturaPCH.h" />
     <ClInclude Include="Sources\PicturaTypes.h" />
     <ClInclude Include="Sources\Widgets\Label\Label.h" />
     <ClInclude Include="Sources\Widgets\Widget.h" />
+    <ClInclude Include="Sources\Widgets\WidgetCollection.h" />
     <ClInclude Include="Sources\Widgets\Window\Window.h" />
     <ClInclude Include="Sources\Threading\Thread.h" />
   </ItemGroup>
@@ -168,4 +197,10 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <Target Name="BeforeBuild">
+    <!-- Remove obj folder -->
+    <RemoveDir Directories="$(BaseIntermediateOutputPath)" />
+    <!-- Remove bin folder -->
+    <RemoveDir Directories="$(BaseOutputPath)" />
+  </Target>
 </Project>

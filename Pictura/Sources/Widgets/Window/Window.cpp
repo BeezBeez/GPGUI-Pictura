@@ -1,5 +1,6 @@
 ﻿#include "Window.h"
 #include "Core/System/Application.h"
+#include "Core/System/Runtime.h"
 
 namespace Pictura::Widgets
 {
@@ -11,7 +12,6 @@ namespace Pictura::Widgets
 
 	Window::~Window()
 	{
-		//free(wndContext);
 		wndThread.reset();
 		
 		switch (Application::CurrentApplication->ApplicationCloseBehavior)
@@ -39,7 +39,11 @@ namespace Pictura::Widgets
 
 	void Window::ProcessEvents()
 	{
-		glfwWaitEvents();
+		if (GetFocused()) {
+			glfwPollEvents();
+		} else {
+			glfwWaitEvents();
+		}
 	}
 
 	void Window::UpdateWindow()
@@ -52,14 +56,23 @@ namespace Pictura::Widgets
 			ProcessEvents();
 			if (GetWidgetVisibility() == Visibility::Visible)
 			{
-				Application::CurrentApplication->CurrentRenderer->SetRendererUserData(WindowHandle);
-				Application::CurrentApplication->CurrentRenderer->MakeContextCurrent();
+				Application::CurrentApplication->CurrentRenderer->MakeContextCurrent(WindowContext);
 
+				double currentTime = glfwGetTime();
+				nbFrames++;
+
+				if (currentTime - lastTime >= 1.0)
+				{
+					_FPS = 1000.0 / double(nbFrames);
+					nbFrames = 0;
+					lastTime += 1.0;
+				}
+
+				nvgBeginFrame(GetBrush(), GetSize().Width, GetSize().Height, 2.f);
 				Update();
-				Render();
+				nvgEndFrame(GetBrush());
 
-				Application::CurrentApplication->CurrentRenderer->SetRendererUserData(WindowHandle);
-				Application::CurrentApplication->CurrentRenderer->SwapBuffers();
+				Application::CurrentApplication->CurrentRenderer->SwapBuffers(WindowContext);
 			}
 		}
 		
@@ -69,6 +82,7 @@ namespace Pictura::Widgets
 
 	void Window::Show()
 	{
+		lastTime = glfwGetTime();
 		SetWidgetVisibility(Visibility::Visible);
 		OnShow();
 	}
@@ -80,31 +94,43 @@ namespace Pictura::Widgets
 		OnClose();
 	}
 
-	void Window::AddWidget(Widget* widget)
+	void Window::Focus()
 	{
-		Children.push_back(widget);
+		glfwFocusWindow(WindowHandle);
 	}
 
-	void Window::RemoveWidget(Widget* widget)
+	void Window::RequestAttention()
 	{
-		Types::Vectors::RemoveElement<Widget*>(Children, widget);
-		delete widget;
+		if (WindowHandle != nullptr) {
+			glfwRequestWindowAttention(WindowHandle);
+		}
 	}
 
 	void Window::InitThread()
 	{
 		WindowHandle = InitWindow();
+		InitCallbacks();
+
+		Children = WidgetCollection(this, this);
 
 		switch (Application::CurrentApplication->GetRendererType())
 		{
 			case Renderer::RendererType::OpenGL:
 			{
-				glfwMakeContextCurrent(WindowHandle);
+				WindowContext = new OpenGL::GLContext();
+				WindowContext->SetWindowHandle(WindowHandle);
+				WindowContext->Init(true);
+
+				Application::GetOpenGLRenderer()->MakeContextCurrent(WindowContext);
 				Application::GetOpenGLRenderer()->CreateViewport(PPosition(0, 0), PSize(GetSize().Width, GetSize().Height));
+				glfwSwapInterval(1);
 				break;
 			}
+
 			case Renderer::RendererType::Vulkan:
 			{
+				WindowContext = new Vulkan::VKContext();
+				WindowContext->Init();
 				Application::GetVulkanRenderer()->CheckErrors(glfwCreateWindowSurface(*Application::GetVulkanRenderer()->GetInstance(), WindowHandle, nullptr, &wndSurface));
 				break;
 			}
@@ -116,9 +142,9 @@ namespace Pictura::Widgets
 		glfwSetWindowSizeLimits(WindowHandle, GetMinSize().Width == 0 ? -1 : GetMinSize().Width, GetMinSize().Height == 0 ? -1 : GetMinSize().Height, GetMaxSize().Width == 0 ? -1 : GetMaxSize().Width, GetMaxSize().Height == 0 ? -1 : GetMaxSize().Height);
 		glfwSetWindowUserPointer(WindowHandle, this);
 
-		InitCallbacks();
+		SetBrush(nvgCreateGL3(NVG_ANTIALIAS)); /** Initialize the rendering API **/
 
-		Initialized();
+		OnWindowInitialized();
 		Thread::UnlockThread();
 
 		Application::CurrentApplication->WindowCollection.push_back(this);
@@ -132,6 +158,11 @@ namespace Pictura::Widgets
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, CastTo<OpenGL::GLRenderer*>(Application::CurrentApplication->CurrentRenderer)->MajorVersion);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, CastTo<OpenGL::GLRenderer*>(Application::CurrentApplication->CurrentRenderer)->MinorVersion);
+		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, 1);
+		glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, 1);
+		glfwWindowHint(GLFW_DEPTH_BITS, 1);
+		glfwWindowHint(GLFW_STENCIL_BITS, 1);
+
 		glfwWindowHint(GLFW_RESIZABLE, GetResizable());
 		glfwWindowHint(GLFW_DECORATED, GetUseNativeWindowBorder());
 		glfwWindowHint(GLFW_FOCUSED, GLFW_TRUE);
@@ -153,26 +184,32 @@ namespace Pictura::Widgets
 		}
 
 		GLFWwindow* window = glfwCreateWindow(GetSize().Width, GetSize().Height, GetTitle().c_str(), nullptr, nullptr);
-
+		
 		return window;
 	}
 
 	void Window::InitCallbacks()
 	{
 		Rendered += EventHandler::Bind(&Window::OnWindowRender, this);
-
 		glfwSetWindowCloseCallback(WindowHandle, &Window::CloseCallback);
 		glfwSetWindowSizeCallback(WindowHandle, &Window::ResizeCallback);
+		glfwSetWindowFocusCallback(WindowHandle, &Window::FocusCallback);
 	}
 
 	void Window::ResizeCallback(GLFWwindow* window, int width, int height)
 	{
 		CastTo<Window*>(glfwGetWindowUserPointer(window))->SetSize(PSize(width, height));
 		CastTo<Window*>(glfwGetWindowUserPointer(window))->OnResize(PSize(width, height));
+		Application::GetOpenGLRenderer()->CreateViewport(PPosition(0, 0), PSize(width, height));
 	}
 
 	void Window::CloseCallback(GLFWwindow* window)
 	{
 		CastTo<Window*>(glfwGetWindowUserPointer(window))->Close();
+	}
+
+	void Window::FocusCallback(GLFWwindow* window, int focused)
+	{
+		CastTo<Window*>(glfwGetWindowUserPointer(window))->SetFocused(focused);
 	}
 }

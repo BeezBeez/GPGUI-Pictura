@@ -59,6 +59,7 @@ namespace Pictura
 		{
 			this->ApplicationThread.reset(new Thread(&Application::Run, this, e));
 		}
+
 	public:
 		static bool IsGLRenderer()
 		{
@@ -78,6 +79,11 @@ namespace Pictura
 		static Vulkan::VKRenderer* GetVulkanRenderer()
 		{
 			return CastTo<Vulkan::VKRenderer*>(Application::CurrentApplication->CurrentRenderer);
+		}
+
+		static Renderer* GetRenderer()
+		{
+			return Application::CurrentApplication->CurrentRenderer;
 		}
 
 	private:

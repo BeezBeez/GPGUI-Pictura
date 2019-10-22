@@ -34,8 +34,9 @@ namespace Pictura::Threading
 				threadObj->detach();
 
 				ThreadStack.push_back(Types::MakeTuple(ThreadId, this));
-
-				Debug::Log::Trace("Creating thread [" + ThreadName + "]");
+				DEBUG_SECTION (
+					Debug::Log::Trace("Creating thread [" + ThreadName + "]");
+				)
 			}
 		}
 
@@ -54,7 +55,9 @@ namespace Pictura::Threading
 
 				ThreadStack.push_back(Types::MakeTuple(ThreadId, this));
 
-				Debug::Log::Trace("Creating thread [" + ThreadName + "]");
+				DEBUG_SECTION(
+					Debug::Log::Trace("Creating thread [" + ThreadName + "]");
+				)
 			}
 		}
 

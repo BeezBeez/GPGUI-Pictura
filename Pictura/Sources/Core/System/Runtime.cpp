@@ -1,10 +1,13 @@
 #include "PicturaPCH.h"
 #include "Runtime.h"
+#include "Core/CoreException.h"
 #include <utility>
 #include "Core/Debug/Log.h"
 
 namespace Pictura
 {
+	bool Runtime::_ShowWidgetsLimits = false;
+
 	Runtime::Runtime()
 	{
 
@@ -14,6 +17,7 @@ namespace Pictura
 	{
 
 	}
+
 
     Runtime::OperatingSystem Runtime::GetOperatingSystem()
 	{
@@ -58,8 +62,7 @@ namespace Pictura
 	{
 		if (condition)
 		{
-			Debug::Log::Error("Assertion failed : " + message, std::move(context));
-			Debugbreak();
+			throw Exception("Assertion failed : " + message, std::move(context));
 		}
 	}
 

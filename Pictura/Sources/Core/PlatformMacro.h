@@ -5,7 +5,7 @@
 #define PLATFORM_OSX 0
 #define _GLFW_VULKAN_STATIC
 
-#if defined(_WIN32) || defined(_MINGW32)
+#if defined(_WIN32) || defined(_MINGW32) || defined(_WIN64)
 #undef PLATFORM_WINDOWS
 #define PLATFORM_WINDOWS 1
 #elif __APPLE__

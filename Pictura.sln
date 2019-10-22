@@ -18,12 +18,12 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{2C3BEFF6-E537-417A-BF5C-B670BDDE68D7}.Development|Win64.ActiveCfg = Development|x64
 		{2C3BEFF6-E537-417A-BF5C-B670BDDE68D7}.Development|Win64.Build.0 = Development|x64
-		{2C3BEFF6-E537-417A-BF5C-B670BDDE68D7}.Release|Win64.ActiveCfg = Development|x64
-		{2C3BEFF6-E537-417A-BF5C-B670BDDE68D7}.Release|Win64.Build.0 = Development|x64
+		{2C3BEFF6-E537-417A-BF5C-B670BDDE68D7}.Release|Win64.ActiveCfg = Release|x64
+		{2C3BEFF6-E537-417A-BF5C-B670BDDE68D7}.Release|Win64.Build.0 = Release|x64
 		{2BC66F61-AD8F-4CEB-B7BA-ED16D2C2BA08}.Development|Win64.ActiveCfg = Development|x64
 		{2BC66F61-AD8F-4CEB-B7BA-ED16D2C2BA08}.Development|Win64.Build.0 = Development|x64
-		{2BC66F61-AD8F-4CEB-B7BA-ED16D2C2BA08}.Release|Win64.ActiveCfg = Development|x64
-		{2BC66F61-AD8F-4CEB-B7BA-ED16D2C2BA08}.Release|Win64.Build.0 = Development|x64
+		{2BC66F61-AD8F-4CEB-B7BA-ED16D2C2BA08}.Release|Win64.ActiveCfg = Release|x64
+		{2BC66F61-AD8F-4CEB-B7BA-ED16D2C2BA08}.Release|Win64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

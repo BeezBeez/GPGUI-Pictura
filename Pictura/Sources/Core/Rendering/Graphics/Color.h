@@ -1,5 +1,6 @@
 #pragma once
 #include "Core/Core.h"
+#include "NanoVG/nanovg.h"
 
 namespace Pictura::Graphics
 {
@@ -24,5 +25,6 @@ namespace Pictura::Graphics
 
 		operator PString() const { return "Red[" + Types::ToString(Red) + "] Green[" + Types::ToString(Green) + "] Blue[" + Types::ToString(Blue) + "] Alpha[" + Types::ToString(Alpha) + "]"; }
 		operator PString() { return "Red[" + Types::ToString(Red) + "] Green[" + Types::ToString(Green) + "] Blue[" + Types::ToString(Blue) + "] Alpha[" + Types::ToString(Alpha) + "]"; }
+		operator NVGcolor() { return nvgRGBAf(Red, Green, Blue, Alpha); }
 	};
 }

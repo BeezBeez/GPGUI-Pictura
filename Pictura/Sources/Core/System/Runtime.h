@@ -5,6 +5,9 @@ namespace Pictura
 {
 	class PICTURA_API Runtime
 	{
+	properties:
+		STATIC_PROPERTY(bool, ShowWidgetsLimits)
+
 	public:
 		Runtime();
 		~Runtime();
@@ -13,7 +16,7 @@ namespace Pictura
 		{
 			Windows, Linux, Mac
 		};
-
+		
 	public:
 		static Runtime::OperatingSystem GetOperatingSystem();
 		static PString GetOperatingSystemText();

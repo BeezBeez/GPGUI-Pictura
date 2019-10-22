@@ -28,9 +28,10 @@ namespace Pictura::Threading
 			{
 				threadObj->join();
 			}
-
+			DEBUG_SECTION(
+				Debug::Log::Trace("Stopping thread [" + ThreadName + "]");
+			)
 			threadObj.reset();
-			Debug::Log::Trace("Stopping thread [" + ThreadName + "]");
 		}
 		else
 		{

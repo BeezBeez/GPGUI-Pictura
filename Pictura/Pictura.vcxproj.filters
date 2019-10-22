@@ -16,6 +16,8 @@
     <ClCompile Include="Libraries\Src\gl.c" />
     <ClCompile Include="Sources\Core\Rendering\Graphics\Color.cpp" />
     <ClCompile Include="Libraries\Src\vulkan.c" />
+    <ClCompile Include="Libraries\Includes\NanoVG\nanovg.c" />
+    <ClCompile Include="Sources\Core\Rendering\Text\FontFamily.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\Core\CoreException.h" />
@@ -65,6 +67,25 @@
     <ClInclude Include="Sources\Widgets\Label\Label.h" />
     <ClInclude Include="Libraries\Includes\glad\vk_platform.h" />
     <ClInclude Include="Libraries\Includes\glad\vulkan.h" />
+    <ClInclude Include="Sources\Core\Rendering\OpenGL\GLContext.h" />
+    <ClInclude Include="Sources\Core\Rendering\Context.h" />
+    <ClInclude Include="Sources\Core\Rendering\Vulkan\VKContext.h" />
+    <ClInclude Include="Libraries\Includes\Fontstash\fontstash.h" />
+    <ClInclude Include="Libraries\Includes\Fontstash\stb_truetype.h" />
+    <ClInclude Include="Libraries\Includes\Fontstash\gl3fontstash.h" />
+    <ClInclude Include="Libraries\Includes\Fontstash\glfontstash.h" />
+    <ClInclude Include="Libraries\Includes\Fontstash\gl3corefontstash.h" />
+    <ClInclude Include="Libraries\Includes\NanoVG\fontstash.h" />
+    <ClInclude Include="Libraries\Includes\NanoVG\nanovg.h" />
+    <ClInclude Include="Libraries\Includes\NanoVG\nanovg_gl.h" />
+    <ClInclude Include="Libraries\Includes\NanoVG\nanovg_gl_utils.h" />
+    <ClInclude Include="Libraries\Includes\NanoVG\stb_image.h" />
+    <ClInclude Include="Libraries\Includes\NanoVG\stb_truetype.h" />
+    <ClInclude Include="Sources\Core\Rendering\Text\FontFamily.h" />
+    <ClInclude Include="Sources\PicturaMain.h" />
+    <ClInclude Include="Sources\Core\Rendering\Graphics\Effects.h" />
+    <ClInclude Include="Sources\Maths\Margin.h" />
+    <ClInclude Include="Sources\Widgets\WidgetCollection.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

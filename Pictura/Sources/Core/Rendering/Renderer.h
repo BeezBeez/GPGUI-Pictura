@@ -5,6 +5,7 @@
 #include "Maths/Size.h"
 #include "Core/Debug/Log.h"
 #include "CommandBuffer.h"
+#include "Context.h"
 #include "Core/Exceptions/RendererException.h"
 
 namespace Pictura::Graphics
@@ -32,10 +33,11 @@ namespace Pictura::Graphics
 		virtual void CreateCommandBuffer() = 0;
 
 	public:
-		virtual void MakeContextCurrent() = 0;
-		virtual void SwapBuffers() = 0;
+		virtual void MakeContextCurrent(Context* ctx) = 0;
+		virtual void SwapBuffers(Context* ctx) = 0;
 		virtual void ClearColor(Color color) = 0;
 		virtual void CreateViewport(Maths::PPosition position, Maths::PSize size) = 0;
+
 	public:
 		bool ShowDebugMessage = false;
 

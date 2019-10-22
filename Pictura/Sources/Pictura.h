@@ -38,10 +38,10 @@
 #include "Core/Rendering/CommandBuffer.h"
 #include "Core/Rendering/CommandPool.h"
 
+/** Pictura::Graphics::Text **/
+#include "Core/Rendering/Text/FontFamily.h"
+
 /** Pictura::Widget **/
 #include "Widgets/Widget.h"
 #include "Widgets/Label/Label.h"
 #include "Widgets/Window/Window.h"
-
-/** Pictura Application Entry Point **/
-#include "Core/System/EntryPoint.h"

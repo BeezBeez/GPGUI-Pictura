@@ -1,11 +1,7 @@
-#include "Pictura.h"
+#include "PicturaMain.h"
 
-using namespace Pictura;
-using namespace Pictura::Debug;
-using namespace Pictura::Filesystem;
-using namespace Pictura::Graphics;
-using namespace Pictura::Widgets;
-using namespace Pictura::Threading;
+#include "Demo.h"
+#include "AppWindow.h"
 
 class DemoApplication : public Application
 {
@@ -21,40 +17,21 @@ public:
 		ApplicationCloseBehavior = CloseBehavior::OnLastWindowClose;
 		SetRenderer(Renderer::RendererType::OpenGL, true);
 
-		MainWindow = new Window();
-		MainWindow->SetSize(PSize(1280, 720));
-		MainWindow->SetWindowState(Window::WindowState::Normal);
-		MainWindow->SetUseNativeWindowBorder(true);
-		MainWindow->SetTitle("Test window");
-		MainWindow->Rendered += EventHandler::Bind(&DemoApplication::MainWindow_Rendered, this);
-
-		auto wnd = new Window();
-		wnd->SetSize(PSize(640, 480));
-		wnd->SetTitle("Another window");
-		wnd->Rendered += EventHandler::Bind(&DemoApplication::wnd_Rendered, this);
-
-		Label* Label1 = new Label();
-		Label1->SetName("Label1");
-		Label1->SetTextColor(Color::PureRed);
-
+		MainWindow = new DemoWindow();
 		MainWindow->Show();
-		wnd->Show();
-		MainWindow->AddWidget(Label1);
+
+		Runtime::SetShowWidgetsLimits(true),
+
+		Thread::Delay(1000);
+		CastTo<DemoWindow*>(MainWindow)->Label1->SetHorizontalAlignment(Widget::HorizontalAlignment::Center);
+		CastTo<DemoWindow*>(MainWindow)->Label1->SetVerticalAlignment(Widget::VerticalAlignment::Middle);
+		CastTo<DemoWindow*>(MainWindow)->Label2->SetHorizontalAlignment(Widget::HorizontalAlignment::Center);
+		CastTo<DemoWindow*>(MainWindow)->DescriptionLabel->SetHorizontalAlignment(Widget::HorizontalAlignment::Center);
 	}
 
 	void DemoApplication_ApplicationClose()
 	{
 		Log::Trace("Application closed !");
-	}
-
-	void MainWindow_Rendered()
-	{
-		CurrentRenderer->ClearColor(Color(.07f, .07f, .07f, 1.f));
-	}
-
-	void wnd_Rendered()
-	{
-		CurrentRenderer->ClearColor(Color::PureBlue);
 	}
 
 };

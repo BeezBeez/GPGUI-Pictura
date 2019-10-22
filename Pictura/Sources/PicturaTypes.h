@@ -104,7 +104,7 @@ namespace Pictura::Types
 		template <typename T>
 		void RemoveElement(PVector<T> &vector, T value)
 		{
-			std::vector<T>::iterator pos = std::find(vector.begin(), vector.end(), value);
+			typename std::vector<T>::iterator pos = std::find(vector.begin(), vector.end(), value);
 			if (pos != vector.end()) {
 				vector.erase(pos);
 			} else {

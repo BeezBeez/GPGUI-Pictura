@@ -2,10 +2,20 @@
 
 #include "PlatformMacro.h"
 
+#define STB_TRUETYPE_IMPLEMENTATION
+
+#ifdef _DEBUG
+#define DEBUG_SECTION(instructions) { ##instructions }
+#else
+#define DEBUG_SECTION(instructions)
+#endif
+
 #if PLATFORM_WINDOWS == 1
 #include <Windows.h>
-#include <wrl.h>
-using namespace Microsoft::WRL;
+#ifdef __cplusplus
+	#include <wrl.h>
+	using namespace Microsoft::WRL;
+#endif
 
 #define VK_USE_PLATFORM_WIN32_KHR 1
 #define SURFACE_EXTENSION_NAME "VK_KHR_win32_surface"

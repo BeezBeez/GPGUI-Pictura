@@ -3,6 +3,7 @@
 #include "Core/CoreException.h"
 #include "VKCommandPool.h"
 #include "VKCommandBuffer.h"
+#include "VKContext.h"
 #include "GLFW/glfw3.h"
 
 namespace Pictura::Graphics::Vulkan
@@ -62,15 +63,16 @@ namespace Pictura::Graphics::Vulkan
 		}
 
 	public:
-		void MakeContextCurrent() override
+		void MakeContextCurrent(Context* ctx) override
 		{
 			
 		}
 
-		void SwapBuffers() override
+		void SwapBuffers(Context* ctx) override
 		{
 
 		}
+
 		void ClearColor(Color color) override
 		{
 			

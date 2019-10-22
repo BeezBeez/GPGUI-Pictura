@@ -32,3 +32,5 @@
 #if PLATFORM_WINDOWS == 1
 	#include <Windows.h>
 #endif
+
+using namespace std::chrono_literals;
