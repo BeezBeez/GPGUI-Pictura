@@ -45,6 +45,13 @@ namespace Pictura::Widgets
 			}
 		}
 
+	public:
+		WidgetCollection& operator=(std::initializer_list<Widget*> widgetList)
+		{
+			WidgetCollection wc;
+			wc.collection = widgetList;
+		}
+
 	private:
 		PVector<Widget*> collection;
 		Widget* parentWidget;

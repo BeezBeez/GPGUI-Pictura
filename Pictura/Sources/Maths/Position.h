@@ -13,5 +13,9 @@ namespace Pictura::Maths
 
 		operator PString() const { return "X[" + Types::ToString(X) + "] Y[" + Types::ToString(Y) + "]"; }
 		operator PString() { return "X[" + Types::ToString(X) + "] Y[" + Types::ToString(Y) + "]"; }
+		bool operator!= (const PPosition& lhs)
+		{
+			return (this->X != lhs.X) || (this->Y != lhs.Y);
+		}
 	};
 }

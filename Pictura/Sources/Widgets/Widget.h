@@ -63,10 +63,10 @@ namespace Pictura::Widgets
 		PROPERTY(PString, Name, "Widget");
 		PROPERTY(HorizontalAlignment, HorizontalAlignment, HorizontalAlignment::Left)
 		PROPERTY(VerticalAlignment, VerticalAlignment, VerticalAlignment::Top)
+		PROPERTY(bool, EnableHitTest, true)
 
 		READONLY_PROPERTY(uint64, Hash, -1)
 		READONLY_PROPERTY(PPosition, Position, PPosition(0))
-		READONLY_PROPERTY(PSize, WidgetSize, PSize(0, 0))
 
 	public:
 		Widget()
@@ -86,12 +86,42 @@ namespace Pictura::Widgets
 		Event<Visibility> VisibilityChanged;
 		Event<Widget*> ParentChanged;
 
+		Event<void> MouseHovered;
+		Event<void> MouseMoved;
+		Event<void> MouseLeaved;
+		Event<void> Clicked;
+
 	public:
 		virtual void Update()
 		{
 			AlignWidget();
 
 			OnUpdate(*this);
+
+			if (HitTest() && GetEnableHitTest())
+			{
+				if (!m_Hovered)
+				{
+					m_Hovered = true;
+					OnMouseHovered();
+				}
+				else
+				{
+					if (prevCurPos != curPos)
+					{
+						OnMouseMoved();
+					}
+				}
+			}
+			else
+			{
+				if (m_Hovered)
+				{
+					m_Hovered = false;
+					OnMouseLeaved();
+				}
+			}
+
 			Render();
 		}
 
@@ -109,34 +139,34 @@ namespace Pictura::Widgets
 		}
 
 	private:
+		bool HitTest();
+
 		void AlignWidget()
 		{
 			_Position.X = 0;
 			_Position.Y = 0;
-			_WidgetSize.Width = GetSize().Width;
-			_WidgetSize.Height = GetSize().Height;
 
 			switch (GetHorizontalAlignment())
 			{
 			case HorizontalAlignment::Left:
 				_Position.X = GetMargin().Left;
-				_WidgetSize.Width = GetSize().Width;
+				_Size.Width = GetSize().Width;
 				break;
 			case HorizontalAlignment::Center:
 				_Position.X = (((GetParentWidget()->GetSize().Width / 2.f) - (GetSize().Width / 2.f)) + GetMargin().Left - GetMargin().Right);
-				_WidgetSize.Width = GetSize().Width;
+				_Size.Width = GetSize().Width;
 				break;
 			case HorizontalAlignment::Right:
 				_Position.X = GetParentWidget()->GetSize().Width - GetSize().Width - GetMargin().Right;
-				_WidgetSize.Width = GetSize().Width;
+				_Size.Width = GetSize().Width;
 				break;
 			case HorizontalAlignment::Fill:
 				_Position.X = GetMargin().Left;
-				_WidgetSize.Width = GetParentWidget()->GetSize().Width - GetMargin().Right - GetMargin().Left;
+				_Size.Width = GetParentWidget()->GetSize().Width - GetMargin().Right - GetMargin().Left;
 				break;
 			default:
 				_Position.X = 0;
-				_WidgetSize.Width = GetSize().Width;
+				_Size.Width = GetSize().Width;
 				break;
 			}
 
@@ -144,29 +174,32 @@ namespace Pictura::Widgets
 			{
 			case VerticalAlignment::Top:
 				_Position.Y = GetMargin().Top;
-				_WidgetSize.Height = GetSize().Height;
+				_Size.Height = GetSize().Height;
 				break;
 			case VerticalAlignment::Middle:
 				_Position.Y = ((GetParentWidget()->GetSize().Height / 2) - (GetSize().Height / 2)) + (GetMargin().Top - GetMargin().Bottom);
-				_WidgetSize.Height = GetSize().Height;
+				_Size.Height = GetSize().Height;
 				break;
 			case VerticalAlignment::Bottom:
 				_Position.Y = GetParentWidget()->GetSize().Height - GetSize().Height - GetMargin().Bottom;
-				_WidgetSize.Height = GetSize().Height;
+				_Size.Height = GetSize().Height;
 				break;
 			case VerticalAlignment::Fill:
 				_Position.Y = GetMargin().Top;
-				_WidgetSize.Height = GetParentWidget()->GetSize().Height - GetMargin().Bottom - GetMargin().Top;
+				_Size.Height = GetParentWidget()->GetSize().Height - GetMargin().Bottom - GetMargin().Top;
 				break;
 			default:
 				_Position.Y = 0;
-				_WidgetSize.Height = GetSize().Height;
+				_Size.Height = GetSize().Height;
 				break;
 			}
 		}
 
 	private:
 		bool m_Initialized = false;
+		bool m_Hovered = false;
+		PPosition curPos = PPosition(0);
+		PPosition prevCurPos = PPosition(0);
 
 	public:
 		virtual void OnInitialize() { Initialized(); }
@@ -176,20 +209,16 @@ namespace Pictura::Widgets
 		{
 			Updated(widget);
 		}
+
 		virtual void OnVisibilityChanged(Visibility PreviousValue, Visibility NewValue) { VisibilityChanged(NewValue); }
 		virtual void OnPositionChanged(Maths::PPosition PreviousValue, Maths::PPosition NewValue) { }
 		virtual void OnParentChanged(Widget* PreviousValue, Widget* NewValue) { ParentChanged(NewValue); }
-
-		virtual void OnMarginChanged(Margin NewValue, Margin PreviousValue)
-		{
-
-		}
-
-		virtual void OnSizeChanged(PSize PreviousValue, PSize NewValue)
-		{
-			
-		}
-
+		virtual void OnMouseHovered() { MouseHovered(); }
+		virtual void OnMouseMoved() { MouseMoved(); }
+		virtual void OnMouseLeaved() { MouseLeaved(); }
+		virtual void OnClicked() { Clicked(); }
+		virtual void OnMarginChanged(Margin NewValue, Margin PreviousValue) { }
+		virtual void OnSizeChanged(PSize PreviousValue, PSize NewValue) { }
 
 	};
 }

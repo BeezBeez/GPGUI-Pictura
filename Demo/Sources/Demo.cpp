@@ -20,13 +20,11 @@ public:
 		MainWindow = new DemoWindow();
 		MainWindow->Show();
 
-		Runtime::SetShowWidgetsLimits(true),
+		Runtime::SetShowWidgetsLimits(true);
 
-		Thread::Delay(1000);
+		Thread::Delay(4000);
+		Log::Trace("Window should be updated now !");
 		CastTo<DemoWindow*>(MainWindow)->Label1->SetHorizontalAlignment(Widget::HorizontalAlignment::Center);
-		CastTo<DemoWindow*>(MainWindow)->Label1->SetVerticalAlignment(Widget::VerticalAlignment::Middle);
-		CastTo<DemoWindow*>(MainWindow)->Label2->SetHorizontalAlignment(Widget::HorizontalAlignment::Center);
-		CastTo<DemoWindow*>(MainWindow)->DescriptionLabel->SetHorizontalAlignment(Widget::HorizontalAlignment::Center);
 	}
 
 	void DemoApplication_ApplicationClose()

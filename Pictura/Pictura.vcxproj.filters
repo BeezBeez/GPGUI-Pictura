@@ -18,6 +18,7 @@
     <ClCompile Include="Libraries\Src\vulkan.c" />
     <ClCompile Include="Libraries\Includes\NanoVG\nanovg.c" />
     <ClCompile Include="Sources\Core\Rendering\Text\FontFamily.cpp" />
+    <ClCompile Include="Sources\Widgets\Widget.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\Core\CoreException.h" />

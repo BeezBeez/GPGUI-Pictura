@@ -120,6 +120,7 @@
     <ClCompile Include="Sources\Core\Debug\Log.cpp" />
     <ClCompile Include="Sources\Core\System\Runtime.cpp" />
     <ClCompile Include="Sources\PicturaPCH.cpp" />
+    <ClCompile Include="Sources\Widgets\Widget.cpp" />
     <ClCompile Include="Sources\Widgets\Window\Window.cpp" />
     <ClCompile Include="Sources\Threading\Thread.cpp" />
   </ItemGroup>

@@ -99,6 +99,14 @@ namespace Pictura::Types
 		std::move(a);
 	}
 
+	namespace Numbers
+	{
+		template<class T>
+		bool IsBetween(T value, T min, T max) {
+			return (value >= min) && (value <= max);
+		}
+	}
+
 	namespace Vectors
 	{
 		template <typename T>

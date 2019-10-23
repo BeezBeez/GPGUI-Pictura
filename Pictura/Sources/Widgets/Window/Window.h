@@ -25,10 +25,13 @@ namespace Pictura::Widgets
 		NOTIFY_PROPERTY(WindowState, WindowState, OnWindowStateChanged, WindowState::Normal)
 		NOTIFY_PROPERTY(bool, Focused, OnFocusChanged, false)
 
+		NOTIFY_PROPERTY(float, WindowOpacity, OnWindowOpacityChanged, 1.f)
+
 		READONLY_PROPERTY(float, FPS, 1.f)
 
 		PROPERTY(float, PixelRatio, 1.f)
 		PROPERTY(NVGcontext*, Brush, nullptr)
+		PROPERTY(Color, BackgroundColor, Color(0.8, 0.8, 0.8, 1.f))
 
 	public:
 		Window();
@@ -49,6 +52,7 @@ namespace Pictura::Widgets
 		GLFWwindow* WindowHandle = nullptr;
 		Graphics::Context* WindowContext;
 		WidgetCollection Children;
+		PPosition CursorPosition = PPosition(0);
 
 	private:
 		GLFWwindow* InitWindow();
@@ -65,11 +69,14 @@ namespace Pictura::Widgets
 		void UpdateWindow();
 		void InitThread();
 		void InitCallbacks();
+		void Draw();
 
 	private:
 		static void CloseCallback(GLFWwindow* window);
 		static void ResizeCallback(GLFWwindow* window, int width, int height);
 		static void FocusCallback(GLFWwindow* window, int focused);
+		static void RefreshCallback(GLFWwindow* window);
+		static void CursorPositionCallback(GLFWwindow* window, double xpos, double ypos);
 
 	protected:
 		virtual void OnWindowInitialized()
@@ -88,13 +95,15 @@ namespace Pictura::Widgets
 			Resized(NewSize);
 		}
 
-		virtual void OnFocusChanged(bool PreviousValue, bool NewValue) { Focused(NewValue); }
-
 		virtual void OnResizableChanged(bool PreviousValue, bool NewValue) { glfwSetWindowAttrib(WindowHandle, GLFW_RESIZABLE, NewValue); }
 		virtual void OnUNWBChanged(bool PreviousValue, bool NewValue) { glfwSetWindowAttrib(WindowHandle, GLFW_DECORATED, NewValue); }
 		virtual void OnAlwaysOnTopChanged(bool PreviousValue, bool NewValue) { glfwSetWindowAttrib(WindowHandle, GLFW_FLOATING, NewValue); }
 		virtual void OnMinSizeChanged(PSize PreviousValue, PSize NewValue) { glfwSetWindowSizeLimits(WindowHandle, NewValue.Width == 0.f ? -1 : NewValue.Width, NewValue.Height == 0.f ? -1 : NewValue.Height, GetMaxSize().Width == 0.f ? -1 : GetMaxSize().Width, GetMaxSize().Height == 0.f ? -1 : GetMaxSize().Height); }
 		virtual void OnMaxSizeChanged(PSize PreviousValue, PSize NewValue) { glfwSetWindowSizeLimits(WindowHandle, GetMinSize().Width == 0.f ? -1 : GetMinSize().Width, GetMinSize().Height == 0 ? -1 : GetMinSize().Width, NewValue.Width == 0 ? -1 : NewValue.Width, NewValue.Height == 0 ? -1 : NewValue.Height); }
+		virtual void OnTitleChanged(PString PreviousValue, PString NewValue) { glfwSetWindowTitle(WindowHandle, NewValue.c_str()); }
+		virtual void OnWindowOpacityChanged(float PreviousValue, float NewValue) { glfwSetWindowOpacity(WindowHandle, NewValue); }
+		virtual void OnFocusChanged(bool PreviousValue, bool NewValue) { Focused(NewValue); }
+		virtual void OnWindowRender() {	Children.Update(); }
 		void OnSizeChanged(PSize PreviousValue, PSize NewValue) override
 		{
 			int fbW = 0;
@@ -103,18 +112,6 @@ namespace Pictura::Widgets
 			glfwGetFramebufferSize(WindowHandle, &fbW, &fbH);
 			SetPixelRatio((float)fbW / (float)fbH);
 			Resized(NewValue); 
-		}
-
-		virtual void OnTitleChanged(PString PreviousValue, PString NewValue) { glfwSetWindowTitle(WindowHandle, NewValue.c_str()); }
-
-		virtual void OnWindowRender()
-		{
-			Children.Update();
-		}
-
-		void DrawDebugLimits(Widget* widget)
-		{
-
 		}
 
 		virtual void OnWindowStateChanged(WindowState PreviousValue, WindowState NewValue)
