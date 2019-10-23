@@ -48,9 +48,15 @@ public:
 		DescriptionLabel->SetFont(FontFamily::GetFont("Arial", "", *DescriptionLabel));
 	}
 
+	float Pulse(float time)
+	{
+		return 0.5 * (1.f + sinf(time));
+	}
+
 	void DemoWindow_Updated(Widget& widget)
 	{
 		Window* wnd = (Window*)& widget;
+		wnd->SetWindowOpacity(fmaxf(Pulse((float)glfwGetTime()), 0.01f));
 		wnd->SetTitle("Width : " + Types::ToString(wnd->GetSize().Width) + " Height : " + Types::ToString(wnd->GetSize().Height) + " PixelRatio : " + Types::ToString(wnd->GetPixelRatio()) + " [FPS : " + Types::ToString(1000.f / GetFPS()) + "]");
 	}
 
